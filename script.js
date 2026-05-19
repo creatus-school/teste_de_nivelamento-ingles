@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAX_PLAYS = 2; // Limite de reproduções por vídeo
     const videoPlayCounts = {}; // { 'videoId': 0 } - Inicializa a contagem para cada vídeo
     let currentVideoId = null; // Para saber qual vídeo está carregado
+    let currentVideoPlayerDivId = 'youtube-player'; // ID dinâmico para o player
 
     // 1. Carregar a API do YouTube IFrame Player
     const tag = document.createElement('script');
@@ -320,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt16d', text: "Weather forecasts are usually accurate." }
             ],
             correctAnswerId: 'opt16a',
-            explanation: "A frase usa um condicional de segundo tipo para expressar uma situação hipotética no presente/futuro.",
+            explanation: "A frase usa a segunda condicional para expressar uma situação hipotética no presente/futuro.",
             youtubeVideoId: null
         },
         {
@@ -350,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt18d', text: "If I know about it, I will invest next time." }
             ],
             correctAnswerId: 'opt18c',
-            explanation: "Esta é uma frase condicional de terceiro tipo, usada para expressar uma situação hipotética no passado e seu resultado também no passado.",
+            explanation: "A frase usa a terceira condicional para expressar uma situação hipotética no passado e seu resultado também no passado.",
             youtubeVideoId: null
         },
         {
@@ -372,9 +373,9 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q20',
             type: 'grammar',
             topic: 'modals',
-            question: "20. I couldn't make it to the meeting because I needed to fix my car.",
+            question: "20. I couldn't make it to the meeting because I needed to ﬁx my car.",
             options: [
-                { id: 'opt20a', text: "We could find someone to fix it for you next time." },
+                { id: 'opt20a', text: "We could ﬁnd someone to ﬁx it for you next time." },
                 { id: 'opt20b', text: "I can't help you with that, because I was traveling." },
                 { id: 'opt20c', text: "You can ask for help if you needed." },
                 { id: 'opt20d', text: "In the past, public transportation are able to be a good option." }
@@ -446,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
             topic: 'verbs',
             question: "25. Last night, my friends laughed so loudly that it ________ through the apartment, awakening my neighbors.",
             options: [
-                { id: 'opt25a', text: "reverberated" }, // Corrigido para 'reverberated' conforme PDF
+                { id: 'opt25a', text: "reverberated" },
                 { id: 'opt25b', text: "echoed" },
                 { id: 'opt25c', text: "vibrated" }
             ],
@@ -521,144 +522,140 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt30a', text: "I love drinking wine to relax after I get home." },
                 { id: 'opt30b', text: "A cup of tea and soft music help me to sleep well." },
                 { id: 'opt30c', text: "My mom cooks dinner for me almost every night." },
-                { id: 'opt30d', text: "I usually take a hot bath and listen to some jazz." }
+                { id: 'opt30d', text: "I can't help you with that, because I was traveling." }
             ],
-            correctAnswerId: 'opt30d',
-            explanation: "A resposta 'I usually take a hot bath and listen to some jazz' é a mais direta e comum para a pergunta sobre como relaxar após um dia cansativo.",
+            correctAnswerId: 'opt30b',
+            explanation: "A resposta 'A cup of tea and soft music help me to sleep well' oferece uma sugestão de relaxamento adequada à pergunta.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q31',
             type: 'listening',
             topic: 'conversation_continuation',
-            question: "31. Listen to Speaker #3: \"I can't believe how expensive everything is getting these days!\"<br>Choose the best option for what comes next in the conversation.",
+            question: "31. Listen to Speaker #3: \"I'm planning a trip to Japan next year. Any recommendations?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt31a', text: "I just bought a new car last week." },
-                { id: 'opt31b', text: "I know, right? My grocery bill has doubled!" },
-                { id: 'opt31c', text: "I'm planning a trip to Europe next year." },
-                { id: 'opt31d', text: "I prefer to cook at home instead of eating out." }
+                { id: 'opt31a', text: "You should definitely visit Kyoto for its temples and gardens." },
+                { id: 'opt31b', text: "I prefer staying at home during my vacations." },
+                { id: 'opt31c', text: "Japan is a country in Asia." },
+                { id: 'opt31d', text: "I've always wanted to learn Japanese." }
             ],
-            correctAnswerId: 'opt31b',
-            explanation: "A resposta 'I know, right? My grocery bill has doubled!' concorda com a reclamação sobre os preços e dá um exemplo concreto.",
+            correctAnswerId: 'opt31a',
+            explanation: "A resposta 'You should definitely visit Kyoto for its temples and gardens' oferece uma recomendação de viagem específica e relevante para o Japão.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q32',
             type: 'listening',
             topic: 'conversation_continuation',
-            question: "32. Listen to Speaker #4: \"What are your plans for the summer vacation?\"<br>Choose the best option for what comes next in the conversation.",
+            question: "32. Listen to Speaker #4: \"I just finished reading an amazing book. What's the last great book you read?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt32a', text: "I'm going to visit my grandparents in the countryside." },
-                { id: 'opt32b', text: "I usually work during the summer." },
-                { id: 'opt32c', text: "I don't like hot weather very much." },
-                { id: 'opt32d', text: "I've always wanted to learn how to surf." }
+                { id: 'opt32a', text: "I don't usually read books." },
+                { id: 'opt32b', text: "I'm more into movies than books." },
+                { id: 'opt32c', text: "Oh, I just finished 'The Midnight Library' – it was captivating!" },
+                { id: 'opt32d', text: "My favorite genre is fantasy." }
             ],
-            correctAnswerId: 'opt32a',
-            explanation: "A resposta 'I'm going to visit my grandparents in the countryside' é um plano direto para as férias de verão.",
+            correctAnswerId: 'opt32c',
+            explanation: "A resposta 'Oh, I just finished 'The Midnight Library' – it was captivating!' responde diretamente à pergunta sobre o último livro lido.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q33',
             type: 'listening',
             topic: 'conversation_continuation',
-            question: "33. Listen to Speaker #5: \"I'm thinking of starting a new hobby. Any suggestions?\"<br>Choose the best option for what comes next in the conversation.",
+            question: "33. Listen to Speaker #5: \"I'm trying to eat healthier. Do you have any tips?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt33a', text: "I already have too many hobbies." },
-                { id: 'opt33b', text: "You should try painting; it's very relaxing." },
-                { id: 'opt33c', text: "I prefer to spend my free time reading." },
-                { id: 'opt33d', text: "I'm not very good at creative activities." }
+                { id: 'opt33a', text: "Eating healthy is very important." },
+                { id: 'opt33b', text: "Try meal prepping on Sundays; it saves a lot of time and keeps you on track." },
+                { id: 'opt33c', text: "I love fast food." },
+                { id: 'opt33d', text: "My doctor told me to eat more vegetables." }
             ],
             correctAnswerId: 'opt33b',
-            explanation: "A resposta 'You should try painting; it's very relaxing' oferece uma sugestão direta de hobby, como pedido.",
+            explanation: "A resposta 'Try meal prepping on Sundays; it saves a lot of time and keeps you on track' oferece uma dica prática e útil para comer de forma mais saudável.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q34',
             type: 'listening',
             topic: 'conversation_continuation',
-            question: "34. Listen to Speaker #6: \"I just finished reading an amazing book!\"<br>Choose the best option for what comes next in the conversation.",
+            question: "34. Listen to Speaker #6: \"I'm thinking of starting a new hobby. Any suggestions?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt34a', text: "I don't usually read much." },
-                { id: 'opt34b', text: "What was it about? I'm looking for a new read." },
-                { id: 'opt34c', text: "I prefer watching movies to reading books." },
-                { id: 'opt34d', text: "I have a huge collection of books at home." }
+                { id: 'opt34a', text: "Learning a musical instrument can be very rewarding." },
+                { id: 'opt34b', text: "I don't have any hobbies." },
+                { id: 'opt34c', text: "Hobbies are a waste of time." },
+                { id: 'opt34d', text: "My friend has many hobbies." }
             ],
-            correctAnswerId: 'opt34b',
-            explanation: "A resposta 'What was it about? I'm looking for a new read' mostra interesse no livro e pede uma recomendação, continuando a conversa de forma natural.",
+            correctAnswerId: 'opt34a',
+            explanation: "A resposta 'Learning a musical instrument can be very rewarding' sugere um novo hobby e justifica o porquê.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q35',
             type: 'listening',
-            topic: 'conversation_continuation',
-            question: "35. Listen to Speaker #7: \"I'm having trouble sleeping lately.\"<br>Choose the best option for what comes next in the conversation.",
+            topic: 'main_idea',
+            question: "35. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “So, I was at this art exhibition last weekend, and it was absolutely mind-blowing. The artist used, like, recycled materials to create these massive sculptures. It really made me think about sustainability and how art can, you know, send powerful messages. It wasn't just pretty to look at; it had a real impact.”<br>What is the main idea of the speaker's statement?",
             options: [
-                { id: 'opt35a', text: "I always sleep for eight hours." },
-                { id: 'opt35b', text: "Have you tried drinking warm milk before bed?" },
-                { id: 'opt35c', text: "I usually wake up early." },
-                { id: 'opt35d', text: "I don't like to take naps during the day." }
+                { id: 'opt35a', text: "The speaker enjoyed a weekend art exhibition." },
+                { id: 'opt35b', text: "The exhibition featured sculptures made from recycled materials, conveying a message about sustainability." },
+                { id: 'opt35c', text: "The speaker is an artist who uses recycled materials." }
             ],
             correctAnswerId: 'opt35b',
-            explanation: "A resposta 'Have you tried drinking warm milk before bed?' oferece uma sugestão comum para problemas de sono.",
+            explanation: "A ideia principal é que a exposição usou materiais reciclados para esculturas, transmitindo uma mensagem sobre sustentabilidade, o que teve um impacto no orador.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q36',
             type: 'listening',
-            topic: 'conversation_continuation',
-            question: "36. Listen to Speaker #8: \"I'm really looking forward to the weekend!\"<br>Choose the best option for what comes next in the conversation.",
+            topic: 'main_idea',
+            question: "36. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “I've been trying to get into meditation lately, and it's been a game-changer for my stress levels. Just, like, ten minutes a day of focusing on my breath, and I feel so much calmer. It's not about emptying your mind completely, but more about observing your thoughts without judgment. Highly recommend it if you're feeling overwhelmed.”<br>What is the main benefit the speaker found in meditation?",
             options: [
-                { id: 'opt36a', text: "I have to work on Saturdays." },
-                { id: 'opt36b', text: "Me too! Do you have any exciting plans?" },
-                { id: 'opt36c', text: "I usually stay at home on Sundays." },
-                { id: 'opt36d', text: "I prefer weekdays to weekends." }
+                { id: 'opt36a', text: "It helps to empty the mind completely." },
+                { id: 'opt36b', text: "It significantly reduces stress levels and promotes calmness." },
+                { id: 'opt36c', text: "It's a quick way to fall asleep." }
             ],
             correctAnswerId: 'opt36b',
-            explanation: "A resposta 'Me too! Do you have any exciting plans?' concorda com a empolgação e pergunta sobre os planos, continuando a conversa.",
+            explanation: "O principal benefício mencionado é a redução significativa dos níveis de estresse e a promoção da calma.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q37',
             type: 'listening',
-            topic: 'conversation_continuation',
-            question: "37. Listen to Speaker #9: \"I'm trying to eat healthier these days.\"<br>Choose the best option for what comes next in the conversation.",
+            topic: 'main_idea',
+            question: "37. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “You know, I think remote work is here to stay. It's not just about the flexibility; it's about how much more productive I feel without the daily commute and office distractions. Plus, companies can tap into a global talent pool. Of course, it has its challenges, like maintaining team cohesion, but the benefits definitely outweigh them for many.”<br>What is the speaker's overall opinion on remote work?",
             options: [
-                { id: 'opt37a', text: "I love fast food." },
-                { id: 'opt37b', text: "That's great! What kind of changes are you making?" },
-                { id: 'opt37c', text: "I don't like vegetables." },
-                { id: 'opt37d', text: "I prefer to cook with a lot of oil." }
+                { id: 'opt37a', text: "It's a temporary trend with many challenges." },
+                { id: 'opt37b', text: "It's beneficial and likely to continue, despite some challenges." },
+                { id: 'opt37c', text: "It leads to decreased productivity and team cohesion." }
             ],
             correctAnswerId: 'opt37b',
-            explanation: "A resposta 'That's great! What kind of changes are you making?' apoia a iniciativa e pede mais detalhes, incentivando a conversa.",
+            explanation: "A opinião geral é que o trabalho remoto é benéfico e veio para ficar, apesar de ter desafios.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q38',
             type: 'listening',
-            topic: 'conversation_continuation',
-            question: "38. Listen to Speaker #10: \"I'm bored. What should I do?\"<br>Choose the best option for what comes next in the conversation.",
+            topic: 'main_idea',
+            question: "38. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “I'm a huge fan of cooking at home now. It's not just about saving money, which is a big plus, but also about knowing exactly what goes into your food. I've been experimenting with different cuisines, and it's become a really creative outlet. Plus, it's a great way to unwind after a busy day.”<br>What is the speaker's primary motivation for cooking at home?",
             options: [
-                { id: 'opt38a', text: "You could watch a movie or read a book." },
-                { id: 'opt38b', text: "I'm also bored." },
-                { id: 'opt38c', text: "I like action and sci-fi films." },
-                { id: 'opt38d', text: "I don't have any suggestions." }
+                { id: 'opt38a', text: "To save money and eat healthier." },
+                { id: 'opt38b', text: "To explore different cuisines and use it as a creative outlet." },
+                { id: 'opt38c', text: "To unwind after a busy day." }
             ],
-            correctAnswerId: 'opt38a',
-            explanation: "A resposta 'You could watch a movie or read a book' oferece sugestões diretas para combater o tédio.",
+            correctAnswerId: 'opt38b',
+            explanation: "Embora economizar dinheiro e comer de forma saudável sejam benefícios, a motivação primária destacada é a exploração de cozinhas e o uso como saída criativa.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q39',
             type: 'listening',
             topic: 'vocabulary_in_context',
-            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “So, like, cultural diversity, right? It's not just about, you know, people from different places. It's about, like, everyone being cool with each other, being open-minded. It's like, genuinely seeing the awesomeness in how different cultures do their thing. You get me? It's this blend of ideas, art, and different views, and it's pretty cool how everyone can, you know, vibe together and still keep their own thing going.”<br>What does the expression \"putting up with each other\" mean?",
+            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “Multiculturalism, right? It's not just about putting up with each other; it's more like, appreciating the whole mash-up of traditions, languages, and stuff. And, like, it's not just this thing we say about being open-minded. It's like, genuinely seeing the awesomeness in how different cultures do their thing. You get me? It's this blend of ideas, art, and different views, and it's pretty cool how everyone can, you know, vibe together and still keep their own thing going.”<br>What does the expression \"putting up with each other\" mean?",
             options: [
                 { id: 'opt39a', text: "Tolerating and accepting each other despite differences." },
                 { id: 'opt39b', text: "Embracing and celebrating each other's differences." },
                 { id: 'opt39c', text: "Physically putting up various objects as a symbol of unity." }
             ],
             correctAnswerId: 'opt39a',
-            explanation: "No contexto da fala, 'putting up with each other' significa tolerar e aceitar as diferenças, mesmo que não seja a melhor tradução literal, é a que se encaixa no sentido de 'being cool with each other'.",
+            explanation: "No contexto da frase, 'putting up with each other' significa tolerar e aceitar as diferenças, mas o orador sugere que multiculturalismo vai além disso, para apreciar as diferenças.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
@@ -736,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         score = 0;
-        // Reinicia a contagem de reproduções dos vídeos
+        // Reinicia a contagem de reproduções dos vídeos para todos os vídeos
         for (const videoId in videoPlayCounts) {
             videoPlayCounts[videoId] = 0;
         }
@@ -758,52 +755,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             youtubeVideoContainer.innerHTML = ''; // Limpa o container do vídeo
-            const playerDiv = document.createElement('div');
-            playerDiv.id = 'youtube-player';
-            youtubeVideoContainer.appendChild(playerDiv);
 
-            // Adiciona um overlay para capturar cliques e impedir abertura no YouTube
+            // Cria o overlay de clique inicial
             const clickOverlay = document.createElement('div');
             clickOverlay.classList.add('video-click-overlay');
-            // Este overlay será removido quando o vídeo for reproduzido e adicionado novamente
-            // se o limite de reproduções for atingido.
+            clickOverlay.innerHTML = `<p>Clique para reproduzir</p>`;
+            youtubeVideoContainer.appendChild(clickOverlay);
 
-            // Se o vídeo já foi reproduzido o número máximo de vezes, mostra o overlay de desabilitado
+            // Adiciona o player div (onde o iframe será inserido)
+            const playerDiv = document.createElement('div');
+            playerDiv.id = currentVideoPlayerDivId; // Usa o ID dinâmico
+            youtubeVideoContainer.appendChild(playerDiv);
+
+            // Esconde o player div inicialmente
+            playerDiv.style.display = 'none';
+
+            // Verifica se o limite de reproduções foi atingido
             if (videoPlayCounts[currentVideoId] >= MAX_PLAYS) {
-                disableVideoPlayer(true); // Passa true para indicar que o limite foi atingido
+                clickOverlay.innerHTML = `<p>Limite de ${MAX_PLAYS} reproduções atingido.</p>`;
+                clickOverlay.style.cursor = 'not-allowed';
+                clickOverlay.removeEventListener('click', handleVideoPlayClick); // Remove o listener
             } else {
-                // Cria o player do YouTube
-                if (typeof YT !== 'undefined' && YT.Player) {
-                    player = new YT.Player('youtube-player', {
-                        videoId: question.youtubeVideoId,
-                        playerVars: {
-                            'autoplay': 0,
-                            'controls': 0, // Remove os controles do player
-                            'modestbranding': 1, // Remove o logo do YouTube
-                            'rel': 0, // Não mostra vídeos relacionados ao final
-                            'showinfo': 0, // Não mostra título do vídeo e informações
-                            'enablejsapi': 1, // Habilita a API JavaScript
-                            'origin': window.location.origin // Importante para segurança e API
-                        },
-                        events: {
-                            'onReady': onPlayerReady,
-                            'onStateChange': onPlayerStateChange
-                        }
-                    });
-                    // Adiciona o overlay de clique APÓS o player ser criado
-                    youtubeVideoContainer.appendChild(clickOverlay);
-                    clickOverlay.addEventListener('click', () => {
-                        if (player && typeof player.playVideo === 'function') {
-                            player.playVideo();
-                            // Remove o overlay de clique enquanto o vídeo está tocando
-                            clickOverlay.style.display = 'none';
-                        }
-                    });
-                } else {
-                    // Fallback se a API do YouTube ainda não carregou
-                    youtubeVideoContainer.innerHTML = `<div class="video-overlay"><p>Carregando vídeo...</p></div>`;
+                // Adiciona o listener de clique ao overlay
+                clickOverlay.addEventListener('click', handleVideoPlayClick);
+                // Atualiza a mensagem do overlay se já houve reproduções
+                if (videoPlayCounts[currentVideoId] > 0) {
+                    const remainingPlays = MAX_PLAYS - videoPlayCounts[currentVideoId];
+                    clickOverlay.innerHTML = `<p>Clique para reproduzir novamente (${remainingPlays} restante${remainingPlays > 1 ? 's' : ''})</p>`;
                 }
             }
+
             youtubeVideoContainer.style.display = 'block';
         } else {
             // Se não há vídeo, garante que o container esteja vazio e oculto
@@ -846,61 +827,77 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNavigationButtons();
     }
 
+    // Função para lidar com o clique no overlay para reproduzir o vídeo
+    function handleVideoPlayClick() {
+        const clickOverlay = youtubeVideoContainer.querySelector('.video-click-overlay');
+        const playerDiv = youtubeVideoContainer.querySelector(`#${currentVideoPlayerDivId}`);
+
+        if (playerDiv && currentVideoId && videoPlayCounts[currentVideoId] < MAX_PLAYS) {
+            // Esconde o overlay de clique
+            clickOverlay.style.display = 'none';
+            // Mostra o player div
+            playerDiv.style.display = 'block';
+
+            // Cria o player do YouTube se ainda não existir ou se foi destruído
+            if (!player || player.getVideoData().video_id !== currentVideoId) {
+                if (player) player.destroy(); // Destrói o player anterior se houver
+                player = new YT.Player(currentVideoPlayerDivId, {
+                    videoId: currentVideoId,
+                    playerVars: {
+                        'autoplay': 1, // Inicia automaticamente
+                        'controls': 0, // Remove os controles do player
+                        'modestbranding': 1, // Remove o logo do YouTube
+                        'rel': 0, // Não mostra vídeos relacionados ao final
+                        'showinfo': 0, // Não mostra título do vídeo e informações
+                        'enablejsapi': 1, // Habilita a API JavaScript
+                        'origin': window.location.origin // Importante para segurança e API
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                // Se o player já existe e é o mesmo vídeo, apenas reproduz
+                player.playVideo();
+            }
+        }
+    }
+
     // Funções da API do YouTube Player
     function onPlayerReady(event) {
-        // Quando o player está pronto, garantimos que o overlay de clique esteja visível
-        const clickOverlay = youtubeVideoContainer.querySelector('.video-click-overlay');
-        if (clickOverlay) {
-            clickOverlay.style.display = 'flex'; // Mostra o overlay para capturar o primeiro clique
-        }
+        // O vídeo está pronto para ser reproduzido.
+        // Já iniciamos a reprodução no handleVideoPlayClick com autoplay: 1
     }
 
     function onPlayerStateChange(event) {
-        const clickOverlay = youtubeVideoContainer.querySelector('.video-click-overlay');
-
+        // YT.PlayerState.ENDED (0) - O vídeo terminou
+        // YT.PlayerState.PLAYING (1) - O vídeo está tocando
+        // YT.PlayerState.PAUSED (2) - O vídeo está pausado
         if (event.data === YT.PlayerState.ENDED) {
-            // Incrementa a contagem de reproduções quando o vídeo termina
             if (currentVideoId) {
-                videoPlayCounts[currentVideoId] = (videoPlayCounts[currentVideoId] || 0) + 1;
-                if (videoPlayCounts[currentVideoId] >= MAX_PLAYS) {
-                    disableVideoPlayer(true); // Desabilita se atingiu o limite
-                } else {
-                    // Se ainda pode reproduzir, mostra o overlay de clique novamente para permitir outra reprodução
-                    if (clickOverlay) {
-                        clickOverlay.style.display = 'flex';
-                        clickOverlay.innerHTML = `<p>Clique para reproduzir novamente (${MAX_PLAYS - videoPlayCounts[currentVideoId]} restantes)</p>`;
+                videoPlayCounts[currentVideoId]++;
+                // Esconde o player e mostra o overlay novamente
+                const playerDiv = youtubeVideoContainer.querySelector(`#${currentVideoPlayerDivId}`);
+                const clickOverlay = youtubeVideoContainer.querySelector('.video-click-overlay');
+
+                if (playerDiv) playerDiv.style.display = 'none';
+                if (clickOverlay) {
+                    clickOverlay.style.display = 'flex'; // Mostra o overlay
+                    if (videoPlayCounts[currentVideoId] >= MAX_PLAYS) {
+                        clickOverlay.innerHTML = `<p>Limite de ${MAX_PLAYS} reproduções atingido.</p>`;
+                        clickOverlay.style.cursor = 'not-allowed';
+                        clickOverlay.removeEventListener('click', handleVideoPlayClick); // Remove o listener
+                    } else {
+                        const remainingPlays = MAX_PLAYS - videoPlayCounts[currentVideoId];
+                        clickOverlay.innerHTML = `<p>Clique para reproduzir novamente (${remainingPlays} restante${remainingPlays > 1 ? 's' : ''})</p>`;
+                        clickOverlay.style.cursor = 'pointer';
+                        clickOverlay.addEventListener('click', handleVideoPlayClick); // Garante que o listener esteja ativo
                     }
                 }
             }
-        } else if (event.data === YT.PlayerState.PLAYING) {
-            // Quando o vídeo está tocando, esconde o overlay de clique
-            if (clickOverlay) {
-                clickOverlay.style.display = 'none';
-            }
-        } else if (event.data === YT.PlayerState.PAUSED) {
-            // Se o vídeo for pausado, mostra o overlay de clique novamente
-            if (clickOverlay) {
-                clickOverlay.style.display = 'flex';
-                clickOverlay.innerHTML = `<p>Vídeo pausado. Clique para continuar.</p>`;
-            }
         }
     }
-
-    function disableVideoPlayer(limitReached = false) {
-        if (youtubeVideoContainer) {
-            let message = "Vídeo já reproduzido.";
-            if (limitReached) {
-                message = `Limite de ${MAX_PLAYS} reproduções atingido.`;
-            }
-            youtubeVideoContainer.innerHTML = `
-                <div class="video-overlay">
-                    <p>${message}</p>
-                </div>
-            `;
-            player = null; // O player é efetivamente destruído ao remover o iframe
-        }
-    }
-
 
     function selectOption(optionId) {
         optionsContainer.querySelectorAll('.option-button').forEach(btn => {
