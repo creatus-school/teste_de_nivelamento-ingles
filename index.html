@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Nivelamento de Inglês</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Tela de Introdução -->
+    <div id="intro-section" class="screen">
+        <div class="logo-container">
+            <img src="creatus_logo.png" alt="Creatus Polyglot School Logo" class="logo">
+        </div>
+        <h1>Teste seu inglês</h1>
+        <div class="intro-text-box">
+            <p>Aqui estão algumas informações que você precisa saber antes de iniciar seu teste:</p>
+            <ul>
+                <li>Você irá realizar um teste de múltipla escolha com 40 questões.</li>
+                <li>As últimas 12 questões são de compreensão oral. Aconselha-se que você realize seu teste em um ambiente silencioso e/ou utilize fones de ouvido.</li>
+                <li>Após avançar para a próxima questão do teste, você não poderá voltar à questão anterior para alterar sua resposta.</li>
+                <li>O teste avalia as habilidades de escuta, conhecimento de vocabulário e uso de estruturas gramaticais.</li>
+                <li>Não serão testadas as habilidades de escrita e fala, assim como leitura (de modo aprofundado).</li>
+                <li>O resultado obtido ao final do teste não corresponde 100% ao seu nível de conhecimento da língua. Use-o apenas como estimativa.</li>
+            </ul>
+        </div>
+        <div class="button-with-hint-group">
+            <button id="startButton" class="main-button"><strong>Iniciar</strong></button>
+            <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+        </div>
+    </div>
+
+    <!-- Tela de Coleta de Nome -->
+    <div id="name-section" class="screen hidden">
+        <h1>Qual é seu primeiro nome?</h1>
+        <input type="text" id="firstNameInput" class="text-input" placeholder="Seu primeiro nome">
+        <div class="button-with-hint-group">
+            <button id="nextNameButton" class="main-button" disabled><strong>Próxima</strong></button>
+            <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+        </div>
+    </div>
+
+    <!-- Tela de Coleta de Sobrenome -->
+    <div id="lastName-section" class="screen hidden">
+        <h1 id="lastNameQuestion"></h1>
+        <input type="text" id="lastNameInput" class="text-input" placeholder="Seu sobrenome">
+        <div class="button-with-hint-group">
+            <button id="nextLastNameButton" class="main-button" disabled><strong>Próxima</strong></button>
+            <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+        </div>
+    </div>
+
+    <!-- Tela de Coleta de Nível de Proficiência -->
+    <div id="proficiency-section" class="screen hidden">
+        <h1 id="proficiencyQuestion"></h1>
+        <div class="options-container proficiency-options">
+            <!-- As opções de proficiência agora terão apenas o texto -->
+            <button class="option-button proficiency-option" data-level="A1">
+                <span class="option-text">A1 (iniciante)</span>
+            </button>
+            <button class="option-button proficiency-option" data-level="A2">
+                <span class="option-text">A2 (básico)</span>
+            </button>
+            <button class="option-button proficiency-option" data-level="B1">
+                <span class="option-text">B1 (intermediário)</span>
+            </button>
+            <button class="option-button proficiency-option" data-level="B2">
+                <span class="option-text">B2 (pré-avançado)</span>
+            </button>
+            <button class="option-button proficiency-option" data-level="C1">
+                <span class="option-text">C1 (avançado)</span>
+            </button>
+            <button class="option-button proficiency-option" data-level="C2">
+                <span class="option-text">C2 (fluente)</span>
+            </button>
+        </div>
+        <div class="button-with-hint-group">
+            <button id="nextProficiencyButton" class="main-button" disabled><strong>Próxima</strong></button>
+            <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+        </div>
+    </div>
+
+    <!-- NOVA TELA: Preparação para o Teste -->
+    <div id="preparation-section" class="screen hidden">
+        <p id="preparationMessage" class="preparation-text"></p>
+        <div class="button-with-hint-group">
+            <button id="startQuizButton" class="main-button"><strong>Continuar</strong></button>
+            <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+        </div>
+    </div>
+
+    <!-- Seção do Quiz -->
+    <div id="quiz-section" class="screen hidden">
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <p class="progress-text" id="progressText">Questão 1 de 5</p>
+
+        <div class="question-card">
+            <div id="youtube-video-container" class="video-container">
+                <!-- O vídeo do YouTube será inserido aqui pelo JavaScript -->
+            </div>
+            <p class="question-text" id="questionText"></p>
+            <div class="options-container" id="optionsContainer">
+                <!-- As opções de resposta serão inseridas aqui pelo JavaScript -->
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <div class="button-with-hint-group">
+                <button id="nextButton" class="main-button"><strong>Próxima</strong></button>
+                <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Resultados -->
+    <div id="results-section" class="screen hidden">
+        <h2>Resultados do Teste</h2>
+        <p>Sua pontuação: <span id="scoreDisplay">0</span> de <span id="totalQuestionsDisplay">0</span></p>
+        <p>Seu nível estimado: <strong></strong></p>
+        <h3>Feedback Detalhado:</h3>
+        <div id="detailedFeedback">
+            <!-- Feedback detalhado sobre erros será inserido aqui -->
+        </div>
+        <div class="button-with-hint-group">
+            <button id="restartButton" class="main-button"><strong>Refazer Teste</strong></button>
+            <span class="enter-hint">Pressione <strong>Enter ↵</strong></span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
