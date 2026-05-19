@@ -324,6 +324,19 @@ h1 {
     border-radius: 5px;
 }
 
+/* Adicionado para esconder o logo do YouTube */
+.ytp-impression-link {
+    display: none !important;
+}
+.ytp-chrome-top {
+    display: none !important;
+}
+.ytp-watermark {
+    display: none !important;
+}
+.ytp-title-link {
+    display: none !important;
+}
 /* --- FIM DOS ESTILOS PARA O VÍDEO DO YOUTUBE --- */
 
 
