@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Variáveis para o controle do YouTube Player
     let player;
-    let videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por vídeo ID
+    const MAX_PLAYS = 2; // Limite de reproduções por vídeo
+    const videoPlayCounts = {}; // { 'videoId': 0 } - Inicializa a contagem para cada vídeo
     let currentVideoId = null; // Para saber qual vídeo está carregado
 
     // 1. Carregar a API do YouTube IFrame Player
@@ -266,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q13',
             type: 'dialogue',
             topic: 'time',
-            question: "13. <strong>A:</strong> What time is the meeting today?<br><strong>B:</strong> __________.",
+            question: "13. <strong>A:</strong> What time is the meeting today?<br><strong>B:</strong> __________. ",
             options: [
                 { id: 'opt13a', text: "Sometimes in the morning" },
                 { id: 'opt13b', text: "It's only at 3 p.m." },
@@ -274,14 +275,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt13d', text: "It's the same place" }
             ],
             correctAnswerId: 'opt13b',
-            explanation: "A resposta 'It's only at 3 p.m.' é a única que responde diretamente à pergunta sobre o horário da reunião.",
+            explanation: "A resposta 'It's only at 3 p.m.' é a única que informa o horário da reunião.",
             youtubeVideoId: null
         },
         {
             id: 'q14',
             type: 'dialogue',
-            topic: 'directions',
-            question: "14. <strong>A:</strong> Where should I put the package?<br><strong>B:</strong> __________.",
+            topic: 'location',
+            question: "14. <strong>A:</strong> Where should I put the package?<br><strong>B:</strong> __________. ",
             options: [
                 { id: 'opt14a', text: "I like the blue one" },
                 { id: 'opt14b', text: "Next to the door" },
@@ -289,13 +290,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt14d', text: "Here. Help me." }
             ],
             correctAnswerId: 'opt14b',
-            explanation: "'Next to the door' indica o local onde o pacote deve ser colocado.",
+            explanation: "A resposta 'Next to the door' indica o local onde o pacote deve ser colocado.",
             youtubeVideoId: null
         },
         {
             id: 'q15',
             type: 'grammar',
-            topic: 'superlatives',
+            topic: 'comparatives_superlatives',
             question: "15. Could you recommend a good movie for me to watch this weekend?",
             options: [
                 { id: 'opt15a', text: "'Inception' is the most exciting movie ever!" },
@@ -304,12 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt15d', text: "'Inception' is more exciting movie ever!" }
             ],
             correctAnswerId: 'opt15a',
-            explanation: "Para superlativos com adjetivos longos, usa-se 'the most + adjective'.",
+            explanation: "A forma superlativa correta para adjetivos longos é 'the most + adjetivo'.",
             youtubeVideoId: null
         },
         {
             id: 'q16',
-            type: 'dialogue',
+            type: 'grammar',
             topic: 'conditionals',
             question: "16. Why are you bringing an umbrella in a sunny day?",
             options: [
@@ -319,12 +320,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt16d', text: "Weather forecasts are usually accurate." }
             ],
             correctAnswerId: 'opt16a',
-            explanation: "A resposta usa um condicional para explicar a precaução.",
+            explanation: "A frase usa um condicional de segundo tipo para expressar uma situação hipotética no presente/futuro.",
             youtubeVideoId: null
         },
         {
             id: 'q17',
-            type: 'dialogue',
+            type: 'grammar',
             topic: 'future_continuous',
             question: "17. What will you be doing next Friday?",
             options: [
@@ -334,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt17d', text: "My mom likes to go to parks." }
             ],
             correctAnswerId: 'opt17a',
-            explanation: "A resposta 'I will be studying for my exams' usa o Future Continuous para descrever uma ação em progresso em um ponto futuro.",
+            explanation: "A resposta 'I will be studying for my exams' usa o Future Continuous para descrever uma ação em progresso em um ponto específico no futuro.",
             youtubeVideoId: null
         },
         {
@@ -349,12 +350,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt18d', text: "If I know about it, I will invest next time." }
             ],
             correctAnswerId: 'opt18c',
-            explanation: "Esta é uma frase condicional de Tipo 3, usada para situações hipotéticas no passado. A estrutura é 'If + Past Perfect, would have + Past Participle'.",
+            explanation: "Esta é uma frase condicional de terceiro tipo, usada para expressar uma situação hipotética no passado e seu resultado também no passado.",
             youtubeVideoId: null
         },
         {
             id: 'q19',
-            type: 'dialogue',
+            type: 'grammar',
             topic: 'tag_questions',
             question: "19. I don't know what to wear to the party.",
             options: [
@@ -364,13 +365,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt19d', text: "You could've asked your parents to pick you up earlier, couldn't you?" }
             ],
             correctAnswerId: 'opt19c',
-            explanation: "A opção 'You'd better decide quickly. We don't want to be late, do we?' é a mais relevante e usa uma 'tag question' apropriada para a situação.",
+            explanation: "A tag question 'do we?' está corretamente formada para a frase 'We don't want to be late'.",
             youtubeVideoId: null
         },
         {
             id: 'q20',
-            type: 'dialogue',
-            topic: 'past_events',
+            type: 'grammar',
+            topic: 'modals',
             question: "20. I couldn't make it to the meeting because I needed to fix my car.",
             options: [
                 { id: 'opt20a', text: "We could find someone to fix it for you next time." },
@@ -379,13 +380,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt20d', text: "In the past, public transportation are able to be a good option." }
             ],
             correctAnswerId: 'opt20a',
-            explanation: "A opção 'We could find someone to fix it for you next time.' oferece uma solução ou conselho para uma situação futura similar.",
+            explanation: "A frase 'We could find someone to fix it for you next time' oferece uma solução futura usando 'could'.",
             youtubeVideoId: null
         },
         {
             id: 'q21',
-            type: 'dialogue',
-            topic: 'advice',
+            type: 'grammar',
+            topic: 'quantifiers',
             question: "21. I don't know what to read during my vacation.",
             options: [
                 { id: 'opt21a', text: "Your parents must have a few books at home." },
@@ -394,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt21d', text: "My brother has little will to read, either." }
             ],
             correctAnswerId: 'opt21a',
-            explanation: "A opção 'Your parents must have a few books at home.' oferece uma sugestão direta e útil para a situação.",
+            explanation: "'A few books' sugere uma quantidade suficiente para ler durante as férias.",
             youtubeVideoId: null
         },
         {
@@ -408,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt22c', text: "dissolving" }
             ],
             correctAnswerId: 'opt22a',
-            explanation: "'Resounding' significa ecoar ou soar fortemente, o que se encaixa no contexto de uma melodia em um salão de concertos.",
+            explanation: "'Resounding' (ressoando) é o verbo que melhor descreve o som se espalhando pelo local.",
             youtubeVideoId: null
         },
         {
@@ -422,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt23c', text: "achieved" }
             ],
             correctAnswerId: 'opt23a',
-            explanation: "'Learned' (aprender) é o verbo mais apropriado para adquirir uma nova língua.",
+            explanation: "'Learned' (aprendeu) é o verbo mais apropriado para adquirir uma nova língua.",
             youtubeVideoId: null
         },
         {
@@ -436,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt24c', text: "accumulate" }
             ],
             correctAnswerId: 'opt24a',
-            explanation: "'Gather' (reunir, coletar) é o verbo mais comum e adequado para ingredientes antes de cozinhar.",
+            explanation: "'Gather' (reunir) é o verbo correto para coletar todos os ingredientes.",
             youtubeVideoId: null
         },
         {
@@ -445,12 +446,12 @@ document.addEventListener('DOMContentLoaded', () => {
             topic: 'verbs',
             question: "25. Last night, my friends laughed so loudly that it ________ through the apartment, awakening my neighbors.",
             options: [
-                { id: 'opt25a', text: "echoed" },
-                { id: 'opt25b', text: "vanished" },
-                { id: 'opt25c', text: "criticized" }
+                { id: 'opt25a', text: "reverberated" }, // Corrigido para 'reverberated' conforme PDF
+                { id: 'opt25b', text: "echoed" },
+                { id: 'opt25c', text: "vibrated" }
             ],
             correctAnswerId: 'opt25a',
-            explanation: "'Echoed' (ecoou) descreve o som se espalhando e sendo repetido, o que se encaixa no contexto de risadas altas.",
+            explanation: "'Reverberated' (reverberou) é o verbo que melhor descreve o som se espalhando e ecoando de forma intensa.",
             youtubeVideoId: null
         },
         {
@@ -463,8 +464,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt26b', text: "comprehend" },
                 { id: 'opt26c', text: "grasp" }
             ],
-            correctAnswerId: 'opt26c',
-            explanation: "'Grasp' (compreender, entender profundamente) é o verbo mais adequado para entender a significância de algo.",
+            correctAnswerId: 'opt26b',
+            explanation: "'Comprehend' (compreender) é o verbo mais adequado para entender o significado de algo.",
             youtubeVideoId: null
         },
         {
@@ -477,8 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt27b', text: "check" },
                 { id: 'opt27c', text: "examine" }
             ],
-            correctAnswerId: 'opt27a',
-            explanation: "'Inspect' (inspecionar) é o verbo mais apropriado para observar e verificar a condição das plantas.",
+            correctAnswerId: 'opt27b',
+            explanation: "'Check' (verificar) é o verbo mais comum para monitorar o estado de plantas regularmente.",
             youtubeVideoId: null
         },
         {
@@ -492,15 +493,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt28c', text: "concerning" }
             ],
             correctAnswerId: 'opt28b',
-            explanation: "'Spreading' (espalhando-se) descreve o aroma se difundindo pelo ambiente.",
+            explanation: "'Spreading' (espalhando) descreve o aroma se difundindo pela cozinha.",
             youtubeVideoId: null
         },
-        // --- Perguntas de Listening (29 a 40) ---
+        // --- NOVAS PERGUNTAS DE LISTENING (Teste_de_nivelamento__ingles_3.pdf) ---
         {
             id: 'q29',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "29. Listen to Speaker #1 and choose the best option for what comes next in the conversation.<br>Speaker #1: \"Have you ever been to a music festival?\"",
+            topic: 'conversation_continuation',
+            question: "29. Listen to Speaker #1: \"Have you ever been to a music festival?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt29a', text: "Yes, I love rock concerts!" },
                 { id: 'opt29b', text: "I have a few friends who play instruments." },
@@ -508,192 +509,192 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt29d', text: "Last year, I bought a new guitar." }
             ],
             correctAnswerId: 'opt29a',
-            explanation: "A opção 'Yes, I love rock concerts!' é a resposta mais direta e relevante à pergunta sobre ter ido a um festival de música.",
-            youtubeVideoId: 'VV9kKLnESj0' // ID do vídeo para esta pergunta
+            explanation: "A resposta 'Yes, I love rock concerts!' é a única que responde diretamente à pergunta sobre ter ido a um festival de música, indicando uma experiência positiva com o tema.",
+            youtubeVideoId: 'HwxcY1Ij__Q' // ID do vídeo para Speaker #1
         },
         {
             id: 'q30',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "30. Listen to Speaker #2 and choose the best option for what comes next in the conversation.<br>Speaker #2: \"How do you usually unwind after a long day at work?\"",
+            topic: 'conversation_continuation',
+            question: "30. Listen to Speaker #2: \"I'm so tired after a long day at work. What do you do to relax?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt30a', text: "I love drinking wine to relax after I get home." },
                 { id: 'opt30b', text: "A cup of tea and soft music help me to sleep well." },
                 { id: 'opt30c', text: "My mom cooks dinner for me almost every night." },
-                { id: 'opt30d', text: "The boss at my company likes to hold meetings late at night." }
+                { id: 'opt30d', text: "I usually take a hot bath and listen to some jazz." }
             ],
-            correctAnswerId: 'opt30b',
-            explanation: "A opção 'A cup of tea and soft music help me to sleep well.' descreve uma forma comum de relaxar após um dia cansativo.",
+            correctAnswerId: 'opt30d',
+            explanation: "A resposta 'I usually take a hot bath and listen to some jazz' é a mais direta e comum para a pergunta sobre como relaxar após um dia cansativo.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q31',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "31. Listen to Speaker #3 and choose the best option for what comes next in the conversation.<br>Speaker #3: “How do you study to do so well in the exams?”",
+            topic: 'conversation_continuation',
+            question: "31. Listen to Speaker #3: \"I can't believe how expensive everything is getting these days!\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt31a', text: "I never attend classes." },
-                { id: 'opt31b', text: "I sleep early every day." },
-                { id: 'opt31c', text: "I create a study schedule and review my notes regularly." },
-                { id: 'opt31d', text: "I enjoy playing sports after exams." }
+                { id: 'opt31a', text: "I just bought a new car last week." },
+                { id: 'opt31b', text: "I know, right? My grocery bill has doubled!" },
+                { id: 'opt31c', text: "I'm planning a trip to Europe next year." },
+                { id: 'opt31d', text: "I prefer to cook at home instead of eating out." }
             ],
-            correctAnswerId: 'opt31c',
-            explanation: "A opção 'I create a study schedule and review my notes regularly.' é uma resposta direta e lógica sobre como estudar bem para exames.",
+            correctAnswerId: 'opt31b',
+            explanation: "A resposta 'I know, right? My grocery bill has doubled!' concorda com a reclamação sobre os preços e dá um exemplo concreto.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q32',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "32. Listen to Speaker #4 and choose the best option for what comes next in the conversation.<br>Speaker #4: “I've been practicing the guitar every day for the past six months, but I still can't play an entire song.”",
+            topic: 'conversation_continuation',
+            question: "32. Listen to Speaker #4: \"What are your plans for the summer vacation?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
-                { id: 'opt32b', text: "Maybe you're just not cut out for music. Why don't you try something else?" },
-                { id: 'opt32c', text: "I hope you're not dedicating too much time to it." },
-                { id: 'opt32d', text: "You need to practice your cooking skills more." }
+                { id: 'opt32a', text: "I'm going to visit my grandparents in the countryside." },
+                { id: 'opt32b', text: "I usually work during the summer." },
+                { id: 'opt32c', text: "I don't like hot weather very much." },
+                { id: 'opt32d', text: "I've always wanted to learn how to surf." }
             ],
-            correctAnswerId: 'opt32b', // Esta é uma resposta um pouco desanimadora, mas é a que melhor se encaixa como uma continuação possível de uma conversa frustrada.
-            explanation: "A opção 'Maybe you're just not cut out for music. Why don't you try something else?' reflete uma possível resposta a uma frustração com a falta de progresso, sugerindo uma alternativa.",
+            correctAnswerId: 'opt32a',
+            explanation: "A resposta 'I'm going to visit my grandparents in the countryside' é um plano direto para as férias de verão.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q33',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "33. Listen to Speaker #5 and choose the best option for what comes next in the conversation.<br>Speaker #5: “You look exhausted, did you have a long day at work?”",
+            topic: 'conversation_continuation',
+            question: "33. Listen to Speaker #5: \"I'm thinking of starting a new hobby. Any suggestions?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt33a', text: "I bought a new book to read." },
-                { id: 'opt33b', text: "I had meetings all day." },
-                { id: 'opt33c', text: "I'm thinking of planning a vacation soon." },
-                { id: 'opt33d', text: "I love going to the gym after work." }
+                { id: 'opt33a', text: "I already have too many hobbies." },
+                { id: 'opt33b', text: "You should try painting; it's very relaxing." },
+                { id: 'opt33c', text: "I prefer to spend my free time reading." },
+                { id: 'opt33d', text: "I'm not very good at creative activities." }
             ],
             correctAnswerId: 'opt33b',
-            explanation: "A opção 'I had meetings all day.' explica o motivo do cansaço, respondendo diretamente à pergunta sobre um dia longo de trabalho.",
+            explanation: "A resposta 'You should try painting; it's very relaxing' oferece uma sugestão direta de hobby, como pedido.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q34',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "34. Listen to Speaker #6 and choose the best option for what comes next in the conversation.<br>Speaker #6: “Mom, you won't believe what happened to me on the way to the grocery store!”",
+            topic: 'conversation_continuation',
+            question: "34. Listen to Speaker #6: \"I just finished reading an amazing book!\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt34a', text: "I'm not a fan of shopping for groceries." },
-                { id: 'opt34b', text: "Tell me all about it when you get home." },
-                { id: 'opt34c', text: "I have a dentist appointment next week." },
-                { id: 'opt34d', text: "I've been trying a new recipe lately." }
+                { id: 'opt34a', text: "I don't usually read much." },
+                { id: 'opt34b', text: "What was it about? I'm looking for a new read." },
+                { id: 'opt34c', text: "I prefer watching movies to reading books." },
+                { id: 'opt34d', text: "I have a huge collection of books at home." }
             ],
             correctAnswerId: 'opt34b',
-            explanation: "A opção 'Tell me all about it when you get home.' é uma resposta natural de uma mãe curiosa para saber o que aconteceu.",
+            explanation: "A resposta 'What was it about? I'm looking for a new read' mostra interesse no livro e pede uma recomendação, continuando a conversa de forma natural.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q35',
             type: 'listening',
-            topic: 'dialogue_response',
-            question: "35. Listen to Speaker #7 and choose the best option for what comes next in the conversation.<br>Speaker #7: “Guess what, I finally passed my driving test.”",
+            topic: 'conversation_continuation',
+            question: "35. Listen to Speaker #7: \"I'm having trouble sleeping lately.\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt35a', text: "I'm planning a road trip for next month." },
-                { id: 'opt35b', text: "I bought a new bicycle recently." },
-                { id: 'opt35c', text: "Congratulations! How was the test?" },
-                { id: 'opt35d', text: "I prefer using public transportation." }
+                { id: 'opt35a', text: "I always sleep for eight hours." },
+                { id: 'opt35b', text: "Have you tried drinking warm milk before bed?" },
+                { id: 'opt35c', text: "I usually wake up early." },
+                { id: 'opt35d', text: "I don't like to take naps during the day." }
             ],
-            correctAnswerId: 'opt35c',
-            explanation: "A opção 'Congratulations! How was the test?' é uma resposta comum e apropriada para a notícia de alguém que passou em um teste.",
+            correctAnswerId: 'opt35b',
+            explanation: "A resposta 'Have you tried drinking warm milk before bed?' oferece uma sugestão comum para problemas de sono.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q36',
             type: 'listening',
-            topic: 'comprehension',
-            question: "36. Listen to the audio in the video. Then, answer the questions below:<br>What does the speaker highlight as a significant consequence of the digital era's influence on society?",
+            topic: 'conversation_continuation',
+            question: "36. Listen to Speaker #8: \"I'm really looking forward to the weekend!\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt36a', text: "The increasing integration of artificial intelligence." },
-                { id: 'opt36b', text: "The need for constant reassessment of our relationship with technology." },
-                { id: 'opt36c', text: "The decline of traditional forms of communication." }
+                { id: 'opt36a', text: "I have to work on Saturdays." },
+                { id: 'opt36b', text: "Me too! Do you have any exciting plans?" },
+                { id: 'opt36c', text: "I usually stay at home on Sundays." },
+                { id: 'opt36d', text: "I prefer weekdays to weekends." }
             ],
             correctAnswerId: 'opt36b',
-            explanation: "O áudio enfatiza a necessidade de 'figurar onde estamos com a tecnologia e que tipo de relacionamento queremos ter com ela', indicando uma reavaliação constante.",
+            explanation: "A resposta 'Me too! Do you have any exciting plans?' concorda com a empolgação e pergunta sobre os planos, continuando a conversa.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q37',
             type: 'listening',
-            topic: 'comprehension',
-            question: "37. Listen to the audio in the video. Then, answer the questions below:<br>What is the speaker's attitude towards the concept of a circular economy in the audio?",
+            topic: 'conversation_continuation',
+            question: "37. Listen to Speaker #9: \"I'm trying to eat healthier these days.\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt37a', text: "Enthusiastic, considering it a crucial aspect of responsible global citizenship." },
-                { id: 'opt37b', text: "Skeptical, thinking it does not have a significant impact on environmental issues." },
-                { id: 'opt37c', text: "Indifferent, as they believe it is just a passing trend." }
+                { id: 'opt37a', text: "I love fast food." },
+                { id: 'opt37b', text: "That's great! What kind of changes are you making?" },
+                { id: 'opt37c', text: "I don't like vegetables." },
+                { id: 'opt37d', text: "I prefer to cook with a lot of oil." }
             ],
-            correctAnswerId: 'opt37a',
-            explanation: "O áudio descreve a economia circular como 'ganhando força' e 'um aspecto crucial do que significa ser um cidadão global responsável', mostrando entusiasmo.",
+            correctAnswerId: 'opt37b',
+            explanation: "A resposta 'That's great! What kind of changes are you making?' apoia a iniciativa e pede mais detalhes, incentivando a conversa.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q38',
             type: 'listening',
-            topic: 'comprehension',
-            question: "38. Listen to the audio in the video. Then, answer the questions below:<br>How does the speaker describe the transformation in traditional workplace dynamics?",
+            topic: 'conversation_continuation',
+            question: "38. Listen to Speaker #10: \"I'm bored. What should I do?\"<br>Choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt38a', text: "Expressing concerns about the isolation of employees in remote work settings." },
-                { id: 'opt38b', text: "Highlighting a shift towards flexible and remote work arrangements." },
-                { id: 'opt38c', text: "Indicating that it leads to a decline in effective communication." }
+                { id: 'opt38a', text: "You could watch a movie or read a book." },
+                { id: 'opt38b', text: "I'm also bored." },
+                { id: 'opt38c', text: "I like action and sci-fi films." },
+                { id: 'opt38d', text: "I don't have any suggestions." }
             ],
-            correctAnswerId: 'opt38b',
-            explanation: "O áudio menciona 'flexibilidade e trabalho remoto' como 'partes integrantes' da evolução do local de trabalho, indicando uma mudança para esses arranjos.",
+            correctAnswerId: 'opt38a',
+            explanation: "A resposta 'You could watch a movie or read a book' oferece sugestões diretas para combater o tédio.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q39',
             type: 'listening',
-            topic: 'vocabulary',
-            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>What does the expression \"putting up with each other\" mean?",
+            topic: 'vocabulary_in_context',
+            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “So, like, cultural diversity, right? It's not just about, you know, people from different places. It's about, like, everyone being cool with each other, being open-minded. It's like, genuinely seeing the awesomeness in how different cultures do their thing. You get me? It's this blend of ideas, art, and different views, and it's pretty cool how everyone can, you know, vibe together and still keep their own thing going.”<br>What does the expression \"putting up with each other\" mean?",
             options: [
                 { id: 'opt39a', text: "Tolerating and accepting each other despite differences." },
                 { id: 'opt39b', text: "Embracing and celebrating each other's differences." },
                 { id: 'opt39c', text: "Physically putting up various objects as a symbol of unity." }
             ],
             correctAnswerId: 'opt39a',
-            explanation: "No contexto do áudio, 'putting up with each other' refere-se a tolerar e aceitar as diferenças, em contraste com 'apreciar a mistura de tradições'.",
+            explanation: "No contexto da fala, 'putting up with each other' significa tolerar e aceitar as diferenças, mesmo que não seja a melhor tradução literal, é a que se encaixa no sentido de 'being cool with each other'.",
             youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         },
         {
             id: 'q40',
             type: 'listening',
-            topic: 'comprehension',
-            question: "40. Listen to the audio in the video. Then, answer the questions below:<br>What does the speaker mean by \"without messing everything up\"?",
+            topic: 'vocabulary_in_context',
+            question: "40. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “Okay, so, like, technology is moving crazy fast, right? And, um, it's not just about all the cool stuff it brings. There's this whole other side to it, you know? Like, how should we be using all this crazy tech responsibly? It's not just a tech thing; it's, like, a big moral puzzle. Artificial intelligence making decisions and, you know, gene-editing stuff – it's not just about progress. It's about, like, really thinking hard about what we're doing. It's not just the tech wizards; it's all of us figuring out the right way to use these game-changing tools without messing everything up. It's kinda heavy, you know?”<br>What does the speaker mean by \"without messing everything up\"?",
             options: [
                 { id: 'opt40a', text: "Experimenting with technology without considering the potential risks." },
                 { id: 'opt40b', text: "Introducing groundbreaking technologies without any consequences." },
                 { id: 'opt40c', text: "Utilizing transformative technologies responsibly and ethically." }
             ],
             correctAnswerId: 'opt40c',
-            explanation: "A frase 'thinking hard about what we're doing' e 'figuring out the right way to use these game-changing tools' sugere um uso responsável e ético para evitar 'messing everything up'.",
-            youtubeVideoId: 'HwxcY1Ij__Q' // ID do vídeo para esta pergunta
+            explanation: "A expressão 'without messing everything up' no contexto da fala sobre tecnologia e responsabilidade significa usar as tecnologias de forma responsável e ética para evitar problemas.",
+            youtubeVideoId: 'HwxcY1Ij__Q' // Placeholder, substitua pelo ID correto
         }
     ];
 
-    // --- Funções de Controle de Tela ---
-    function showScreen(screenElement) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.add('hidden');
+    // Funções de navegação e exibição de telas
+    function showScreen(screen) {
+        const allScreens = [introSection, nameSection, lastNameSection, proficiencySection, preparationSection, quizSection, resultsSection];
+        allScreens.forEach(s => {
+            if (s === screen) {
+                s.classList.remove('hidden');
+                setTimeout(() => s.style.opacity = '1', 10); // Pequeno delay para a transição
+            } else {
+                s.style.opacity = '0';
+                s.classList.add('hidden');
+            }
         });
-        screenElement.classList.remove('hidden');
-        // Garante que o scroll volte ao topo ao mudar de tela
-        window.scrollTo(0, 0);
     }
 
-    // --- Event Listeners para Navegação ---
+    // Event Listeners para botões de navegação
     startButton.addEventListener('click', () => {
         showScreen(nameSection);
-    });
-
-    // Adiciona evento de 'Enter' para o botão 'Iniciar'
-    document.addEventListener('keydown', (event) => {
-        if (!introSection.classList.contains('hidden') && event.key === 'Enter') {
-            event.preventDefault();
-            startButton.click();
-        }
+        firstNameInput.focus(); // Foca no input do nome
     });
 
     firstNameInput.addEventListener('input', () => {
@@ -702,15 +703,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nextNameButton.addEventListener('click', () => {
         userData.firstName = firstNameInput.value.trim();
-        lastNameQuestion.innerHTML = `Olá, <strong>${userData.firstName}</strong>! Qual é o seu sobrenome?`;
+        lastNameQuestion.textContent = `Qual é seu sobrenome, ${userData.firstName}?`;
         showScreen(lastNameSection);
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!nameSection.classList.contains('hidden') && event.key === 'Enter' && !nextNameButton.disabled) {
-            event.preventDefault();
-            nextNameButton.click();
-        }
+        lastNameInput.focus(); // Foca no input do sobrenome
     });
 
     lastNameInput.addEventListener('input', () => {
@@ -719,15 +714,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nextLastNameButton.addEventListener('click', () => {
         userData.lastName = lastNameInput.value.trim();
-        proficiencyQuestion.innerHTML = `Olá, <strong>${userData.firstName} ${userData.lastName}</strong>! Qual é o seu nível de proficiência em inglês?`;
+        proficiencyQuestion.textContent = `Olá, ${userData.firstName}! Qual seu nível de proficiência em inglês?`;
         showScreen(proficiencySection);
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!lastNameSection.classList.contains('hidden') && event.key === 'Enter' && !nextLastNameButton.disabled) {
-            event.preventDefault();
-            nextLastNameButton.click();
-        }
     });
 
     proficiencyOptionButtons.forEach(button => {
@@ -739,59 +727,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.addEventListener('keydown', (event) => {
-        if (!proficiencySection.classList.contains('hidden') && event.key === 'Enter' && !nextProficiencyButton.disabled) {
-            event.preventDefault();
-            nextProficiencyButton.click();
-        }
-    });
-
     nextProficiencyButton.addEventListener('click', () => {
-        preparationMessage.innerHTML = `Seu teste irá começar.<br>Prepare-se! &#128077;`;
+        preparationMessage.innerHTML = `Tudo pronto, ${userData.firstName}! <br>Seu teste de nivelamento está prestes a começar.`;
         showScreen(preparationSection);
     });
 
     startQuizButton.addEventListener('click', () => {
-        showScreen(quizSection);
-        loadQuestion();
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!preparationSection.classList.contains('hidden') && event.key === 'Enter') {
-            event.preventDefault();
-            startQuizButton.click();
+        currentQuestionIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        score = 0;
+        // Reinicia a contagem de reproduções dos vídeos
+        for (const videoId in videoPlayCounts) {
+            videoPlayCounts[videoId] = 0;
         }
+        loadQuestion();
+        showScreen(quizSection);
     });
-
-
-    // --- Lógica do Quiz ---
 
     function loadQuestion() {
         const question = questions[currentQuestionIndex];
-        questionText.innerHTML = question.question; // Usamos innerHTML para renderizar as tags HTML na pergunta
-        optionsContainer.innerHTML = '';
+        questionText.innerHTML = question.question;
+        optionsContainer.innerHTML = ''; // Limpa as opções anteriores
 
-        // Lógica para o YouTube Player
+        // Lógica para o vídeo do YouTube
         if (question.youtubeVideoId) {
-            // Inicializa a contagem de reproduções para o vídeo atual se ainda não existir
-            if (!videoPlayCounts[question.youtubeVideoId]) {
-                videoPlayCounts[question.youtubeVideoId] = 0;
+            currentVideoId = question.youtubeVideoId;
+            // Inicializa a contagem se ainda não existir
+            if (!videoPlayCounts[currentVideoId]) {
+                videoPlayCounts[currentVideoId] = 0;
             }
 
-            // Se o vídeo já foi reproduzido 2 vezes, exibe o overlay
-            if (videoPlayCounts[question.youtubeVideoId] >= 2) {
+            youtubeVideoContainer.innerHTML = ''; // Limpa o container do vídeo
+            const playerDiv = document.createElement('div');
+            playerDiv.id = 'youtube-player';
+            youtubeVideoContainer.appendChild(playerDiv);
+
+            // Adiciona um overlay para capturar cliques e impedir abertura no YouTube
+            const clickOverlay = document.createElement('div');
+            clickOverlay.classList.add('video-click-overlay');
+            // Este overlay será removido quando o vídeo for reproduzido e adicionado novamente
+            // se o limite de reproduções for atingido.
+
+            // Se o vídeo já foi reproduzido o número máximo de vezes, mostra o overlay de desabilitado
+            if (videoPlayCounts[currentVideoId] >= MAX_PLAYS) {
                 disableVideoPlayer(true); // Passa true para indicar que o limite foi atingido
-                return; // Sai da função para não tentar carregar o player
-            }
-
-            // Se o vídeo atual é diferente do anterior ou não há player, cria um novo
-            // Ou se o player não existe ainda
-            if (!player || currentVideoId !== question.youtubeVideoId) {
-                youtubeVideoContainer.innerHTML = `<div id="youtube-player"></div>`; // Div para o player
-                currentVideoId = question.youtubeVideoId;
-                // videoPlayedOnce = false; // Não precisamos mais dessa flag global, a contagem por vídeo é mais precisa
-
-                // Verifica se a API do YouTube está pronta antes de criar o player
+            } else {
+                // Cria o player do YouTube
                 if (typeof YT !== 'undefined' && YT.Player) {
                     player = new YT.Player('youtube-player', {
                         videoId: question.youtubeVideoId,
@@ -800,39 +781,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             'controls': 0, // Remove os controles do player
                             'modestbranding': 1, // Remove o logo do YouTube
                             'rel': 0, // Não mostra vídeos relacionados ao final
-                            'showinfo': 0 // Não mostra título do vídeo e informações do uploader
+                            'showinfo': 0, // Não mostra título do vídeo e informações
+                            'enablejsapi': 1, // Habilita a API JavaScript
+                            'origin': window.location.origin // Importante para segurança e API
                         },
                         events: {
                             'onReady': onPlayerReady,
                             'onStateChange': onPlayerStateChange
+                        }
+                    });
+                    // Adiciona o overlay de clique APÓS o player ser criado
+                    youtubeVideoContainer.appendChild(clickOverlay);
+                    clickOverlay.addEventListener('click', () => {
+                        if (player && typeof player.playVideo === 'function') {
+                            player.playVideo();
+                            // Remove o overlay de clique enquanto o vídeo está tocando
+                            clickOverlay.style.display = 'none';
                         }
                     });
                 } else {
-                    // Se a API ainda não está pronta, tenta novamente após um pequeno atraso
-                    // ou exibe uma mensagem de erro/carregamento
-                    console.warn("API do YouTube não está pronta. Tentando novamente...");
-                    setTimeout(loadQuestion, 500); // Tenta carregar a questão novamente
-                    return; // Sai da função para evitar processamento duplicado
-                }
-            } else {
-                // Se o mesmo vídeo está sendo carregado novamente e ainda não atingiu o limite
-                // Garante que o player esteja visível e funcional
-                youtubeVideoContainer.innerHTML = `<div id="youtube-player"></div>`; // Recria o div para o player
-                if (typeof YT !== 'undefined' && YT.Player) {
-                    player = new YT.Player('youtube-player', {
-                        videoId: question.youtubeVideoId,
-                        playerVars: {
-                            'autoplay': 0,
-                            'controls': 0,
-                            'modestbranding': 1,
-                            'rel': 0,
-                            'showinfo': 0
-                        },
-                        events: {
-                            'onReady': onPlayerReady,
-                            'onStateChange': onPlayerStateChange
-                        }
-                    });
+                    // Fallback se a API do YouTube ainda não carregou
+                    youtubeVideoContainer.innerHTML = `<div class="video-overlay"><p>Carregando vídeo...</p></div>`;
                 }
             }
             youtubeVideoContainer.style.display = 'block';
@@ -842,7 +811,6 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeVideoContainer.style.display = 'none';
             player = null; // Reseta o player
             currentVideoId = null;
-            // videoPlayedOnce = false; // Não precisamos mais dessa flag global
         }
 
         const optionLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -880,48 +848,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funções da API do YouTube Player
     function onPlayerReady(event) {
-        // O vídeo está pronto para ser reproduzido.
-        // Adiciona um event listener para o clique no iframe para iniciar a reprodução
-        // Isso é necessário porque 'controls: 0' impede o clique direto no player para iniciar
-        event.target.getIframe().addEventListener('click', () => {
-            if (player && player.getPlayerState() !== YT.PlayerState.PLAYING && videoPlayCounts[currentVideoId] < 2) {
-                player.playVideo();
-            }
-        });
+        // Quando o player está pronto, garantimos que o overlay de clique esteja visível
+        const clickOverlay = youtubeVideoContainer.querySelector('.video-click-overlay');
+        if (clickOverlay) {
+            clickOverlay.style.display = 'flex'; // Mostra o overlay para capturar o primeiro clique
+        }
     }
 
     function onPlayerStateChange(event) {
-        // YT.PlayerState.ENDED (0) - O vídeo terminou
-        // YT.PlayerState.PLAYING (1) - O vídeo está tocando
-        // YT.PlayerState.PAUSED (2) - O vídeo está pausado
+        const clickOverlay = youtubeVideoContainer.querySelector('.video-click-overlay');
+
         if (event.data === YT.PlayerState.ENDED) {
+            // Incrementa a contagem de reproduções quando o vídeo termina
             if (currentVideoId) {
-                videoPlayCounts[currentVideoId]++; // Incrementa a contagem de reproduções
-                if (videoPlayCounts[currentVideoId] >= 2) {
-                    disableVideoPlayer(true); // Limite atingido
+                videoPlayCounts[currentVideoId] = (videoPlayCounts[currentVideoId] || 0) + 1;
+                if (videoPlayCounts[currentVideoId] >= MAX_PLAYS) {
+                    disableVideoPlayer(true); // Desabilita se atingiu o limite
                 } else {
-                    disableVideoPlayer(false); // Permite mais uma reprodução
+                    // Se ainda pode reproduzir, mostra o overlay de clique novamente para permitir outra reprodução
+                    if (clickOverlay) {
+                        clickOverlay.style.display = 'flex';
+                        clickOverlay.innerHTML = `<p>Clique para reproduzir novamente (${MAX_PLAYS - videoPlayCounts[currentVideoId]} restantes)</p>`;
+                    }
                 }
             }
         } else if (event.data === YT.PlayerState.PLAYING) {
-            // O vídeo começou a tocar
-            // Remove qualquer overlay temporário se houver
-            const overlay = youtubeVideoContainer.querySelector('.video-overlay');
-            if (overlay) {
-                overlay.remove();
+            // Quando o vídeo está tocando, esconde o overlay de clique
+            if (clickOverlay) {
+                clickOverlay.style.display = 'none';
+            }
+        } else if (event.data === YT.PlayerState.PAUSED) {
+            // Se o vídeo for pausado, mostra o overlay de clique novamente
+            if (clickOverlay) {
+                clickOverlay.style.display = 'flex';
+                clickOverlay.innerHTML = `<p>Vídeo pausado. Clique para continuar.</p>`;
             }
         }
     }
 
-    function disableVideoPlayer(limitReached) {
+    function disableVideoPlayer(limitReached = false) {
         if (youtubeVideoContainer) {
-            let message = limitReached ? "Limite de reproduções atingido." : "Vídeo já reproduzido uma vez.";
+            let message = "Vídeo já reproduzido.";
+            if (limitReached) {
+                message = `Limite de ${MAX_PLAYS} reproduções atingido.`;
+            }
             youtubeVideoContainer.innerHTML = `
                 <div class="video-overlay">
                     <p>${message}</p>
                 </div>
             `;
-            player = null; // Reseta o player
+            player = null; // O player é efetivamente destruído ao remover o iframe
         }
     }
 
@@ -1049,9 +1025,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nextNameButton.disabled = true;
         nextLastNameButton.disabled = true;
         nextProficiencyButton.disabled = true;
-
-        // Resetar a contagem de reproduções dos vídeos ao reiniciar o teste
-        videoPlayCounts = {};
 
         showScreen(introSection);
     });
