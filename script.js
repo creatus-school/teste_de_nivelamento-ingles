@@ -550,8 +550,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt30b',
             explanation: "A resposta 'A cup of tea and soft music help me to sleep well.' descreve uma forma comum de relaxar após um dia cansativo.",
-            mediaPath: 'media/q30.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q30.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q31',
@@ -566,8 +566,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt31c',
             explanation: "A resposta 'I create a study schedule and review my notes regularly.' descreve uma estratégia de estudo eficaz.",
-            mediaPath: 'media/q31.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q31.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q32',
@@ -582,8 +582,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt32b', // Esta resposta é um pouco negativa, mas é a mais "direta" para a frustração. Se houver uma opção mais encorajadora, seria melhor.
             explanation: "A resposta 'Maybe you're just not cut out for music. Why don't you try something else?' é uma sugestão direta, embora desencorajadora, para a frustração expressa.",
-            mediaPath: 'media/q32.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q32.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q33',
@@ -598,8 +598,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt33b',
             explanation: "A resposta 'I had meetings all day.' explica o motivo do cansaço após um longo dia de trabalho.",
-            mediaPath: 'media/q33.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q33.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q34',
@@ -614,8 +614,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt34b',
             explanation: "A resposta 'Tell me all about it when you get home.' é uma reação natural de interesse de uma mãe.",
-            mediaPath: 'media/q34.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q34.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q35',
@@ -630,8 +630,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt35c',
             explanation: "A resposta 'Congratulations! How was the test?' é uma reação apropriada de parabéns e interesse.",
-            mediaPath: 'media/q35.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q35.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q36',
@@ -645,8 +645,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt36b',
             explanation: "O áudio discute a necessidade de 'figurar onde estamos com a tecnologia' e 'que tipo de relacionamento queremos ter com ela'.",
-            mediaPath: 'media/q36.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
-            mediaType: 'audio' // ou 'video' se for um vídeo
+            mediaPath: 'media/q36.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
+            mediaType: 'video' // ou 'video' se for um vídeo
         },
         {
             id: 'q37',
@@ -660,8 +660,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt37b',
             explanation: "O áudio enfatiza a necessidade de 'pensar sobre o quadro geral' e 'usar esse poder sabiamente', abordando as implicações éticas.",
-            mediaPath: 'media/q37.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
-            mediaType: 'audio' // ou 'video'
+            mediaPath: 'media/q37.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
+            mediaType: 'video' // ou 'video'
         },
         {
             id: 'q38',
@@ -675,8 +675,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt38b',
             explanation: "O áudio menciona que 'social media, wow, that's a huge driver' da mudança na linguagem.",
-            mediaPath: 'media/q38.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
-            mediaType: 'audio' // ou 'video'
+            mediaPath: 'media/q38.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
+            mediaType: 'video' // ou 'video'
         },
         {
             id: 'q39',
@@ -690,8 +690,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt39b',
             explanation: "O áudio fala sobre 'entender diferentes formas de ver as coisas, diferentes valores' e 'construir pontes', o que se alinha com abraçar as diferenças.",
-            mediaPath: 'media/q39.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
-            mediaType: 'audio' // ou 'video'
+            mediaPath: 'media/q39.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
+            mediaType: 'video' // ou 'video'
         },
         {
             id: 'q40',
@@ -705,8 +705,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt40c',
             explanation: "O áudio enfatiza 'pensar muito sobre o que estamos fazendo' e 'descobrir a maneira certa de usar essas ferramentas que mudam o jogo', o que significa usar a tecnologia de forma responsável e ética.",
-            mediaPath: 'media/q40.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
-            mediaType: 'audio' // ou 'video'
+            mediaPath: 'media/q40.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO/VÍDEO
+            mediaType: 'video' // ou 'video'
         }
     ];
 
