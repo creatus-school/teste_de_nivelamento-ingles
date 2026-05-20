@@ -534,8 +534,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt29a',
             explanation: "A resposta 'Yes, I love rock concerts!' é a única que responde diretamente à pergunta sobre ter ido a um festival de música, indicando uma experiência positiva com o tema.",
-            mediaPath: 'media/q29.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'audio'
+            mediaPath: 'media/q29.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
         },
         {
             id: 'q30',
