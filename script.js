@@ -448,8 +448,8 @@ document.addEventListener('DOMContentLoaded', () => {
             options: [
                 { id: 'opt24a', text: "who" },
                 { id: 'opt24b', text: "which" },
-                { id: 'opt24c', text: "where" },
-                { id: 'opt24d', text: "whose" }
+                { id: 'opt24c', text: "whose" },
+                { id: 'opt24d', text: "where" }
             ],
             correctAnswerId: 'opt24b',
             explanation: "'Which' é usado para se referir a coisas.",
@@ -459,16 +459,16 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'q25',
             type: 'vocabulary',
-            topic: 'verbs',
-            question: "25. The sound of the thunder __________ through the valley.",
+            topic: 'collocations',
+            question: "25. I need to __________ a decision about my future soon.",
             options: [
-                { id: 'opt25a', text: "reverberated" },
-                { id: 'opt25b', text: "whispered" },
-                { id: 'opt25c', text: "mumbled" },
-                { id: 'opt25d', text: "giggled" }
+                { id: 'opt25a', text: "do" },
+                { id: 'opt25b', text: "make" },
+                { id: 'opt25c', text: "take" },
+                { id: 'opt25d', text: "have" }
             ],
-            correctAnswerId: 'opt25a',
-            explanation: "'Reverberated' (reverberou) é o verbo que melhor descreve o som se espalhando e ecoando de forma intensa.",
+            correctAnswerId: 'opt25b',
+            explanation: "A colocation correta é 'make a decision'.",
             mediaPath: null,
             mediaType: null
         },
@@ -476,12 +476,11 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q26',
             type: 'vocabulary',
             topic: 'verbs',
-            question: "26. It's essential to __________ the historical significance of the artwork during the museum tour.",
+            question: "26. It's difficult to __________ the meaning of this complex text.",
             options: [
-                { id: 'opt26a', text: "seize" },
+                { id: 'opt26a', text: "catch" },
                 { id: 'opt26b', text: "comprehend" },
-                { id: 'opt26c', text: "grasp" },
-                { id: 'opt26d', text: "overlook" }
+                { id: 'opt26c', text: "grasp" }
             ],
             correctAnswerId: 'opt26b',
             explanation: "'Comprehend' (compreender) é o verbo mais adequado para entender o significado de algo.",
@@ -496,8 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
             options: [
                 { id: 'opt27a', text: "inspect" },
                 { id: 'opt27b', text: "check" },
-                { id: 'opt27c', text: "examine" },
-                { id: 'opt27d', text: "neglect" }
+                { id: 'opt27c', text: "examine" }
             ],
             correctAnswerId: 'opt27b',
             explanation: "'Check' (verificar) é o verbo mais comum para monitorar o estado de plantas regularmente.",
@@ -512,15 +510,14 @@ document.addEventListener('DOMContentLoaded', () => {
             options: [
                 { id: 'opt28a', text: "awaiting" },
                 { id: 'opt28b', text: "spreading" },
-                { id: 'opt28c', text: "concerning" },
-                { id: 'opt28d', text: "confining" }
+                { id: 'opt28c', text: "concerning" }
             ],
             correctAnswerId: 'opt28b',
             explanation: "'Spreading' (espalhando) descreve o aroma se difundindo pela cozinha.",
             mediaPath: null,
             mediaType: null
         },
-        // --- NOVAS PERGUNTAS DE LISTENING (Teste_de_nivelamento__ingles_3.pdf) ---
+        // --- PERGUNTAS DE LISTENING (Teste_de_nivelamento__ingles_3.pdf) ---
         {
             id: 'q29',
             type: 'listening',
@@ -534,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt29a',
             explanation: "A resposta 'Yes, I love rock concerts!' é a única que responde diretamente à pergunta sobre ter ido a um festival de música, indicando uma experiência positiva com o tema.",
-            mediaPath: 'media/q29.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            mediaPath: 'media/q29.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -549,8 +546,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt30d', text: "The boss at my company likes to hold meetings late at night." }
             ],
             correctAnswerId: 'opt30b',
-            explanation: "A resposta 'A cup of tea and soft music help me to sleep well' oferece uma forma comum de relaxar após o trabalho.",
-            mediaPath: 'media/q30.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            explanation: "A resposta 'A cup of tea and soft music help me to sleep well.' é a mais adequada para descrever como alguém relaxa após um longo dia de trabalho.",
+            mediaPath: 'media/q30.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -565,8 +562,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt31d', text: "I enjoy playing sports after exams." }
             ],
             correctAnswerId: 'opt31c',
-            explanation: "A resposta 'I create a study schedule and review my notes regularly' é uma estratégia de estudo eficaz.",
-            mediaPath: 'media/q31.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            explanation: "A resposta 'I create a study schedule and review my notes regularly.' explica uma estratégia de estudo eficaz.",
+            mediaPath: 'media/q31.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -581,8 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt32d', text: "You need to practice your cooking skills more." }
             ],
             correctAnswerId: 'opt32b',
-            explanation: "A resposta 'Maybe you're just not cut out for music. Why don't you try something else?' é uma sugestão desanimadora, mas é a única que tenta responder à frustração do falante.",
-            mediaPath: 'media/q32.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            explanation: "A resposta 'Maybe you're just not cut out for music. Why don't you try something else?' é uma sugestão desanimadora, mas é a que se encaixa no contexto de frustração do Speaker #4.",
+            mediaPath: 'media/q32.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -597,8 +594,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt33d', text: "I love going to the gym after work." }
             ],
             correctAnswerId: 'opt33b',
-            explanation: "A resposta 'I had meetings all day' explica o motivo do cansaço.",
-            mediaPath: 'media/q33.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            explanation: "A resposta 'I had meetings all day.' explica o motivo do cansaço, respondendo à pergunta.",
+            mediaPath: 'media/q33.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -613,8 +610,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt34d', text: "I've been trying a new recipe lately." }
             ],
             correctAnswerId: 'opt34b',
-            explanation: "A resposta 'Tell me all about it when you get home' é uma reação comum de uma mãe curiosa.",
-            mediaPath: 'media/q34.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            explanation: "A resposta 'Tell me all about it when you get home.' é uma reação natural e encorajadora para a exclamação da filha.",
+            mediaPath: 'media/q34.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -629,8 +626,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt35d', text: "I prefer using public transportation." }
             ],
             correctAnswerId: 'opt35c',
-            explanation: "A resposta 'Congratulations! How was the test?' é uma reação apropriada e de acompanhamento.",
-            mediaPath: 'media/q35.mp3', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU ÁUDIO
+            explanation: "A resposta 'Congratulations! How was the test?' é uma reação apropriada e de acompanhamento à notícia de ter passado no teste de direção.",
+            mediaPath: 'media/q35.mp3', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE ÁUDIO
             mediaType: 'audio'
         },
         {
@@ -644,59 +641,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt36c', text: "The decline of traditional forms of communication." }
             ],
             correctAnswerId: 'opt36b',
-            explanation: "O áudio discute a necessidade de 'figurar onde estamos com a tecnologia' e 'que tipo de relacionamento queremos ter com ela', o que se alinha com a reavaliação constante do relacionamento com a tecnologia.",
-            mediaPath: 'media/q36.mp4', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU VÍDEO
+            explanation: "O áudio discute a necessidade de 'figurar onde estamos com a tecnologia' e 'que tipo de relacionamento queremos ter com ela'.",
+            mediaPath: 'media/q36.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE VÍDEO
             mediaType: 'video'
         },
         {
             id: 'q37',
             type: 'listening',
             topic: 'comprehension',
-            question: "37. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “So, like, I was just thinking about how, you know, we’re always talking about, like, ‘global warming’ and ‘climate change,’ right? But it’s more than just, like, the ice caps melting or, you know, a few more hot days. It’s really about how everything is connected. Like, when the weather patterns go all wonky, it’s not just, like, a bad summer. It messes with farming, so then food prices go up, and then, like, people in different parts of the world who are already struggling, they struggle even more. And it’s not just, like, a future problem, you know? It’s happening now. And it’s, like, super important for everyone to, like, get on board and do something, because it affects, like, literally everyone, everywhere.”<br>What is the speaker's main concern regarding climate change?",
+            question: "37. Listen to the audio in the video. Then, answer the questions below:<br>Audio: \"Well, you know, the whole discourse around environmental sustainability—it’s really evolved a lot over the years, hasn’t it? We’re seeing, like, this paradigm shift, right? People are getting more clued in about, say, climate change, or how our daily habits actually impact the planet. And it’s not just, like, a niche thing anymore; it’s totally mainstream. Businesses are jumping on board, governments are making policies, and even, like, everyday folks are trying to do their bit, you know? It’s pretty cool how everyone’s kind of waking up to the fact that we’ve got to look after our home. It’s not just about, like, saving the polar bears, though that’s important too. It’s about making sure we’ve got a decent future for everyone. It’s a big deal, and it’s only going to get bigger.\"<br>What is the main idea conveyed by the speaker regarding environmental sustainability?",
             options: [
-                { id: 'opt37a', text: "The rising global temperatures and melting ice caps." },
-                { id: 'opt37b', text: "The immediate and interconnected impact on various aspects of life globally." },
-                { id: 'opt37c', text: "The long-term effects on future generations." }
+                { id: 'opt37a', text: "Environmental sustainability is a niche topic discussed only by scientists." },
+                { id: 'opt37b', text: "The discourse around environmental sustainability has become mainstream and involves various sectors." },
+                { id: 'opt37c', text: "Governments are solely responsible for addressing climate change." }
             ],
             correctAnswerId: 'opt37b',
-            explanation: "O falante enfatiza que o problema 'está acontecendo agora' e afeta 'literalmente todos, em todos os lugares', destacando o impacto imediato e interconectado.",
-            mediaPath: 'media/q37.mp4', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU VÍDEO
+            explanation: "O áudio enfatiza que a sustentabilidade ambiental se tornou um tópico mainstream, envolvendo empresas, governos e indivíduos.",
+            mediaPath: 'media/q37.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE VÍDEO
             mediaType: 'video'
         },
         {
             id: 'q38',
             type: 'listening',
-            topic: 'vocabulary_in_context',
-            question: "38. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “You know, it’s kind of wild how much our daily routines are, like, totally shaped by the little things we do without even thinking. Like, that morning coffee ritual, or, you know, always checking your phone first thing. It’s not just about, like, being busy; it’s about these habits that, like, build up over time. And sometimes, they’re super helpful, right? Like, getting to work on time or remembering to call your mom. But then, there are those other ones that, like, kinda sneak in and, you know, maybe aren’t so great for us. It’s like, a constant balancing act, trying to figure out which habits to keep and which ones to, like, totally ditch so we can actually, you know, live our best lives.”<br>What does the speaker mean by "totally ditch" in the context of habits?",
+            topic: 'comprehension',
+            question: "38. Listen to the audio in the video. Then, answer the questions below:<br>Audio: \"So, like, the whole idea of cultural diversity, right? It’s not just about, you know, people from different places living in the same city. It’s way more than that. It’s about appreciating the whole mash-up of traditions, languages, and stuff. And, like, it's not just this thing we say about being open-minded. It's like, genuinely seeing the awesomeness in how different cultures do their thing. You get me? It's this blend of ideas, art, and different views, and it's pretty cool how everyone can, you know, vibe together and still keep their own thing going.”<br>What is the speaker's perspective on cultural diversity?",
             options: [
-                { id: 'opt38a', text: "To fully embrace and integrate new habits." },
-                { id: 'opt38b', text: "To completely abandon or get rid of certain habits." },
-                { id: 'opt38c', text: "To temporarily set aside habits for a short period." }
+                { id: 'opt38a', text: "It is limited to people from different places living in the same city." },
+                { id: 'opt38b', text: "It is about genuinely appreciating the blend of traditions, languages, and different views." },
+                { id: 'opt38c', text: "It is primarily about maintaining individual cultural identities without interaction." }
             ],
             correctAnswerId: 'opt38b',
-            explanation: "'Totally ditch' significa 'abandonar completamente' ou 'se livrar de' hábitos.",
-            mediaPath: 'media/q38.mp4', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU VÍDEO
+            explanation: "O áudio destaca que a diversidade cultural é sobre 'genuinamente ver a grandiosidade em como diferentes culturas fazem suas coisas' e a mistura de ideias, arte e visões.",
+            mediaPath: 'media/q38.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE VÍDEO
             mediaType: 'video'
         },
         {
             id: 'q39',
             type: 'listening',
-            topic: 'vocabulary_in_context',
-            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “I was just thinking about, like, how important it is to, you know, really get what people are saying about being open-minded. It's like, genuinely seeing the awesomeness in how different cultures do their thing. You get me? It's this blend of ideas, art, and different views, and it's pretty cool how everyone can, you know, vibe together and still keep their own thing going.”<br>What does the expression \"putting up with each other\" mean?",
+            topic: 'idiomatic_expression',
+            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>Audio: \"So, like, the whole idea of cultural diversity, right? It’s not just about, you know, people from different places living in the same city. It’s way more than that. It’s about appreciating the whole mash-up of traditions, languages, and stuff. And, like, it's not just this thing we say about being open-minded. It's like, genuinely seeing the awesomeness in how different cultures do their thing. You get me? It's this blend of ideas, art, and different views, and it's pretty cool how everyone can, you know, vibe together and still keep their own thing going.”<br>What does the expression \"putting up with each other\" mean?",
             options: [
                 { id: 'opt39a', text: "Tolerating and accepting each other despite differences." },
                 { id: 'opt39b', text: "Embracing and celebrating each other's differences." },
                 { id: 'opt39c', text: "Physically putting up various objects as a symbol of unity." }
             ],
             correctAnswerId: 'opt39a',
-            explanation: "A expressão 'putting up with each other' geralmente significa tolerar ou aceitar alguém apesar das diferenças ou dificuldades.",
-            mediaPath: 'media/q39.mp4', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU VÍDEO
+            explanation: "A expressão 'putting up with each other' significa tolerar e aceitar uns aos outros, apesar das diferenças.",
+            mediaPath: 'media/q39.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE VÍDEO
             mediaType: 'video'
         },
         {
             id: 'q40',
             type: 'listening',
-            topic: 'vocabulary_in_context',
+            topic: 'idiomatic_expression',
             question: "40. Listen to the audio in the video. Then, answer the questions below:<br>Audio: “Okay, so, like, technology is moving crazy fast, right? And, um, it's not just about all the cool stuff it brings. There's this whole other side to it, you know? Like, how should we be using all this crazy tech responsibly? It's not just a tech thing; it's, like, a big moral puzzle. Artificial intelligence making decisions and, you know, gene-editing stuff – it's not just about progress. It's about, like, really thinking hard about what we're doing. It's not just the tech wizards; it's all of us figuring out the right way to use these game-changing tools without messing everything up. It's kinda heavy, you know?”<br>What does the speaker mean by \"without messing everything up\"?",
             options: [
                 { id: 'opt40a', text: "Experimenting with technology without considering the potential risks." },
@@ -704,53 +701,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt40c', text: "Utilizing transformative technologies responsibly and ethically." }
             ],
             correctAnswerId: 'opt40c',
-            explanation: "A frase 'without messing everything up' no contexto do áudio significa usar a tecnologia de forma responsável e ética para evitar problemas.",
-            mediaPath: 'media/q40.mp4', // <-- SUBSTITUA PELO CAMINHO REAL DO SEU VÍDEO
+            explanation: "A frase 'without messing everything up' no contexto do áudio significa utilizar as tecnologias de forma responsável e ética para evitar problemas.",
+            mediaPath: 'media/q40.mp4', // <-- ATUALIZE COM O CAMINHO CORRETO DO SEU ARQUIVO DE VÍDEO
             mediaType: 'video'
         }
     ];
 
-    // Função para mostrar uma tela e ocultar as outras
+    // Função para mostrar uma tela e esconder as outras
     function showScreen(screenElement) {
-        const allScreens = document.querySelectorAll('.screen');
-        allScreens.forEach(s => {
-            if (s === screenElement) {
-                s.classList.remove('hidden');
-                s.style.opacity = '1';
+        const allScreens = [introSection, nameSection, lastNameSection, proficiencySection, preparationSection, quizSection, resultsSection];
+        allScreens.forEach(screen => {
+            if (screen === screenElement) {
+                screen.classList.remove('hidden');
             } else {
-                s.classList.add('hidden');
-                s.style.opacity = '0';
+                screen.classList.add('hidden');
             }
         });
     }
 
-    // Event Listeners para botões de navegação
+    // --- Lógica de Navegação e Validação ---
+
+    // Introdução
     startButton.addEventListener('click', () => {
         showScreen(nameSection);
         firstNameInput.focus(); // Foca no input do nome
     });
 
+    // Coleta de Nome
     firstNameInput.addEventListener('input', () => {
         nextNameButton.disabled = firstNameInput.value.trim() === '';
     });
-
     nextNameButton.addEventListener('click', () => {
         userData.firstName = firstNameInput.value.trim();
-        lastNameQuestion.textContent = `Qual é seu sobrenome, ${userData.firstName}?`;
+        lastNameQuestion.innerHTML = `Qual o seu sobrenome, ${userData.firstName}?`;
         showScreen(lastNameSection);
         lastNameInput.focus(); // Foca no input do sobrenome
     });
 
+    // Coleta de Sobrenome
     lastNameInput.addEventListener('input', () => {
         nextLastNameButton.disabled = lastNameInput.value.trim() === '';
     });
-
     nextLastNameButton.addEventListener('click', () => {
         userData.lastName = lastNameInput.value.trim();
-        proficiencyQuestion.textContent = `Olá, ${userData.firstName}! Qual seu nível de proficiência em inglês?`;
+        proficiencyQuestion.innerHTML = `Qual o seu nível de proficiência em inglês?`;
         showScreen(proficiencySection);
     });
 
+    // Coleta de Proficiência
     proficiencyOptionButtons.forEach(button => {
         button.addEventListener('click', () => {
             proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
@@ -759,24 +757,25 @@ document.addEventListener('DOMContentLoaded', () => {
             nextProficiencyButton.disabled = false;
         });
     });
-
     nextProficiencyButton.addEventListener('click', () => {
         preparationMessage.innerHTML = `Tudo pronto, ${userData.firstName}! <br>Seu teste de nivelamento está prestes a começar.`;
         showScreen(preparationSection);
     });
 
+    // Início do Quiz
     startQuizButton.addEventListener('click', () => {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         score = 0;
         // Reinicia a contagem de reproduções dos vídeos
-        for (const mediaPath in mediaPlayCounts) {
-            mediaPlayCounts[mediaPath] = 0;
+        for (const path in mediaPlayCounts) {
+            mediaPlayCounts[path] = 0;
         }
         loadQuestion();
         showScreen(quizSection);
     });
 
+    // Carregamento de Questões
     function loadQuestion() {
         const question = questions[currentQuestionIndex];
         questionText.innerHTML = question.question;
@@ -794,43 +793,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const mediaWrapper = document.createElement('div');
             mediaWrapper.classList.add('media-wrapper');
 
-            let mediaElement;
             if (question.mediaType === 'audio') {
-                mediaElement = document.createElement('audio');
-                mediaElement.controls = false; // Vamos usar controles customizados
+                currentMediaElement = document.createElement('audio');
+                currentMediaElement.src = question.mediaPath;
+                currentMediaElement.preload = 'auto'; // Pré-carrega o áudio
+                mediaWrapper.appendChild(currentMediaElement);
             } else if (question.mediaType === 'video') {
-                mediaElement = document.createElement('video');
-                mediaElement.controls = false; // Vamos usar controles customizados
-                mediaElement.setAttribute('playsinline', ''); // Importante para iOS
-                mediaElement.setAttribute('webkit-playsinline', ''); // Importante para iOS
+                currentMediaElement = document.createElement('video');
+                currentMediaElement.src = question.mediaPath;
+                currentMediaElement.preload = 'auto'; // Pré-carrega o vídeo
+                currentMediaElement.controls = false; // Não mostra os controles nativos
+                mediaWrapper.appendChild(currentMediaElement);
             }
-            mediaElement.src = question.mediaPath;
-            mediaElement.preload = 'auto'; // Pré-carrega a mídia
 
-            currentMediaElement = mediaElement; // Armazena a referência global
-
-            mediaWrapper.appendChild(mediaElement);
             mediaContainer.appendChild(mediaWrapper);
 
-            // Cria os controles customizados
+            // Cria os controles personalizados
             const controlsDiv = document.createElement('div');
             controlsDiv.classList.add('media-controls');
 
             const playButton = document.createElement('button');
             playButton.classList.add('main-button');
-            playButton.textContent = 'Reproduzir';
+            playButton.textContent = 'Play';
+            controlsDiv.appendChild(playButton);
 
             const restartButtonMedia = document.createElement('button');
             restartButtonMedia.classList.add('main-button');
             restartButtonMedia.textContent = 'Reiniciar';
-            restartButtonMedia.disabled = true; // Desabilitado inicialmente
+            controlsDiv.appendChild(restartButtonMedia);
 
             const statusSpan = document.createElement('span');
             statusSpan.classList.add('media-status');
-
-            controlsDiv.appendChild(playButton);
-            controlsDiv.appendChild(restartButtonMedia);
             controlsDiv.appendChild(statusSpan);
+
             mediaContainer.appendChild(controlsDiv);
 
             // Atualiza o status inicial
@@ -841,44 +836,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (mediaPlayCounts[currentMediaPath] < MAX_PLAYS) {
                     currentMediaElement.play();
                     playButton.disabled = true; // Desabilita o play enquanto toca
-                    restartButtonMedia.disabled = false; // Habilita o reiniciar
                 }
             });
 
             restartButtonMedia.addEventListener('click', () => {
-                currentMediaElement.currentTime = 0; // Volta para o início
-                currentMediaElement.play();
-                playButton.disabled = true; // Desabilita o play enquanto toca
-            });
-
-            currentMediaElement.addEventListener('ended', () => {
-                mediaPlayCounts[currentMediaPath]++; // Incrementa a contagem
-                updateMediaStatus(statusSpan);
-                playButton.disabled = false; // Habilita o play novamente
-                if (mediaPlayCounts[currentMediaPath] >= MAX_PLAYS) {
-                    playButton.textContent = 'Limite atingido';
-                    playButton.disabled = true;
-                    restartButtonMedia.disabled = true;
+                if (mediaPlayCounts[currentMediaPath] < MAX_PLAYS) {
+                    currentMediaElement.currentTime = 0;
+                    currentMediaElement.play();
+                    playButton.disabled = true; // Desabilita o play enquanto toca
                 }
             });
 
-            currentMediaElement.addEventListener('play', () => {
-                playButton.textContent = 'Reproduzindo...';
+            currentMediaElement.addEventListener('ended', () => {
+                mediaPlayCounts[currentMediaPath]++;
+                updateMediaStatus(statusSpan);
+                if (mediaPlayCounts[currentMediaPath] >= MAX_PLAYS) {
+                    playButton.disabled = true;
+                    restartButtonMedia.disabled = true;
+                } else {
+                    playButton.disabled = false; // Habilita play novamente se ainda há reproduções
+                }
             });
 
             currentMediaElement.addEventListener('pause', () => {
                 if (mediaPlayCounts[currentMediaPath] < MAX_PLAYS) {
-                    playButton.textContent = 'Continuar';
-                    playButton.disabled = false;
+                    playButton.disabled = false; // Habilita play se pausado e ainda há reproduções
                 }
             });
 
-            mediaContainer.style.display = 'flex'; // Garante que o container de mídia seja exibido
+            // Desabilita os botões se o limite já foi atingido
+            if (mediaPlayCounts[currentMediaPath] >= MAX_PLAYS) {
+                playButton.disabled = true;
+                restartButtonMedia.disabled = true;
+            }
+
+            mediaContainer.style.display = 'flex'; // Mostra o container de mídia
         } else {
             // Se não há mídia, garante que o container esteja vazio e oculto
             mediaContainer.innerHTML = '';
             mediaContainer.style.display = 'none';
-            currentMediaElement = null; // Reseta a referência
+            currentMediaElement = null; // Reseta o elemento de mídia
             currentMediaPath = null;
         }
 
@@ -1054,8 +1051,8 @@ document.addEventListener('DOMContentLoaded', () => {
         nextProficiencyButton.disabled = true;
 
         // Resetar a contagem de reproduções dos vídeos ao reiniciar o teste
-        for (const mediaPath in mediaPlayCounts) {
-            mediaPlayCounts[mediaPath] = 0;
+        for (const path in mediaPlayCounts) {
+            mediaPlayCounts[path] = 0;
         }
 
         // Pausa qualquer mídia que esteja tocando ao reiniciar o teste
