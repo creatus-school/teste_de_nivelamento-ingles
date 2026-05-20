@@ -1,538 +1,1065 @@
-body {
-    font-family: 'Aleo', serif;
-    background-color: #f4f7f6;
-    background-image: url('background.jpg'); /* URL da imagem de fundo atualizada */
-    background-size: cover;
-    background-attachment: fixed;
-    color: #333;
-    margin: 0;
-    display: flex; /* Para centralizar o conteúdo da tela ativa */
-    justify-content: center;
-    align-items: center; /* ALINHA O CONTEÚDO VERTICALMENTE AO CENTRO */
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // Elementos das telas
+    const introSection = document.getElementById('intro-section');
+    const nameSection = document.getElementById('name-section');
+    const lastNameSection = document = document.getElementById('lastName-section');
+    const proficiencySection = document.getElementById('proficiency-section');
+    const preparationSection = document.getElementById('preparation-section');
+    const quizSection = document.getElementById('quiz-section');
+    const resultsSection = document.getElementById('results-section');
 
-/* Estilo base para todas as telas */
-.screen {
-    width: 100%;
-    max-width: 800px; /* Largura máxima para o conteúdo da tela */
-    /* Ajuste o padding para criar a margem lateral */
-    padding: 30px; /* Padding vertical */
-    padding-left: 50px; /* Margem esquerda de 50px */
-    padding-right: 50px; /* Margem direita de 50px */
-    box-sizing: border-box;
-    text-align: left; /* Alinha o conteúdo da tela à esquerda por padrão */
-    margin-top: 0; /* Remove o margin-top, pois o align-items: center do body já centraliza */
+    // Elementos da introdução
+    const startButton = document.getElementById('startButton');
 
-    background-color: transparent; /* Garante que não haja fundo */
-    box-shadow: none; /* Garante que não haja sombra */
-    border-radius: 0; /* Garante que não haja borda arredondada */
+    // Elementos da coleta de nome
+    const firstNameInput = document.getElementById('firstNameInput');
+    const nextNameButton = document.getElementById('nextNameButton');
 
-    /* Transição de opacidade para as telas, exceto a de introdução */
-    transition: opacity 0.5s ease-in-out;
-}
+    // Elementos da coleta de sobrenome
+    const lastNameQuestion = document.getElementById('lastNameQuestion');
+    const lastNameInput = document.getElementById('lastNameInput');
+    const nextLastNameButton = document.getElementById('nextLastNameButton');
 
-/* Sobrescreve o estilo do "card branco" APENAS para a tela de introdução */
-#intro-section {
-    padding: 20px; /* Ajusta o padding para a introdução, se necessário */
-    padding-left: 50px; /* Margem esquerda de 50px para a introdução */
-    padding-right: 50px; /* Margem direita de 50px para a introdução */
-}
+    // Elementos da coleta de proficiência
+    const proficiencyQuestion = document.getElementById('proficiencyQuestion');
+    const proficiencyOptionsContainer = document.querySelector('.proficiency-options');
+    const proficiencyOptionButtons = document.querySelectorAll('.proficiency-option');
+    const nextProficiencyButton = document.getElementById('nextProficiencyButton');
 
-.hidden {
-    display: none !important; /* Usa !important para garantir que sobrescreva qualquer display */
-    opacity: 0;
-}
+    // Elementos da tela de preparação
+    const preparationMessage = document.getElementById('preparationMessage');
+    const startQuizButton = document.getElementById('startQuizButton');
 
-/* Estilo para o logo */
-.logo-container {
-    margin-bottom: 20px;
-    text-align: center; /* Centraliza o logo */
-}
+    // Elementos do quiz
+    const progressBarFill = document.getElementById('progressBarFill');
+    const progressText = document.getElementById('progressText');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const mediaContainer = document.getElementById('media-container'); // Renomeado de youtubeVideoContainer
+    const nextButton = document.getElementById('nextButton');
 
-.logo {
-    max-width: 200px; /* Ajuste conforme o tamanho do seu logo */
-    height: auto;
-}
+    // Elementos dos resultados
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const totalQuestionsDisplay = document.getElementById('totalQuestionsDisplay');
+    const levelDisplay = document.getElementById('levelDisplay');
+    const detailedFeedback = document.getElementById('detailedFeedback');
+    const restartButton = document.getElementById('restartButton');
 
-/* Estilo geral para h1 */
-h1 {
-    color: #5d2066;
-    margin-bottom: 25px;
-    font-size: 2.2em;
-    text-align: center; /* Alinha o h1 à esquerda por padrão */
-}
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let score = 0;
+    let userData = {
+        firstName: '',
+        lastName: '',
+        proficiencyLevel: ''
+    };
 
-/* Sobrescreve o estilo do h1 para as telas de pergunta (nome, sobrenome, proficiência) */
-#name-section h1,
-#lastName-section h1,
-#proficiency-section h1 {
-    font-size: 1.5em; /* Tamanho de fonte de texto normal, um pouco maior que o padrão */
-    text-align: left; /* Alinhado à esquerda */
-    color: #5d2066; /* Cor do texto das perguntas agora é roxa */
-    font-weight: normal; /* Remove o negrito padrão do h1 */
-    line-height: 1.5;
-}
+    // Variáveis para o controle do reprodutor nativo
+    let currentMediaElement = null; // O elemento <audio> ou <video> atual
+    const MAX_PLAYS = 2; // Limite de reproduções por mídia
+    const mediaPlayCounts = {}; // { 'mediaPath': 0 } - Armazena a contagem de reproduções
+    let currentMediaPath = null; // Caminho do arquivo de mídia atual
 
-/* Estilo para a caixa de texto da introdução */
-.intro-text-box {
-    padding: 0 10px;
-    margin-bottom: 30px;
-    text-align: left;
-    line-height: 1.6;
-    color: #5d2066; /* Cor do texto roxa */
-    font-size: 1.1em; /* Adicione ou ajuste esta linha para o tamanho desejado */
-}
-
-.intro-text-box ul {
-    list-style-type: disc;
-    margin-left: 20px;
-    padding-left: 0;
-}
-
-.intro-text-box li {
-    margin-bottom: 10px;
-}
-
-/* Estilo do input de texto para ter apenas a linha azul inferior */
-.text-input {
-    width: calc(100% - 0px); /* Ajusta a largura para considerar o padding da tela */
-    padding: 15px 0px 10px 0px; /* Ajusta o padding para a linha inferior e remove padding lateral */
-    margin-bottom: 25px;
-    border: none; /* Remove todas as bordas */
-    border-bottom: 2px solid #0190C1; /* Adiciona apenas a borda inferior azul */
-    background-color: transparent; /* Garante que o fundo do input seja transparente */
-    border-radius: 0; /* Remove qualquer arredondamento */
-    font-family: 'Aleo', serif;
-    font-size: 1.5em; /* Aumenta o tamanho da fonte para o texto digitado */
-    color: #5d2066; /* Cor do texto digitado agora é roxa */
-    box-sizing: border-box;
-    text-align: left; /* Alinha o texto digitado à esquerda */
-}
-
-/* Estilo para o placeholder (VISÍVEL e alinhado à esquerda) */
-.text-input::placeholder {
-    color: #95a5a6; /* Cor visível para o placeholder */
-    text-align: left; /* Alinha o placeholder à esquerda */
-}
-
-/* Estilo para o placeholder em navegadores WebKit (Chrome, Safari) */
-.text-input::-webkit-input-placeholder {
-    color: #95a5a6;
-    text-align: left;
-}
-
-/* Estilo para o placeholder em navegadores Mozilla Firefox */
-.text-input::-moz-placeholder {
-    color: #95a5a6;
-    text-align: left;
-}
-
-/* Estilo para o placeholder em navegadores Microsoft Edge */
-.text-input::-ms-input-placeholder {
-    color: #95a5a6;
-    text-align: left;
-}
-
-
-/* Botões principais (Iniciar, Próxima, Anterior, Refazer) */
-.main-button {
-    background-color: #0190C1;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 25px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    min-width: 120px;
-    font-family: 'Aleo', serif;
-    font-weight: bold; /* TEXTO DOS BOTÕES EM NEGRITO */
-}
-
-.main-button:hover:not(:disabled) {
-    background-color: #017bb0;
-}
-
-.main-button:disabled {
-    background-color: rgba(1, 144, 193, 0.3); /* Azul com 30% de transparência */
-    cursor: not-allowed;
-}
-
-/* Estilo para o grupo de botão com hint */
-.button-with-hint-group {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Alinha à esquerda por padrão */
-    gap: 15px;
-    margin-top: 30px;
-    width: 100%; /* Ocupa a largura total para alinhamento */
-}
-
-/* Estilo específico para o grupo do botão Iniciar para mantê-lo centralizado */
-#intro-section .button-with-hint-group {
-    justify-content: center; /* Sempre centralizado, mesmo em desktop */
-}
-
-/* Centraliza o botão da tela de preparação */
-#preparation-section .button-with-hint-group {
-    justify-content: center;
-}
-
-.enter-hint {
-    font-size: 0.9em;
-    color: #5d2066; /* COR DO TEXTO 'Pressione Enter' AGORA É ROXA */
-}
-
-.enter-hint kbd {
-    background-color: #eee;
-    border-radius: 3px;
-    border: 1px solid #b4b4b4;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
-    color: #333;
-    display: inline-block;
-    font-size: 0.8em;
-    font-weight: 700;
-    line-height: 1;
-    padding: 2px 4px;
-    white-space: nowrap;
-}
-
-/* Media query para mobile */
-@media (max-width: 767px) {
-    .button-with-hint-group {
-        justify-content: center; /* Centraliza em telas menores */
+    // Função para embaralhar um array (Fisher-Yates)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
-    .enter-hint {
-        display: none; /* Oculta o hint em telas menores */
+
+    // Estrutura de dados para as perguntas (com as 40 perguntas)
+    // As opções foram reorganizadas e os correctAnswerId ajustados para distribuir as respostas corretas.
+    const questions = [
+        {
+            id: 'q1',
+            type: 'grammar',
+            topic: 'verb_tenses',
+            question: "1. _________ the store. Do you want to come with me?",
+            options: [
+                { id: 'opt1a', text: "Am going to" },
+                { id: 'opt1b', text: "I going to" },
+                { id: 'opt1c', text: "I'm going to" },
+                { id: 'opt1d', text: "Going to" }
+            ],
+            correctAnswerId: 'opt1c',
+            explanation: "A forma correta para expressar uma ação futura planejada é 'I'm going to' seguido do verbo base.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q2',
+            type: 'grammar',
+            topic: 'past_simple',
+            question: "2. Yesterday, I __________ to the cinema with my friends.",
+            options: [
+                { id: 'opt2a', text: "go" },
+                { id: 'opt2b', text: "going" },
+                { id: 'opt2c', text: "goed" },
+                { id: 'opt2d', text: "went" }
+            ],
+            correctAnswerId: 'opt2d',
+            explanation: "O passado simples de 'go' é 'went'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q3',
+            type: 'grammar',
+            topic: 'present_simple',
+            question: "3. My sister is a teacher. She __________ English at a school.",
+            options: [
+                { id: 'opt3a', text: "teaching" },
+                { id: 'opt3b', text: "teaches" },
+                { id: 'opt3c', text: "teached" },
+                { id: 'opt3d', text: "teach" }
+            ],
+            correctAnswerId: 'opt3b',
+            explanation: "Para a terceira pessoa do singular (she) no Present Simple, adiciona-se '-es' ao verbo 'teach'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q4',
+            type: 'vocabulary',
+            topic: 'adjectives',
+            question: "4. What's the weather like today? It's very ________.",
+            options: [
+                { id: 'opt4a', text: "hotter" },
+                { id: 'opt4b', text: "hot" },
+                { id: 'opt4c', text: "hotnes" },
+                { id: 'opt4d', text: "hottest" }
+            ],
+            correctAnswerId: 'opt4b',
+            explanation: "O adjetivo simples 'hot' é o correto para descrever o clima.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q5',
+            type: 'grammar',
+            topic: 'prepositions',
+            question: "5. Can you pass ________ the salt, please?",
+            options: [
+                { id: 'opt5a', text: "at" },
+                { id: 'opt5b', text: "me" },
+                { id: 'opt5c', text: "by" },
+                { id: 'opt5d', text: "for" }
+            ],
+            correctAnswerId: 'opt5b',
+            explanation: "A construção correta é 'pass me the salt'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q6',
+            type: 'grammar',
+            topic: 'there_is_are',
+            question: "6. _________ a man studying in the library.",
+            options: [
+                { id: 'opt6a', text: "There is" },
+                { id: 'opt6b', text: "There are" },
+                { id: 'opt6c', text: "There were" },
+                { id: 'opt6d', text: "There aren't" }
+            ],
+            correctAnswerId: 'opt6a',
+            explanation: "Usa-se 'There is' para substantivos singulares.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q7',
+            type: 'grammar',
+            topic: 'quantifiers',
+            question: "7. How __________ sugar do you put in your coffee?",
+            options: [
+                { id: 'opt7a', text: "a lot of" },
+                { id: 'opt7b', text: "many" },
+                { id: 'opt7c', text: "much" },
+                { id: 'opt7d', text: "a little" }
+            ],
+            correctAnswerId: 'opt7c',
+            explanation: "'Sugar' é um substantivo incontável, então usa-se 'much'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q8',
+            type: 'grammar',
+            topic: 'present_perfect',
+            question: "8. How many times __________ to Paris?",
+            options: [
+                { id: 'opt8a', text: "been you" },
+                { id: 'opt8b', text: "have you been" },
+                { id: 'opt8c', text: "you been" },
+                { id: 'opt8d', text: "you have been" }
+            ],
+            correctAnswerId: 'opt8b',
+            explanation: "A estrutura correta do Present Perfect em perguntas é 'Have/Has + sujeito + past participle'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q9',
+            type: 'grammar',
+            topic: 'past_continuous',
+            question: "9. Last weekend, while I __________ TV, the power suddenly went out.",
+            options: [
+                { id: 'opt9a', text: "watch" },
+                { id: 'opt9b', text: "watched" },
+                { id: 'opt9c', text: "were watching" },
+                { id: 'opt9d', text: "was watching" }
+            ],
+            correctAnswerId: 'opt9d',
+            explanation: "Para uma ação contínua no passado interrompida por outra, usa-se Past Continuous ('was watching').",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q10',
+            type: 'grammar',
+            topic: 'modals',
+            question: "10. You _______ smoke in this area. It's not allowed.",
+            options: [
+                { id: 'opt10a', text: "mustn't" },
+                { id: 'opt10b', text: "don't have to" },
+                { id: 'opt10c', text: "have to" },
+                { id: 'opt10d', text: "must" }
+            ],
+            correctAnswerId: 'opt10a',
+            explanation: "'Mustn't' indica proibição.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q11',
+            type: 'grammar',
+            topic: 'modals',
+            question: "11. <strong>A:</strong> Did you study for tomorrow's exam?<br><strong>B:</strong> Yes, but I __________ dedicate more time to it this afternoon.",
+            options: [
+                { id: 'opt11a', text: "should" },
+                { id: 'opt11b', text: "need" },
+                { id: 'opt11c', text: "used to" },
+                { id: 'opt11d', text: "have" }
+            ],
+            correctAnswerId: 'opt11a',
+            explanation: "'Should' expressa uma recomendação ou obrigação leve.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q12',
+            type: 'grammar',
+            topic: 'used_to',
+            question: "12. <strong>A:</strong> Did you play any instrument when you were younger?<br><strong>B:</strong> Yes, I __________ play the piano regularly.",
+            options: [
+                { id: 'opt12a', text: "used to" },
+                { id: 'opt12b', text: "am used to" },
+                { id: 'opt12c', text: "use to" },
+                { id: 'opt12d', text: "using to" }
+            ],
+            correctAnswerId: 'opt12a',
+            explanation: "'Used to' é usado para hábitos ou estados passados que não são mais verdadeiros.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q13',
+            type: 'dialogue',
+            topic: 'time',
+            question: "13. <strong>A:</strong> What time is the meeting today?<br><strong>B:</strong> __________.",
+            options: [
+                { id: 'opt13a', text: "Sometimes in the morning" },
+                { id: 'opt13b', text: "It's only at 3 p.m." },
+                { id: 'opt13c', text: "Sorry, I did that" },
+                { id: 'opt13d', text: "It's the same place" }
+            ],
+            correctAnswerId: 'opt13b',
+            explanation: "A resposta 'It's only at 3 p.m.' é a única que informa o horário da reunião.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q14',
+            type: 'dialogue',
+            topic: 'directions',
+            question: "14. <strong>A:</strong> Where should I put the package?<br><strong>B:</strong> __________.",
+            options: [
+                { id: 'opt14a', text: "I like the blue one" },
+                { id: 'opt14b', text: "Next to the door" },
+                { id: 'opt14c', text: "Because it's heavy" },
+                { id: 'opt14d', text: "Here. Help me." }
+            ],
+            correctAnswerId: 'opt14b',
+            explanation: "'Next to the door' indica o local onde o pacote deve ser colocado.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q15',
+            type: 'grammar',
+            topic: 'superlatives',
+            question: "15. This is __________ book I've ever read.",
+            options: [
+                { id: 'opt15a', text: "the most interesting" },
+                { id: 'opt15b', text: "more interesting" },
+                { id: 'opt15c', text: "most interesting" },
+                { id: 'opt15d', text: "the interesting" }
+            ],
+            correctAnswerId: 'opt15a',
+            explanation: "Para superlativos com adjetivos longos, usa-se 'the most + adjetivo'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q16',
+            type: 'grammar',
+            topic: 'conditionals',
+            question: "16. If I __________ more time, I would travel the world.",
+            options: [
+                { id: 'opt16a', text: "had" },
+                { id: 'opt16b', text: "have" },
+                { id: 'opt16c', text: "would have" },
+                { id: 'opt16d', text: "will have" }
+            ],
+            correctAnswerId: 'opt16a',
+            explanation: "Esta é uma Second Conditional (situação hipotética no presente), que usa Past Simple na cláusula 'if'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q17',
+            type: 'vocabulary',
+            topic: 'phrasal_verbs',
+            question: "17. I need to __________ my old clothes to charity.",
+            options: [
+                { id: 'opt17a', text: "give up" },
+                { id: 'opt17b', text: "give away" },
+                { id: 'opt17c', text: "give in" },
+                { id: 'opt17d', text: "give out" }
+            ],
+            correctAnswerId: 'opt17b',
+            explanation: "'Give away' significa doar ou dar algo gratuitamente.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q18',
+            type: 'grammar',
+            topic: 'passive_voice',
+            question: "18. The new bridge __________ last year.",
+            options: [
+                { id: 'opt18a', text: "built" },
+                { id: 'opt18b', text: "was built" },
+                { id: 'opt18c', text: "has built" },
+                { id: 'opt18d', text: "is built" }
+            ],
+            correctAnswerId: 'opt18b',
+            explanation: "A voz passiva no Past Simple é 'was/were + past participle'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q19',
+            type: 'vocabulary',
+            topic: 'idioms',
+            question: "19. It's raining cats and dogs, so we should __________.",
+            options: [
+                { id: 'opt19a', text: "go for a walk" },
+                { id: 'opt19b', text: "stay home" },
+                { id: 'opt19c', text: "play outside" },
+                { id: 'opt19d', text: "open the window" }
+            ],
+            correctAnswerId: 'opt19b',
+            explanation: "'Raining cats and dogs' significa chover muito forte, então o ideal é 'stay home'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q20',
+            type: 'dialogue',
+            topic: 'suggestions',
+            question: "20. <strong>A:</strong> I couldn't go to work yesterday because I needed to fix my car.<br><strong>B:</strong> __________.",
+            options: [
+                { id: 'opt20a', text: "We could find someone to fix it for you next time." },
+                { id: 'opt20b', text: "I can't help you with that, because I was traveling." },
+                { id: 'opt20c', text: "You can ask for help if you needed." },
+                { id: 'opt20d', text: "In the past, public transportation are able to be a good option." }
+            ],
+            correctAnswerId: 'opt20a',
+            explanation: "A frase 'We could find someone to fix it for you next time' oferece uma solução futura usando 'could'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q21',
+            type: 'vocabulary',
+            topic: 'adverbs',
+            question: "21. She sings __________ beautifully.",
+            options: [
+                { id: 'opt21a', text: "extreme" },
+                { id: 'opt21b', text: "extremely" },
+                { id: 'opt21c', text: "extremity" },
+                { id: 'opt21d', text: "extremist" }
+            ],
+            correctAnswerId: 'opt21b',
+            explanation: "'Extremely' é o advérbio que modifica o advérbio 'beautifully'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q22',
+            type: 'grammar',
+            topic: 'reported_speech',
+            question: "22. He said that he __________ to London the following day.",
+            options: [
+                { id: 'opt22a', text: "will go" },
+                { id: 'opt22b', text: "goes" },
+                { id: 'opt22c', text: "would go" },
+                { id: 'opt22d', text: "is going" }
+            ],
+            correctAnswerId: 'opt22c',
+            explanation: "No Reported Speech, 'will go' se torna 'would go'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q23',
+            type: 'vocabulary',
+            topic: 'collocations',
+            question: "23. I always __________ a lot of research before I travel.",
+            options: [
+                { id: 'opt23a', text: "make" },
+                { id: 'opt23b', text: "do" },
+                { id: 'opt23c', text: "take" },
+                { id: 'opt23d', text: "have" }
+            ],
+            correctAnswerId: 'opt23b',
+            explanation: "A colocation correta é 'do research'.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q24',
+            type: 'grammar',
+            topic: 'relative_clauses',
+            question: "24. This is the restaurant __________ we had dinner last night.",
+            options: [
+                { id: 'opt24a', text: "which" },
+                { id: 'opt24b', text: "who" },
+                { id: 'opt24c', text: "where" },
+                { id: 'opt24d', text: "whose" }
+            ],
+            correctAnswerId: 'opt24c',
+            explanation: "'Where' é usado para se referir a um lugar.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q25',
+            type: 'vocabulary',
+            topic: 'verbs',
+            question: "25. The sound of the thunder __________ through the valley.",
+            options: [
+                { id: 'opt25a', text: "reverberated" },
+                { id: 'opt25b', text: "whispered" },
+                { id: 'opt25c', text: "mumbled" }
+            ],
+            correctAnswerId: 'opt25a',
+            explanation: "'Reverberated' (reverberou) é o verbo que melhor descreve o som se espalhando e ecoando de forma intensa.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q26',
+            type: 'vocabulary',
+            topic: 'verbs',
+            question: "26. It's essential to __________ the historical significance of the artwork during the museum tour.",
+            options: [
+                { id: 'opt26a', text: "seize" },
+                { id: 'opt26b', text: "comprehend" },
+                { id: 'opt26c', text: "grasp" }
+            ],
+            correctAnswerId: 'opt26b',
+            explanation: "'Comprehend' (compreender) é o verbo mais adequado para entender o significado de algo.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q27',
+            type: 'vocabulary',
+            topic: 'verbs',
+            question: "27. It's important to __________ your plants regularly to help them grow strong and healthy.",
+            options: [
+                { id: 'opt27a', text: "inspect" },
+                { id: 'opt27b', text: "check" },
+                { id: 'opt27c', text: "examine" }
+            ],
+            correctAnswerId: 'opt27b',
+            explanation: "'Check' (verificar) é o verbo mais comum para monitorar o estado de plantas regularmente.",
+            mediaPath: null,
+            mediaType: null
+        },
+        {
+            id: 'q28',
+            type: 'vocabulary',
+            topic: 'verbs',
+            question: "28. The delicious aroma of freshly baked cookies is __________ throughout the entire kitchen.",
+            options: [
+                { id: 'opt28a', text: "awaiting" },
+                { id: 'opt28b', text: "spreading" },
+                { id: 'opt28c', text: "concerning" }
+            ],
+            correctAnswerId: 'opt28b',
+            explanation: "'Spreading' (espalhando) descreve o aroma se difundindo pela cozinha.",
+            mediaPath: null,
+            mediaType: null
+        },
+        // --- NOVAS PERGUNTAS DE LISTENING (Teste_de_nivelamento__ingles_3.pdf) ---
+        {
+            id: 'q29',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "29. Listen to Speaker #1: \"Have you ever been to a music festival?\"<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt29a', text: "Yes, I love rock concerts!" },
+                { id: 'opt29b', text: "I have a few friends who play instruments." },
+                { id: 'opt29c', text: "I usually stay at home during the weekends." },
+                { id: 'opt29d', text: "Last year, I bought a new guitar." }
+            ],
+            correctAnswerId: 'opt29a',
+            explanation: "A resposta 'Yes, I love rock concerts!' é a única que responde diretamente à pergunta sobre ter ido a um festival de música, indicando uma experiência positiva com o tema.",
+            mediaPath: 'media/q29.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'video'
+        },
+        {
+            id: 'q30',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "30. Listen to Speaker #2: \"How do you usually unwind after a long day at work?\"<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt30a', text: "I love drinking wine to relax after I get home." },
+                { id: 'opt30b', text: "A cup of tea and soft music help me to sleep well." },
+                { id: 'opt30c', text: "My mom cooks dinner for me almost every night." },
+                { id: 'opt30d', text: "The boss at my company likes to hold meetings late at night." }
+            ],
+            correctAnswerId: 'opt30b',
+            explanation: "A opção 'A cup of tea and soft music help me to sleep well' descreve uma forma comum de relaxar após um dia de trabalho.",
+            mediaPath: 'media/q30.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
+        },
+        {
+            id: 'q31',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "31. Listen to Speaker #3: “How do you study to do so well in the exams?”<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt31a', text: "I never attend classes." },
+                { id: 'opt31b', text: "I sleep early every day." },
+                { id: 'opt31c', text: "I create a study schedule and review my notes regularly." },
+                { id: 'opt31d', text: "I enjoy playing sports after exams." }
+            ],
+            correctAnswerId: 'opt31c',
+            explanation: "A resposta 'I create a study schedule and review my notes regularly' explica uma estratégia de estudo eficaz.",
+            mediaPath: 'media/q31.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
+        },
+        {
+            id: 'q32',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "32. Listen to Speaker #4: “I've been practicing the guitar every day for the past six months, but I still can't play an entire song.”<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
+                { id: 'opt32b', text: "Maybe you're just not cut out for music. Why don't you try something else?" },
+                { id: 'opt32c', text: "I hope you're not dedicating too much time to it." },
+                { id: 'opt32d', text: "You need to practice your cooking skills more." }
+            ],
+            correctAnswerId: 'opt32b',
+            explanation: "A opção 'Maybe you're just not cut out for music. Why don't you try something else?' é uma resposta desmotivadora e inadequada para a situação.",
+            mediaPath: 'media/q32.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
+        },
+        {
+            id: 'q33',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "33. Listen to Speaker #5: “You look exhausted, did you have a long day at work?”<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt33a', text: "I bought a new book to read." },
+                { id: 'opt33b', text: "I had meetings all day." },
+                { id: 'opt33c', text: "I'm thinking of planning a vacation soon." },
+                { id: 'opt33d', text: "I love going to the gym after work." }
+            ],
+            correctAnswerId: 'opt33b',
+            explanation: "A resposta 'I had meetings all day' explica o motivo do cansaço após um longo dia de trabalho.",
+            mediaPath: 'media/q33.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
+        },
+        {
+            id: 'q34',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "34. Listen to Speaker #6: “Mom, you won't believe what happened to me on the way to the grocery store!”<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt34a', text: "I'm not a fan of shopping for groceries." },
+                { id: 'opt34b', text: "Tell me all about it when you get home." },
+                { id: 'opt34c', text: "I have a dentist appointment next week." },
+                { id: 'opt34d', text: "I've been trying a new recipe lately." }
+            ],
+            correctAnswerId: 'opt34b',
+            explanation: "A resposta 'Tell me all about it when you get home' é uma reação natural e apropriada a uma exclamação de surpresa.",
+            mediaPath: 'media/q34.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
+        },
+        {
+            id: 'q35',
+            type: 'listening',
+            topic: 'conversation_continuation',
+            question: "35. Listen to Speaker #7: “Guess what, I ﬁnally passed my driving test.”<br>Choose the best option for what comes next in the conversation.",
+            options: [
+                { id: 'opt35a', text: "I'm planning a road trip for next month." },
+                { id: 'opt35b', text: "I bought a new bicycle recently." },
+                { id: 'opt35c', text: "Congratulations! How was the test?" },
+                { id: 'opt35d', text: "I prefer using public transportation." }
+            ],
+            correctAnswerId: 'opt35c',
+            explanation: "A resposta 'Congratulations! How was the test?' é uma felicitação e uma pergunta de acompanhamento apropriada.",
+            mediaPath: 'media/q35.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
+        },
+        {
+            id: 'q36',
+            type: 'listening',
+            topic: 'comprehension',
+            question: "36. Listen to the audio in the video. Then, answer the questions below:<br>What does the speaker mean by \"without messing everything up\"?",
+            options: [
+                { id: 'opt36a', text: "Experimenting with technology without considering the potential risks." },
+                { id: 'opt36b', text: "Introducing groundbreaking technologies without any consequences." },
+                { id: 'opt36c', text: "Utilizing transformative technologies responsibly and ethically." }
+            ],
+            correctAnswerId: 'opt36c',
+            explanation: "A frase 'without messing everything up' no contexto do áudio se refere a usar a tecnologia de forma responsável e ética para evitar problemas.",
+            mediaPath: 'media/q36.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE VÍDEO
+            mediaType: 'video'
+        },
+        {
+            id: 'q37',
+            type: 'listening',
+            topic: 'comprehension',
+            question: "37. Listen to the audio in the video. Then, answer the questions below:<br>What is the speaker's main concern regarding artificial intelligence and gene-editing?",
+            options: [
+                { id: 'opt37a', text: "The speed at which these technologies are developing." },
+                { id: 'opt37b', text: "The ethical implications and responsible use of these powerful tools." },
+                { id: 'opt37c', text: "The lack of public interest in these scientific advancements." }
+            ],
+            correctAnswerId: 'opt37b',
+            explanation: "O orador menciona 'big moral puzzle' e 'really thinking hard about what we're doing' em relação a IA e edição genética, indicando preocupação com as implicações éticas.",
+            mediaPath: 'media/q37.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE VÍDEO
+            mediaType: 'video'
+        },
+        {
+            id: 'q38',
+            type: 'listening',
+            topic: 'comprehension',
+            question: "38. Listen to the audio in the video. Then, answer the questions below:<br>According to the speaker, who is responsible for figuring out how to use technology responsibly?",
+            options: [
+                { id: 'opt38a', text: "Only tech wizards and scientists." },
+                { id: 'opt38b', text: "Government regulators and policymakers." },
+                { id: 'opt38c', text: "All of us, not just tech experts." }
+            ],
+            correctAnswerId: 'opt38c',
+            explanation: "O orador afirma 'It's not just the tech wizards; it's all of us figuring out the right way to use these game-changing tools'.",
+            mediaPath: 'media/q38.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE VÍDEO
+            mediaType: 'video'
+        },
+        {
+            id: 'q39',
+            type: 'listening',
+            topic: 'comprehension',
+            question: "39. Listen to the audio in the video. Then, answer the questions below:<br>What is the speaker's overall tone when discussing technology?",
+            options: [
+                { id: 'opt39a', text: "Optimistic and excited about future advancements." },
+                { id: 'opt39b', text: "Cautious and reflective about its impact and responsible use." },
+                { id: 'opt39c', text: "Indifferent and detached from technological developments." }
+            ],
+            correctAnswerId: 'opt39b',
+            explanation: "O tom do orador é de cautela e reflexão, usando frases como 'big moral puzzle' e 'kinda heavy'.",
+            mediaPath: 'media/q39.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE VÍDEO
+            mediaType: 'video'
+        },
+        {
+            id: 'q40',
+            type: 'listening',
+            topic: 'comprehension',
+            question: "40. Listen to the audio in the video. Then, answer the questions below:<br>The speaker mentions social media as an example of technology that:",
+            options: [
+                { id: 'opt40a', text: "Is primarily used for sharing photos." },
+                { id: 'opt40b', text: "Shapes opinions, influences politics, and connects people globally." },
+                { id: 'opt40c', text: "Has seen a decline in usage over the years." }
+            ],
+            correctAnswerId: 'opt40b',
+            explanation: "O orador descreve a mídia social como algo que 'It’s shaping opinions, inﬂuencing politics, and connecting people all over the globe'.",
+            mediaPath: 'media/q40.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE VÍDEO
+            mediaType: 'video'
+        }
+    ];
+
+    // Função para mostrar uma tela e esconder as outras
+    function showScreen(screenElement) {
+        const allScreens = [introSection, nameSection, lastNameSection, proficiencySection, preparationSection, quizSection, resultsSection];
+        allScreens.forEach(screen => {
+            if (screen === screenElement) {
+                screen.classList.remove('hidden');
+                screen.style.opacity = '1';
+            } else {
+                screen.classList.add('hidden');
+                screen.style.opacity = '0';
+            }
+        });
     }
-    /* Ajusta o padding da tela para mobile, se necessário */
-    .screen {
-        padding-left: 20px;
-        padding-right: 20px;
+
+    // Event listeners para botões de navegação
+    startButton.addEventListener('click', () => {
+        showScreen(nameSection);
+        firstNameInput.focus(); // Foca no input do nome
+    });
+
+    firstNameInput.addEventListener('input', () => {
+        nextNameButton.disabled = firstNameInput.value.trim() === '';
+    });
+
+    nextNameButton.addEventListener('click', () => {
+        userData.firstName = firstNameInput.value.trim();
+        lastNameQuestion.textContent = `Qual é seu sobrenome, ${userData.firstName}?`;
+        showScreen(lastNameSection);
+        lastNameInput.focus(); // Foca no input do sobrenome
+    });
+
+    lastNameInput.addEventListener('input', () => {
+        nextLastNameButton.disabled = lastNameInput.value.trim() === '';
+    });
+
+    nextLastNameButton.addEventListener('click', () => {
+        userData.lastName = lastNameInput.value.trim();
+        proficiencyQuestion.textContent = `Olá, ${userData.firstName}! Qual seu nível de proficiência em inglês?`;
+        showScreen(proficiencySection);
+    });
+
+    proficiencyOptionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+            userData.proficiencyLevel = button.dataset.level;
+            nextProficiencyButton.disabled = false;
+        });
+    });
+
+    nextProficiencyButton.addEventListener('click', () => {
+        preparationMessage.innerHTML = `Tudo pronto, ${userData.firstName}! <br>Seu teste de nivelamento está prestes a começar.`;
+        showScreen(preparationSection);
+    });
+
+    startQuizButton.addEventListener('click', () => {
+        currentQuestionIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        score = 0;
+        // Reinicia a contagem de reproduções dos vídeos
+        for (const mediaPath in mediaPlayCounts) {
+            mediaPlayCounts[mediaPath] = 0;
+        }
+        loadQuestion();
+        showScreen(quizSection);
+    });
+
+    function loadQuestion() {
+        const question = questions[currentQuestionIndex];
+        questionText.innerHTML = question.question;
+        optionsContainer.innerHTML = ''; // Limpa as opções anteriores
+
+        // Lógica para o reprodutor de mídia nativo
+        if (question.mediaPath && question.mediaType) {
+            currentMediaPath = question.mediaPath;
+            // Inicializa a contagem se ainda não existir
+            if (!mediaPlayCounts[currentMediaPath]) {
+                mediaPlayCounts[currentMediaPath] = 0;
+            }
+
+            mediaContainer.innerHTML = ''; // Limpa o container de mídia
+
+            const mediaWrapper = document.createElement('div');
+            mediaWrapper.classList.add('media-wrapper'); // Para posicionamento relativo
+
+            const mediaElement = document.createElement(question.mediaType);
+            mediaElement.src = question.mediaPath;
+            mediaElement.preload = 'auto'; // Carrega metadados do arquivo
+            mediaElement.style.width = '100%';
+            mediaElement.style.height = '100%';
+            mediaElement.style.display = 'block'; // Garante que o elemento de mídia seja visível
+
+            // Adiciona o elemento de mídia ao wrapper
+            mediaWrapper.appendChild(mediaElement);
+            mediaContainer.appendChild(mediaWrapper);
+
+            currentMediaElement = mediaElement; // Armazena a referência para o elemento atual
+
+            // Cria os controles personalizados
+            const controlsDiv = document.createElement('div');
+            controlsDiv.classList.add('media-controls');
+
+            const playButton = document.createElement('button');
+            playButton.classList.add('main-button');
+            playButton.textContent = 'Reproduzir';
+
+            const restartButtonMedia = document.createElement('button');
+            restartButtonMedia.classList.add('main-button');
+            restartButtonMedia.textContent = 'Reiniciar';
+            restartButtonMedia.disabled = true; // Desabilitado até a primeira reprodução
+
+            const statusSpan = document.createElement('span');
+            statusSpan.classList.add('media-status');
+
+            controlsDiv.appendChild(playButton);
+            controlsDiv.appendChild(restartButtonMedia);
+            controlsDiv.appendChild(statusSpan);
+            mediaContainer.appendChild(controlsDiv);
+
+            // Atualiza o status inicial
+            updateMediaStatus(statusSpan);
+
+            // Event Listeners para os controles
+            playButton.addEventListener('click', () => {
+                if (currentMediaElement && mediaPlayCounts[currentMediaPath] < MAX_PLAYS) {
+                    currentMediaElement.play();
+                    playButton.disabled = true; // Desabilita o play enquanto toca
+                    restartButtonMedia.disabled = false; // Habilita o reiniciar
+                    statusSpan.textContent = `Reproduzindo...`;
+                }
+            });
+
+            restartButtonMedia.addEventListener('click', () => {
+                if (currentMediaElement && mediaPlayCounts[currentMediaPath] < MAX_PLAYS) {
+                    currentMediaElement.currentTime = 0; // Volta para o início
+                    currentMediaElement.play();
+                    playButton.disabled = true;
+                    statusSpan.textContent = `Reproduzindo novamente...`;
+                }
+            });
+
+            currentMediaElement.addEventListener('ended', () => {
+                if (currentMediaPath) {
+                    mediaPlayCounts[currentMediaPath]++; // Incrementa a contagem
+                    updateMediaStatus(statusSpan);
+                    playButton.disabled = false; // Habilita o play novamente (se houver reproduções restantes)
+                    if (mediaPlayCounts[currentMediaPath] >= MAX_PLAYS) {
+                        playButton.disabled = true;
+                        restartButtonMedia.disabled = true;
+                    }
+                }
+            });
+
+            mediaContainer.style.display = 'block';
+        } else {
+            // Se não há mídia, garante que o container esteja vazio e oculto
+            mediaContainer.innerHTML = '';
+            mediaContainer.style.display = 'none';
+            currentMediaElement = null;
+            currentMediaPath = null;
+        }
+
+        const optionLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+        const shuffledOptions = shuffleArray([...question.options]);
+
+        shuffledOptions.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.classList.add('option-button');
+            button.dataset.optionId = option.id;
+            button.addEventListener('click', () => selectOption(option.id));
+
+            const letterSpan = document.createElement('span');
+            letterSpan.classList.add('option-letter');
+            letterSpan.textContent = optionLetters[index];
+
+            const textSpan = document.createElement('span');
+            textSpan.classList.add('option-text');
+            textSpan.textContent = option.text;
+
+            button.appendChild(letterSpan);
+            button.appendChild(textSpan);
+            optionsContainer.appendChild(button);
+        });
+
+        if (userAnswers[currentQuestionIndex]) {
+            const selectedOptionButton = optionsContainer.querySelector(`[data-option-id="${userAnswers[currentQuestionIndex]}"]`);
+            if (selectedOptionButton) {
+                selectedOptionButton.classList.add('selected');
+            }
+        }
+
+        updateProgressBar();
+        updateNavigationButtons();
     }
-    #intro-section {
-        padding-left: 20px;
-        padding-right: 20px;
+
+    function updateMediaStatus(statusElement) {
+        if (!currentMediaPath) return;
+        const playsLeft = MAX_PLAYS - mediaPlayCounts[currentMediaPath];
+        if (playsLeft > 0) {
+            statusElement.textContent = `Reproduções restantes: ${playsLeft}`;
+        } else {
+            statusElement.textContent = `Limite de ${MAX_PLAYS} reproduções atingido.`;
+        }
     }
-}
+
+    function selectOption(optionId) {
+        optionsContainer.querySelectorAll('.option-button').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        const selectedButton = optionsContainer.querySelector(`[data-option-id="${optionId}"]`);
+        if (selectedButton) {
+            selectedButton.classList.add('selected');
+        }
+        userAnswers[currentQuestionIndex] = optionId;
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+        progressBarFill.style.width = `${progress}%`;
+        progressText.textContent = `Questão ${currentQuestionIndex + 1} de ${questions.length}`;
+    }
+
+    function updateNavigationButtons() {
+        nextButton.textContent = currentQuestionIndex === questions.length - 1 ? 'Finalizar Teste' : 'Próxima';
+    }
+
+    function calculateResults() {
+        score = 0;
+        const incorrectQuestions = [];
+
+        questions.forEach((q, index) => {
+            const userAnswer = userAnswers[index];
+            const originalCorrectOption = q.options.find(opt => opt.id === q.correctAnswerId);
+
+            if (userAnswer === originalCorrectOption.id) {
+                score++;
+            } else {
+                const userAnswerText = q.options.find(opt => opt.id === userAnswer)?.text || "Não respondida";
+                const correctAnswerText = originalCorrectOption.text;
+
+                incorrectQuestions.push({
+                    question: q.question,
+                    userAnswer: userAnswerText,
+                    correctAnswer: correctAnswerText,
+                    explanation: q.explanation,
+                    type: q.type,
+                    topic: q.topic
+                });
+            }
+        });
+
+        displayResults(incorrectQuestions);
+    }
+
+    function displayResults(incorrectQuestions) {
+        showScreen(resultsSection);
+
+        scoreDisplay.textContent = score;
+        totalQuestionsDisplay.textContent = questions.length;
+
+        let level = '';
+        if (score === questions.length) {
+            level = 'C2 - Proficiência';
+        } else if (score >= questions.length * 0.8) {
+            level = 'C1 - Avançado';
+        } else if (score >= questions.length * 0.6) {
+            level = 'B2 - Intermediário Superior';
+        } else if (score >= questions.length * 0.4) {
+            level = 'B1 - Intermediário';
+        } else if (score >= questions.length * 0.2) {
+            level = 'A2 - Básico Superior';
+        } else {
+            level = 'A1 - Básico';
+        }
+        levelDisplay.textContent = level;
+
+        detailedFeedback.innerHTML = '';
+        if (incorrectQuestions.length === 0) {
+            detailedFeedback.innerHTML = '<p>Parabéns! Você acertou todas as questões.</p>';
+        } else {
+            incorrectQuestions.forEach(item => {
+                const feedbackItem = document.createElement('div');
+                feedbackItem.classList.add('feedback-item');
+                feedbackItem.innerHTML = `
+                    <p class="question-feedback"><strong>Questão:</strong> ${item.question}</p>
+                    <p class="user-answer-feedback"><strong>Sua resposta:</strong> ${item.userAnswer}</p>
+                    <p class="correct-answer-feedback"><strong>Resposta correta:</strong> ${item.correctAnswer}</p>
+                    <p class="explanation-feedback"><strong>Explicação:</strong> ${item.explanation}</p>
+                    <p><strong>Tipo:</strong> ${item.type} | <strong>Tópico:</strong> ${item.topic}</p>
+                `;
+                detailedFeedback.appendChild(feedbackItem);
+            });
+        }
+    }
+
+    nextButton.addEventListener('click', () => {
+        if (userAnswers[currentQuestionIndex] === null) {
+            alert('Por favor, selecione uma opção antes de prosseguir.');
+            return;
+        }
+
+        // Pausa qualquer mídia que esteja tocando antes de ir para a próxima questão
+        if (currentMediaElement) {
+            currentMediaElement.pause();
+        }
+
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            calculateResults();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (!quizSection.classList.contains('hidden') && event.key === 'Enter' && !nextButton.disabled) {
+            event.preventDefault();
+            nextButton.click();
+        }
+    });
 
 
-.progress-bar-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    height: 15px;
-    margin-bottom: 15px;
-    overflow: hidden;
-}
+    restartButton.addEventListener('click', () => {
+        currentQuestionIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        score = 0;
+        userData = { firstName: '', lastName: '', proficiencyLevel: '' };
+        firstNameInput.value = '';
+        lastNameInput.value = '';
+        proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
+        nextNameButton.disabled = true;
+        nextLastNameButton.disabled = true;
+        nextProficiencyButton.disabled = true;
 
-.progress-bar-fill {
-    height: 100%;
-    width: 0%;
-    background-color: #5d2066;
-    border-radius: 10px;
-    transition: width 0.4s ease-in-out;
-}
+        // Resetar a contagem de reproduções dos vídeos ao reiniciar o teste
+        for (const mediaPath in mediaPlayCounts) {
+            mediaPlayCounts[mediaPath] = 0;
+        }
 
-.progress-text {
-    font-size: 1.1em;
-    color: #555;
-    margin-bottom: 30px;
-}
+        // Pausa qualquer mídia que esteja tocando ao reiniciar o teste
+        if (currentMediaElement) {
+            currentMediaElement.pause();
+        }
 
-/* REMOVIDO O FUNDO E A BORDA DO question-card */
-.question-card {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda */
-    border-radius: 0; /* Sem arredondamento */
-    padding: 0; /* Remove padding */
-    margin-bottom: 30px;
-    text-align: left;
-}
+        showScreen(introSection);
+    });
 
-/* --- ESTILOS PARA O VÍDEO DO YOUTUBE --- */
-.video-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* Proporção 16:9 */
-    height: 0;
-    overflow: hidden;
-    margin-bottom: 20px;
-    background-color: #000; /* Fundo preto para o container do vídeo */
-    border-radius: 8px;
-}
+    document.addEventListener('keydown', (event) => {
+        if (!resultsSection.classList.contains('hidden') && event.key === 'Enter' && !restartButton.disabled) {
+            event.preventDefault();
+            restartButton.click();
+        }
+    });
 
-/* Estilo para o player div (onde o iframe será inserido) */
-#youtube-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Adicionado para tentar esconder o logo do YouTube */
-    /* Este é um hack e pode não funcionar em todos os navegadores ou versões do YouTube */
-    /* overflow: hidden; */ /* Já está no .video-container */
-}
-
-/* Tenta esconder o logo do YouTube dentro do iframe */
-/* Isso é um hack e pode ser quebrado por atualizações do YouTube */
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    /* Ajusta o iframe para cortar o logo do YouTube */
-    /* Transform scale pode ajudar a "esconder" elementos fora da área visível */
-    /* transform: scale(1.05); */ /* Pode causar distorção */
-    /* z-index: 1; */ /* Garante que o iframe esteja abaixo do overlay de clique */
-}
-
-/* Estilo para o overlay que aparece após o vídeo ser reproduzido */
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro semi-transparente */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 8px;
-    cursor: not-allowed; /* Indica que não é clicável */
-    z-index: 10; /* Garante que o overlay fique acima do vídeo */
-}
-
-/* Overlay transparente para capturar cliques e impedir abertura no YouTube */
-.video-click-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3); /* Fundo semi-transparente para o overlay de clique */
-    z-index: 12; /* MUITO ALTO: Acima de tudo, incluindo o iframe e o video-overlay */
-    cursor: pointer; /* Indica que é clicável */
-    display: flex; /* Para centralizar o texto */
-    justify-content: center;
-    align-items: center;
-    color: white; /* Cor do texto */
-    font-size: 1.2em;
-    font-weight: bold;
-    border-radius: 8px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Sombra para o texto ficar mais legível */
-}
-
-/* Estilo para quando o overlay de clique tem texto (ex: "Clique para reproduzir") */
-.video-click-overlay p {
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente para o texto */
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-
-/* --- FIM DOS ESTILOS PARA O VÍDEO DO YOUTUBE --- */
-
-
-.question-text {
-    font-size: 1.5em; /* Tamanho de fonte de texto normal */
-    color: #5d2066; /* Cor do texto das perguntas agora é roxa */
-    margin-bottom: 25px;
-    line-height: 1.5;
-    text-align: left; /* Alinhado à esquerda */
-}
-
-.options-container {
-    display: flex;
-    flex-direction: column; /* Alinha as opções em coluna */
-    gap: 15px;
-}
-
-/* Botões de opção de resposta (Geral) */
-.option-button {
-    display: flex; /* Para alinhar a letra e o texto lado a lado */
-    align-items: center;
-    background-color: rgba(1, 144, 193, 0.1); /* Fundo azul claro quase transparente */
-    border: 1px solid #0190C1; /* Borda fina azul */
-    border-radius: 8px;
-    padding: 10px 15px; /* Padding interno */
-    font-size: 1.2em;
-    color: #0190C1; /* Cor do texto padrão azul */
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    text-align: left; /* Alinha o conteúdo do botão à esquerda */
-    font-family: 'Aleo', serif;
-    font-weight: bold;
-}
-
-.option-button:hover:not(.selected):not(.correct):not(.incorrect) {
-    background-color: rgba(1, 144, 193, 0.2); /* Fundo um pouco mais visível no hover */
-    border-color: #017bb0; /* Borda azul mais escura no hover */
-    color: #017bb0; /* Texto azul mais escura no hover */
-}
-
-.option-button.selected {
-    background-color: #0190C1; /* Fundo azul quando selecionado */
-    border-color: #0190C1; /* Borda azul quando selecionado */
-    color: white; /* Texto branco quando selecionado */
-}
-
-.option-button.selected .option-letter {
-    background-color: white; /* Fundo branco para a letra selecionada */
-    color: #0190C1; /* Texto azul para a letra selecionada */
-    border-color: white; /* Borda branca para a letra selecionada */
-}
-
-.option-button.correct {
-    background-color: #2ecc71; /* Fundo verde para a opção correta */
-    border-color: #2ecc71;
-    color: white;
-}
-
-.option-button.correct .option-letter {
-    background-color: white;
-    color: #2ecc71;
-    border-color: white;
-}
-
-.option-button.incorrect {
-    background-color: #e74c3c; /* Fundo vermelho para a opção incorreta */
-    border-color: #e74c3c;
-    color: white;
-}
-
-.option-button.incorrect .option-letter {
-    background-color: white;
-    color: #e74c3c;
-    border-color: white;
-}
-
-.option-letter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px; /* Tamanho do quadrado da letra */
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco 90% opaco para a letra */
-    color: #0190C1; /* Texto azul para a letra */
-    border: 1px solid #0190C1; /* Borda fina azul para a letra */
-    border-radius: 4px; /* Levemente arredondado */
-    margin-right: 15px; /* Espaçamento entre a letra e o texto da opção */
-    font-size: 0.9em; /* Tamanho da fonte da letra */
-    flex-shrink: 0; /* Evita que a letra encolha */
-}
-
-.option-text {
-    flex-grow: 1; /* Permite que o texto da opção ocupe o espaço restante */
-}
-
-
-.navigation-buttons {
-    display: flex;
-    justify-content: flex-end; /* Alinha o botão "Próxima" à direita */
-    margin-top: 30px;
-}
-
-/* REMOVIDO O FUNDO E A BORDA DA #results-section */
-#results-section {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda */
-    border-radius: 0; /* Sem arredondamento */
-    padding: 0; /* Remove padding */
-    text-align: left;
-    margin-top: 40px;
-}
-
-#results-section h2 {
-    color: #5d2066;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#results-section p {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-#results-section strong {
-    color: #4CAF50;
-}
-
-#detailedFeedback {
-    margin-top: 25px;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-}
-
-.feedback-item {
-    background-color: #ffebee;
-    border: 1px solid #ef9a9a;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.feedback-item p {
-    margin: 5px 0;
-    font-size: 1em;
-}
-
-.feedback-item .question-feedback {
-    font-weight: bold;
-    color: #c0392b;
-}
-
-.feedback-item .user-answer-feedback {
-    color: #e74c3c;
-}
-
-.feedback-item .correct-answer-feedback {
-    color: #27ae60;
-}
-
-.feedback-item .explanation-feedback {
-    font-style: italic;
-    color: #555;
-    margin-top: 10px;
-}
-
-.proficiency-options {
-    display: flex; /* Usa flexbox */
-    flex-direction: column; /* Alinha os itens em coluna */
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-/* Estilo específico para os botões de proficiência sem a letra */
-.proficiency-option {
-    display: block; /* Volta a ser um bloco para ocupar a largura total */
-    text-align: left; /* Alinha o texto à esquerda */
-    /* Herda os estilos de .option-button, mas remove o display flex */
-    /* e ajusta o padding para compensar a falta da letra */
-    padding: 10px 15px; /* Padding interno */
-}
-
-/* Garante que o texto da opção de proficiência ocupe todo o espaço */
-.proficiency-option .option-text {
-    flex-grow: 1;
-    width: 100%; /* Garante que o texto ocupe a largura total disponível */
-}
-
-
-/* NOVO ESTILO para a mensagem da tela de preparação */
-.preparation-text {
-    font-size: 2.3em; /* Tamanho maior para destaque */
-    color: #5d2066; /* Cor roxa */
-    margin-bottom: 30px;
-    line-height: 1.5;
-    text-align: center; /* Centraliza o texto */
-    font-weight: normal; /* Deixa em negrito para destaque */
-}
+    // Inicia na tela de introdução
+    showScreen(introSection);
+});
