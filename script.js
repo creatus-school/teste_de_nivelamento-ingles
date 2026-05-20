@@ -530,8 +530,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt29a',
             explanation: "A resposta 'Yes, I love rock concerts!' é a única que responde diretamente à pergunta sobre ter ido a um festival de música, indicando uma experiência positiva com o tema.",
-            mediaPath: 'media/q29.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'video'
+            mediaPath: 'media/q29.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
         },
         {
             id: 'q30',
@@ -546,8 +546,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt30b',
             explanation: "A opção 'A cup of tea and soft music help me to sleep well' descreve uma forma comum de relaxar após um dia de trabalho.",
-            mediaPath: 'media/q30.mp4', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
-            mediaType: 'video'
+            mediaPath: 'media/q30.mp3', // <-- SUBSTITUA PELO CAMINHO DO SEU ARQUIVO DE ÁUDIO
+            mediaType: 'audio'
         },
         {
             id: 'q31',
