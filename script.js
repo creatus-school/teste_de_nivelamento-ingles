@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt29a',
             explanation: "A resposta mais natural à pergunta 'Have you ever been to a music festival?' é comentar que gosta de shows de rock.",
-            videoSrc: 'videos/q29.mp4'
+            videoSrc: 'q29.mp4'
         },
         {
             id: 'q30',
@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt30b',
             explanation: "A alternativa que responde diretamente à pergunta sobre como relaxa é a que fala de chá e música suave.",
-            videoSrc: 'videos/q30.mp4'
+            videoSrc: 'q30.mp4'
         },
         {
             id: 'q31',
