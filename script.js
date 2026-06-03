@@ -763,7 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.addEventListener('click', () => {
                 const count = videoPlayCounts[question.id] || 0;
 
-                if (count >= 2) {
+                if (count >= 3) {
                     // já assistiu duas vezes: não faz nada
                     return;
                 }
