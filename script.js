@@ -825,19 +825,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (count === 0) {
             msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem duas reproduções restantes.';
-            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.classList.remove('disabled'); // Habilita o overlay
             videoOverlayElement.style.display = 'flex';
         } else if (count === 1) {
             msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem uma reprodução restante.';
-            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.classList.remove('disabled'); // Habilita o overlay
             videoOverlayElement.style.display = 'flex';
-        } else if (count === 2) { // Quando o vídeo já terminou 2 vezes
+        } else { // count >= 2 (o vídeo já terminou duas ou mais vezes)
             msgDiv.textContent = 'Você atingiu seu limite máximo de reproduções.';
             videoOverlayElement.classList.add('disabled'); // Desabilita o overlay
-            videoOverlayElement.style.display = 'flex';
-        } else { // Para qualquer count > 2, a mensagem de bloqueio permanece
-            msgDiv.textContent = 'Você atingiu seu limite máximo de reproduções.';
-            videoOverlayElement.classList.add('disabled');
             videoOverlayElement.style.display = 'flex';
         }
     }
