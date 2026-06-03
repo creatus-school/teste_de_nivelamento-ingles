@@ -265,15 +265,6 @@ h1 {
     border-radius: 8px;
 }
 
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
 .video-container video {
     position: absolute; /* Garante que o vídeo ocupe o espaço do container */
     top: 0;
@@ -282,6 +273,15 @@ h1 {
     height: 100%;
     object-fit: contain; /* Garante que o vídeo seja exibido sem cortes, mantendo a proporção */
     background-color: black; /* Fundo preto para o player de vídeo */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 /* Estilo para o overlay que aparece após o vídeo ser reproduzido */
@@ -300,11 +300,11 @@ h1 {
     font-weight: bold;
     text-align: center;
     border-radius: 8px;
-    cursor: pointer; /* clicável enquanto ainda pode assistir */
+    cursor: pointer; /* AGORA é clicável por padrão */
 }
 
 .video-overlay.disabled {
-    cursor: not-allowed;
+    cursor: not-allowed; /* Só fica bloqueado quando .disabled */
 }
 /* --- FIM DOS ESTILOS PARA O VÍDEO DO YOUTUBE --- */
 
