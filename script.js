@@ -722,12 +722,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (question.videoSrc) {
             youtubeVideoContainer.style.display = 'block';
 
-            video.addEventListener('ended', () => {
-            videoPlayCounts[question.id]++;
-            updateVideoOverlay(question.id); // Atualiza o overlay para mostrar a mensagem correta
-            videoOverlayElement.style.display = 'flex'; // Mostra o overlay novamente após o vídeo terminar
-        });
-
             // cria o elemento <video>
             const video = document.createElement('video');
             video.src = question.videoSrc;
@@ -768,14 +762,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             overlay.addEventListener('click', () => {
                 const count = videoPlayCounts[question.id];
-                if (count >= 2) {
-                    // Se já assistiu 2 vezes, não faz nada e mantém o overlay bloqueado
-                    return;
-                }
+                if (count >= 2) return; // já assistiu duas vezes
                 if (currentVideoElement) {
-                    currentVideoElement.currentTime = 0; // Reinicia o vídeo para cada play
+                    currentVideoElement.currentTime = 0;
                     currentVideoElement.play();
-                    overlay.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
+                    overlay.style.display = 'none';
                 }
             });
 
