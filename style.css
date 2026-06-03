@@ -281,7 +281,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro semi-transparente */
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     display: flex;
     justify-content: center;
@@ -290,7 +290,11 @@ h1 {
     font-weight: bold;
     text-align: center;
     border-radius: 8px;
-    cursor: not-allowed; /* Indica que não é clicável */
+    cursor: pointer; /* clicável enquanto ainda pode assistir */
+}
+
+.video-overlay.disabled {
+    cursor: not-allowed;
 }
 /* --- FIM DOS ESTILOS PARA O VÍDEO DO YOUTUBE --- */
 
