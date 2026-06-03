@@ -707,14 +707,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Lógica do Quiz ---
+    // Variáveis globais para o controle do vídeo
+    let currentVideoElement = null;
+    let videoOverlayElement = null;
+    const videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por questão
 
     function loadQuestion() {
         const question = questions[currentQuestionIndex];
-        // Usamos innerHTML para renderizar as tags HTML na pergunta
         questionText.innerHTML = question.question;
         optionsContainer.innerHTML = '';
 
-        // Limpa qualquer vídeo anterior
+        // Limpa qualquer vídeo anterior e reseta elementos
         youtubeVideoContainer.innerHTML = '';
         currentVideoElement = null;
         videoOverlayElement = null;
@@ -722,15 +725,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (question.videoSrc) {
             youtubeVideoContainer.style.display = 'block';
 
-            // cria o elemento <video>
+            // Cria o elemento <video>
             const video = document.createElement('video');
             video.src = question.videoSrc;
-            video.controls = false;          // mostra play/pause, mas vamos controlar quanto dá pra voltar
+            video.controls = false; // <<< MUDANÇA AQUI: Remove os controles nativos para impedir pausa
             video.preload = 'auto';
             video.style.width = '100%';
             video.style.height = '100%';
+            video.style.backgroundColor = 'black'; // Garante fundo preto se o vídeo não carregar rápido
 
-            // impede avanço manual na barra (não deixa voltar para ouvir de novo)
+            // Impede avanço manual na barra (não deixa voltar para ouvir de novo)
             let lastTime = 0;
             video.addEventListener('timeupdate', () => {
                 if (video.currentTime < lastTime - 0.2) { // detecta "voltar"
@@ -740,43 +744,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // controla contagem de reproduções
+            // Adiciona um listener para o clique no próprio vídeo para evitar pause
+            video.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            // Controla contagem de reproduções
             if (!videoPlayCounts[question.id]) {
                 videoPlayCounts[question.id] = 0;
             }
 
             video.addEventListener('ended', () => {
                 videoPlayCounts[question.id]++;
-                updateVideoOverlay(question.id);
+                console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
+                updateVideoOverlay(question.id); // Reexibe o overlay com a mensagem atualizada
             });
 
             youtubeVideoContainer.appendChild(video);
             currentVideoElement = video;
 
-            // cria overlay
+            // Cria o overlay
             const overlay = document.createElement('div');
             overlay.classList.add('video-overlay');
-            overlay.innerHTML = '<div class="video-overlay-message">Clique para assistir ao vídeo.</div>';
+            overlay.innerHTML = '<div class="video-overlay-message"></div>'; // Conteúdo será definido por updateVideoOverlay
             youtubeVideoContainer.appendChild(overlay);
             videoOverlayElement = overlay;
 
             overlay.addEventListener('click', () => {
                 const count = videoPlayCounts[question.id] || 0;
 
-                if (count >= 2) {
-                    // já assistiu duas vezes: não faz nada
+                if (count >= 2) { // <<< MUDANÇA AQUI: Se já assistiu 2 vezes, não faz nada
+                    console.log(`Tentativa de reprodução bloqueada para ${question.id}. Já assistiu ${count} vezes.`); // Para debug
                     return;
                 }
 
                 if (currentVideoElement) {
-                    currentVideoElement.currentTime = 0;
+                    currentVideoElement.currentTime = 0; // Reinicia o vídeo
                     currentVideoElement.play();
-                    // enquanto está tocando, some com o overlay
-                    videoOverlayElement.style.display = 'none';
+                    videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
+                    console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
                 }
             });
 
-            // estado inicial do overlay
+            // Estado inicial do overlay
             updateVideoOverlay(question.id);
 
         } else {
@@ -816,6 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNavigationButtons();
     }
 
+    // Mantenha a função updateVideoOverlay exatamente como está, ela já está correta para o limite de 2
     function updateVideoOverlay(questionId) {
         if (!videoOverlayElement) return;
 
