@@ -597,35 +597,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function showScreen(screenToShow) {
         const allScreens = [introSection, nameSection, lastNameSection, proficiencySection, preparationSection, quizSection, resultsSection];
 
-        if (screenToShow === introSection) {
-            allScreens.forEach(screen => {
-                screen.classList.add('hidden');
-                screen.style.opacity = '0';
-            });
-            introSection.classList.remove('hidden');
-            introSection.style.opacity = '1';
-            return;
-        }
-
+        // Primeiro, esconde todas as telas com opacidade 0
         allScreens.forEach(screen => {
             screen.style.opacity = '0';
         });
 
+        // Após um pequeno atraso para a transição de opacidade, esconde fisicamente as telas
         setTimeout(() => {
             allScreens.forEach(screen => {
                 screen.classList.add('hidden');
             });
 
+            // Remove a classe hidden da tela que deve ser mostrada
             screenToShow.classList.remove('hidden');
+
+            // E então, após outro pequeno atraso, define a opacidade para 1 para a transição de entrada
             setTimeout(() => {
                 screenToShow.style.opacity = '1';
-            }, 50);
-        }, 500);
+            }, 50); // Pequeno atraso para garantir que a classe 'hidden' foi removida antes de aplicar a opacidade
+        }, 500); // Este atraso deve ser igual ao tempo da transição CSS (0.5s)
     }
 
-
     // --- Lógica das Telas Iniciais ---
-
     startButton.addEventListener('click', () => {
         showScreen(nameSection);
         firstNameInput.focus();
