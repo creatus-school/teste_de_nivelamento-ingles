@@ -479,6 +479,111 @@ document.addEventListener('DOMContentLoaded', () => {
             explanation: "'Spreading' (espalhando) descreve o aroma se difundindo pela cozinha.",
             youtubeVideoId: null
         }
+                {
+            id: 'q29',
+            type: 'listening',
+            topic: 'conversation',
+            question: "29. Listen to Speaker #1 and choose the best option for what comes next in the conversation.\nSpeaker #1: \"Have you ever been to a music festival?\"",
+            options: [
+                { id: 'opt29a', text: "Yes, I love rock concerts!" },
+                { id: 'opt29b', text: "I have a few friends who play instruments." },
+                { id: 'opt29c', text: "I usually stay at home during the weekends." },
+                { id: 'opt29d', text: "Last year, I bought a new guitar." }
+            ],
+            correctAnswerId: 'opt29a',
+            explanation: "A resposta mais natural à pergunta 'Have you ever been to a music festival?' é comentar que gosta de shows de rock.",
+            videoSrc: 'videos/q29.mp4'
+        },
+        {
+            id: 'q30',
+            type: 'listening',
+            topic: 'conversation',
+            question: "30. Listen to Speaker #2 and choose the best option for what comes next in the conversation.\nSpeaker #2: \"How do you usually unwind after a long day at work?\"",
+            options: [
+                { id: 'opt30a', text: "I love drinking wine to relax after I get home." },
+                { id: 'opt30b', text: "A cup of tea and soft music help me to sleep well." },
+                { id: 'opt30c', text: "My mom cooks dinner for me almost every night." },
+                { id: 'opt30d', text: "The boss at my company likes to hold meetings late at night." }
+            ],
+            correctAnswerId: 'opt30b',
+            explanation: "A alternativa que responde diretamente à pergunta sobre como relaxa é a que fala de chá e música suave.",
+            videoSrc: 'videos/q30.mp4'
+        },
+        {
+            id: 'q31',
+            type: 'listening',
+            topic: 'study_habits',
+            question: "31. Listen to Speaker #3 and choose the best option for what comes next in the conversation.\nSpeaker #3: \"How do you study to do so well in the exams?\"",
+            options: [
+                { id: 'opt31a', text: "I never attend classes." },
+                { id: 'opt31b', text: "I sleep early every day." },
+                { id: 'opt31c', text: "I create a study schedule and review my notes regularly." },
+                { id: 'opt31d', text: "I enjoy playing sports after exams." }
+            ],
+            correctAnswerId: 'opt31c',
+            explanation: "A resposta descreve diretamente uma estratégia de estudo organizada.",
+            videoSrc: 'videos/q31.mp4'
+        },
+        {
+            id: 'q32',
+            type: 'listening',
+            topic: 'motivation',
+            question: "32. Listen to Speaker #4 and choose the best option for what comes next in the conversation.\nSpeaker #4: \"I've been practicing the guitar every day for the past six months, but I still can't play an entire song.\"",
+            options: [
+                { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
+                { id: 'opt32b', text: "Maybe you're just not cut out for music. Why don't you try something else?" },
+                { id: 'opt32c', text: "I hope you're not dedicating too much time to it." },
+                { id: 'opt32d', text: "You need to practice your cooking skills more." }
+            ],
+            correctAnswerId: 'opt32c',
+            explanation: "A resposta 'I hope you're not dedicating too much time to it.' se conecta com a ideia de estar se dedicando bastante, mas ainda não tocar uma música inteira.",
+            videoSrc: 'videos/q32.mp4'
+        },
+        {
+            id: 'q33',
+            type: 'listening',
+            topic: 'work',
+            question: "33. Listen to Speaker #5 and choose the best option for what comes next in the conversation.\nSpeaker #5: \"You look exhausted, did you have a long day at work?\"",
+            options: [
+                { id: 'opt33a', text: "I bought a new book to read." },
+                { id: 'opt33b', text: "I had meetings all day." },
+                { id: 'opt33c', text: "I'm thinking of planning a vacation soon." },
+                { id: 'opt33d', text: "I love going to the gym after work." }
+            ],
+            correctAnswerId: 'opt33b',
+            explanation: "Responde diretamente à pergunta explicando por que está exausto: reuniões o dia inteiro.",
+            videoSrc: 'videos/q33.mp4'
+        },
+        {
+            id: 'q34',
+            type: 'listening',
+            topic: 'story',
+            question: "34. Listen to Speaker #6 and choose the best option for what comes next in the conversation.\nSpeaker #6: \"Mom, you won't believe what happened to me on the way to the grocery store!\"",
+            options: [
+                { id: 'opt34a', text: "I'm not a fan of shopping for groceries." },
+                { id: 'opt34b', text: "Tell me all about it when you get home." },
+                { id: 'opt34c', text: "I have a dentist appointment next week." },
+                { id: 'opt34d', text: "I've been trying a new recipe lately." }
+            ],
+            correctAnswerId: 'opt34b',
+            explanation: "É a resposta que continua naturalmente a conversa, mostrando interesse no que aconteceu.",
+            videoSrc: 'videos/q34.mp4'
+        },
+        {
+            id: 'q35',
+            type: 'listening',
+            topic: 'achievement',
+            question: "35. Listen to Speaker #7 and choose the best option for what comes next in the conversation.\nSpeaker #7: \"Guess what, I finally passed my driving test.\"",
+            options: [
+                { id: 'opt35a', text: "I'm planning a road trip for next month." },
+                { id: 'opt35b', text: "I bought a new bicycle recently." },
+                { id: 'opt35c', text: "Congratulations! How was the test?" },
+                { id: 'opt35d', text: "I prefer using public transportation." }
+            ],
+            correctAnswerId: 'opt35c',
+            explanation: "É a resposta mais natural: parabeniza e pergunta sobre o teste.",
+            videoSrc: 'videos/q35.mp4'
+        },
     ];
 
     userAnswers = new Array(questions.length).fill(null);
