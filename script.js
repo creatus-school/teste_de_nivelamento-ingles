@@ -762,16 +762,17 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.addEventListener('click', () => {
                 const count = videoPlayCounts[question.id] || 0;
 
-                if (count >= 2) { // <<< MUDANÇA AQUI: Se já assistiu 2 vezes, não faz nada
+                // Permite a reprodução se o vídeo foi assistido 0 ou 1 vez
+                if (count < 2) {
+                    if (currentVideoElement) {
+                        currentVideoElement.currentTime = 0; // Reinicia o vídeo
+                        currentVideoElement.play();
+                        videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
+                        console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
+                    }
+                } else {
+                    // Se já assistiu 2 vezes ou mais, não faz nada e o overlay permanece visível e desabilitado
                     console.log(`Tentativa de reprodução bloqueada para ${question.id}. Já assistiu ${count} vezes.`); // Para debug
-                    return;
-                }
-
-                if (currentVideoElement) {
-                    currentVideoElement.currentTime = 0; // Reinicia o vídeo
-                    currentVideoElement.play();
-                    videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
-                    console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
                 }
             });
 
