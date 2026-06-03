@@ -394,7 +394,7 @@ h1 {
 
 .navigation-buttons {
     display: flex;
-    justify-content: flex-end; /* Alinha o botão "Próxima" à direita */
+    justify-content: flex-start; /* Alinha o botão "Próxima" à direita */
     margin-top: 30px;
 }
 
