@@ -831,9 +831,13 @@ document.addEventListener('DOMContentLoaded', () => {
             msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
             videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
-        } else { // count >= 2 (o vídeo já terminou duas ou mais vezes)
+        } else if (count === 2) { // Quando o vídeo já terminou 2 vezes
             msgDiv.textContent = 'Você já assistiu ao vídeo duas vezes. Agora responda à questão.';
-            videoOverlayElement.classList.add('disabled'); // Adiciona a classe disabled para bloquear cliques
+            videoOverlayElement.classList.add('disabled'); // Desabilita o overlay
+            videoOverlayElement.style.display = 'flex';
+        } else { // Para qualquer count > 2, a mensagem de bloqueio permanece
+            msgDiv.textContent = 'Você já assistiu ao vídeo duas vezes. Agora responda à questão.';
+            videoOverlayElement.classList.add('disabled');
             videoOverlayElement.style.display = 'flex';
         }
     }
