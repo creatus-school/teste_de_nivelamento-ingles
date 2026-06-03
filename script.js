@@ -54,6 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
         proficiencyLevel: ''
     };
 
+    // Controle de vídeo nativo
+    let videoPlayCounts = {};    // { qId: número de reproduções completas }
+    let currentVideoElement = null;
+    let videoOverlayElement = null;
+
     // Função para embaralhar um array (Fisher-Yates)
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -709,15 +714,66 @@ document.addEventListener('DOMContentLoaded', () => {
         questionText.innerHTML = question.question;
         optionsContainer.innerHTML = '';
 
-        if (question.youtubeVideoId) {
-            youtubeVideoContainer.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${question.youtubeVideoId}?autoplay=0&controls=1&modestbranding=1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-            `;
+        // Limpa qualquer vídeo anterior
+        youtubeVideoContainer.innerHTML = '';
+        currentVideoElement = null;
+        videoOverlayElement = null;
+
+        if (question.videoSrc) {
             youtubeVideoContainer.style.display = 'block';
+
+            // cria o elemento <video>
+            const video = document.createElement('video');
+            video.src = question.videoSrc;
+            video.controls = true;          // mostra play/pause, mas vamos controlar quanto dá pra voltar
+            video.preload = 'auto';
+            video.style.width = '100%';
+            video.style.height = '100%';
+
+            // impede avanço manual na barra (não deixa voltar para ouvir de novo)
+            let lastTime = 0;
+            video.addEventListener('timeupdate', () => {
+                if (video.currentTime < lastTime - 0.2) { // detecta "voltar"
+                    video.currentTime = lastTime;        // força voltar pro ponto em que estava
+                } else {
+                    lastTime = video.currentTime;
+                }
+            });
+
+            // controla contagem de reproduções
+            if (!videoPlayCounts[question.id]) {
+                videoPlayCounts[question.id] = 0;
+            }
+
+            video.addEventListener('ended', () => {
+                videoPlayCounts[question.id]++;
+                updateVideoOverlay(question.id);
+            });
+
+            youtubeVideoContainer.appendChild(video);
+            currentVideoElement = video;
+
+            // cria overlay
+            const overlay = document.createElement('div');
+            overlay.classList.add('video-overlay');
+            overlay.innerHTML = '<div class="video-overlay-message">Clique para assistir ao vídeo.</div>';
+            youtubeVideoContainer.appendChild(overlay);
+            videoOverlayElement = overlay;
+
+            overlay.addEventListener('click', () => {
+                const count = videoPlayCounts[question.id];
+                if (count >= 2) return; // já assistiu duas vezes
+                if (currentVideoElement) {
+                    currentVideoElement.currentTime = 0;
+                    currentVideoElement.play();
+                    overlay.style.display = 'none';
+                }
+            });
+
+            // estado inicial do overlay
+            updateVideoOverlay(question.id);
+
         } else {
-            youtubeVideoContainer.innerHTML = '';
             youtubeVideoContainer.style.display = 'none';
         }
 
@@ -752,6 +808,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateProgressBar();
         updateNavigationButtons();
+    }
+
+    function updateVideoOverlay(questionId) {
+        if (!videoOverlayElement) return;
+        const count = videoPlayCounts[questionId] || 0;
+        const msgDiv = videoOverlayElement.querySelector('.video-overlay-message');
+
+        if (count === 0) {
+            msgDiv.textContent = 'Clique para assistir ao vídeo (1ª vez).';
+            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.style.display = 'flex';
+        } else if (count === 1) {
+            msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
+            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.style.display = 'flex';
+        } else {
+            msgDiv.textContent = 'Você já assistiu ao vídeo duas vezes. Agora responda à questão.';
+            videoOverlayElement.classList.add('disabled');
+            videoOverlayElement.style.display = 'flex';
+        }
     }
 
     function selectOption(optionId) {
