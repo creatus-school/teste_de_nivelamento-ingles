@@ -831,7 +831,11 @@ document.addEventListener('DOMContentLoaded', () => {
             msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
             videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
-        } else { // count >= 2
+        } else if (count === 2) {
+            msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
+            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.style.display = 'flex';
+        } else { // count >= 3
             msgDiv.textContent = 'Você já assistiu ao vídeo duas vezes. Agora responda à questão.';
             videoOverlayElement.classList.add('disabled');
             videoOverlayElement.style.display = 'flex';
