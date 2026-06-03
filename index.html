@@ -91,20 +91,25 @@
     </div>
 
     <!-- Seção do Quiz -->
-    <div id="quiz-section" class="screen hidden">
+    <section id="quiz-section" class="screen hidden">
         <div class="progress-bar-container">
-            <div class="progress-bar-fill" id="progressBarFill"></div>
+            <div id="progressBarFill" class="progress-bar-fill"></div>
         </div>
-        <p class="progress-text" id="progressText">Questão 1 de 5</p>
+        <div id="progressText" class="progress-text">Questão 1 de 40</div>
 
         <div class="question-card">
             <div id="youtube-video-container" class="video-container"></div>
-            </div>
-            <p class="question-text" id="questionText"></p>
-            <div class="options-container" id="optionsContainer">
-                <!-- As opções de resposta serão inseridas aqui pelo JavaScript -->
-            </div>
+            <p id="questionText" class="question-text"></p>
+            <div id="optionsContainer" class="options-container"></div>
         </div>
+
+        <div class="navigation-buttons">
+            <button id="nextButton" class="main-button" type="button">
+                Próxima
+            </button>
+            <span class="enter-hint">Pressione <kbd>Enter ↵</kbd></span>
+        </div>
+    </section>
 
         <div class="navigation-buttons">
             <div class="button-with-hint-group">
