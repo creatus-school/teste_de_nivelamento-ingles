@@ -778,10 +778,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             overlay.addEventListener('click', () => {
                 const count = videoPlayCounts[question.id] || 0;
-                console.log(`CLIQUE NO OVERLAY para ${question.id}: count atual é ${count}`); // NOVO LOG AQUI
 
-                // Permite a reprodução se o vídeo foi assistido 0 ou 1 vez
-                if (count < 2) {
+                // Permite a reprodução se o vídeo foi assistido menos de 5 vezes
+                if (count < 5) { // <--- ALTERE AQUI PARA O NOVO LIMITE
                     if (currentVideoElement) {
                         currentVideoElement.currentTime = 0; // Reinicia o vídeo
                         currentVideoElement.play();
@@ -789,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
                     }
                 } else {
-                    // Se já assistiu 2 vezes ou mais, não faz nada e o overlay permanece visível e desabilitado
+                    // Se já assistiu 5 vezes ou mais, não faz nada e o overlay permanece visível e desabilitado
                     console.log(`Tentativa de reprodução bloqueada para ${question.id}. Já assistiu ${count} vezes.`); // Para debug
                 }
             });
@@ -842,15 +841,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const msgDiv = videoOverlayElement.querySelector('.video-overlay-message');
 
         if (count === 0) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem duas reproduções restantes.';
-            videoOverlayElement.classList.remove('disabled'); // Habilita o overlay
+            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem cinco reproduções restantes.'; // <--- ALTERE A MENSAGEM
+            videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
         } else if (count === 1) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem uma reprodução restante.';
-            videoOverlayElement.classList.remove('disabled'); // Habilita o overlay
+            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem quatro reproduções restantes.'; // <--- ALTERE A MENSAGEM
+            videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
-        } else { // count >= 2 (o vídeo já terminou duas ou mais vezes)
-            msgDiv.textContent = 'Você atingiu seu limite máximo de reproduções.';
+        } else if (count === 2) {
+            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem três reproduções restantes.'; // <--- ALTERE A MENSAGEM
+            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.style.display = 'flex';
+        } else if (count === 3) {
+            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem duas reproduções restantes.'; // <--- ALTERE A MENSAGEM
+            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.style.display = 'flex';
+        } else if (count === 4) {
+            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem uma reprodução restante.'; // <--- ALTERE A MENSAGEM
+            videoOverlayElement.classList.remove('disabled');
+            videoOverlayElement.style.display = 'flex';
+        } else { // count >= 5 (o vídeo já terminou cinco ou mais vezes) // <--- ALTERE AQUI PARA O NOVO LIMITE
+            msgDiv.textContent = 'Você atingiu seu limite máximo de reproduções.'; // <--- ALTERE A MENSAGEM
             videoOverlayElement.classList.add('disabled'); // Desabilita o overlay
             videoOverlayElement.style.display = 'flex';
         }
