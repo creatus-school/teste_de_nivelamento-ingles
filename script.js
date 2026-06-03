@@ -777,19 +777,12 @@ document.addEventListener('DOMContentLoaded', () => {
             videoOverlayElement = overlay;
 
             overlay.addEventListener('click', () => {
-                const count = videoPlayCounts[question.id] || 0;
-
-                // Permite a reprodução se o vídeo foi assistido menos de 5 vezes
-                if (count < 5) { // <--- ALTERE AQUI PARA O NOVO LIMITE
-                    if (currentVideoElement) {
-                        currentVideoElement.currentTime = 0; // Reinicia o vídeo
-                        currentVideoElement.play();
-                        videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
-                        console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
-                    }
-                } else {
-                    // Se já assistiu 5 vezes ou mais, não faz nada e o overlay permanece visível e desabilitado
-                    console.log(`Tentativa de reprodução bloqueada para ${question.id}. Já assistiu ${count} vezes.`); // Para debug
+                // Não há mais verificação de count, sempre permite a reprodução
+                if (currentVideoElement) {
+                    currentVideoElement.currentTime = 0; // Reinicia o vídeo
+                    currentVideoElement.play();
+                    videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
+                    console.log(`Iniciando reprodução de ${question.id} (reprodução ilimitada).`); // Para debug
                 }
             });
 
@@ -837,34 +830,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateVideoOverlay(questionId) {
         if (!videoOverlayElement) return;
 
-        const count = videoPlayCounts[questionId] || 0;
         const msgDiv = videoOverlayElement.querySelector('.video-overlay-message');
 
-        if (count === 0) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem cinco reproduções restantes.'; // <--- ALTERE A MENSAGEM
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else if (count === 1) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem quatro reproduções restantes.'; // <--- ALTERE A MENSAGEM
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else if (count === 2) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem três reproduções restantes.'; // <--- ALTERE A MENSAGEM
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else if (count === 3) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem duas reproduções restantes.'; // <--- ALTERE A MENSAGEM
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else if (count === 4) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo. Você tem uma reprodução restante.'; // <--- ALTERE A MENSAGEM
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else { // count >= 5 (o vídeo já terminou cinco ou mais vezes) // <--- ALTERE AQUI PARA O NOVO LIMITE
-            msgDiv.textContent = 'Você atingiu seu limite máximo de reproduções.'; // <--- ALTERE A MENSAGEM
-            videoOverlayElement.classList.add('disabled'); // Desabilita o overlay
-            videoOverlayElement.style.display = 'flex';
-        }
+        // Para reproduções ilimitadas, o overlay sempre deve estar habilitado e com a mesma mensagem
+        msgDiv.textContent = 'Clique para assistir ao vídeo.'; // Mensagem simples para reprodução ilimitada
+        videoOverlayElement.classList.remove('disabled'); // Garante que o overlay nunca esteja desabilitado
+        videoOverlayElement.style.display = 'flex'; // Garante que o overlay esteja visível
     }
 
     function selectOption(optionId) {
