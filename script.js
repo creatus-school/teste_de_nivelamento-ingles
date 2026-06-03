@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Controle de vídeo nativo
-    let videoPlayCounts = {};    // { qId: número de reproduções completas }
     let currentVideoElement = null;
     let videoOverlayElement = null;
+    const videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por questão
 
     // Função para embaralhar um array (Fisher-Yates)
     function shuffleArray(array) {
@@ -700,11 +700,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Lógica do Quiz ---
-    // Variáveis globais para o controle do vídeo
-    let currentVideoElement = null;
-    let videoOverlayElement = null;
-    const videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por questão
-
     function loadQuestion() {
         const question = questions[currentQuestionIndex];
         questionText.innerHTML = question.question;
