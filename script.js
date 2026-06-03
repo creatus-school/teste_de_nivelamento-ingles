@@ -743,11 +743,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 videoPlayCounts[question.id] = 0;
             }
 
-            video.addEventListener('ended', () => {
-                videoPlayCounts[question.id]++;
-                console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
-                updateVideoOverlay(question.id); // Reexibe o overlay com a mensagem atualizada
-            });
+            // Remove qualquer listener 'ended' anterior para evitar duplicação
+            // Isso é importante se loadQuestion() puder ser chamado múltiplas vezes para a mesma questão
+            if (currentVideoElement) {
+                currentVideoElement.removeEventListener('ended', handleVideoEnded);
+            }
+
+            // Define uma função para o evento 'ended' para evitar recriação anônima
+            const handleVideoEnded = () => {
+                // Só incrementa se o vídeo realmente terminou de tocar e não foi um "fim" falso
+                // Uma forma simples é verificar se o vídeo não está em loop ou se não foi parado manualmente
+                // Para este caso, a verificação mais importante é que o count não exceda o limite imediatamente
+                if (videoPlayCounts[question.id] < 2) { // Garante que não incrementa além do limite permitido
+                    videoPlayCounts[question.id]++;
+                    console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
+                    updateVideoOverlay(question.id); // Reexibe o overlay com a mensagem atualizada
+                } else {
+                    console.log(`Vídeo ${question.id} terminou, mas contagem já atingiu o limite. Reproduções: ${videoPlayCounts[question.id]}`);
+                    updateVideoOverlay(question.id); // Garante que o overlay mostra a mensagem de bloqueio
+                }
+            };
+
+            video.addEventListener('ended', handleVideoEnded);
 
             youtubeVideoContainer.appendChild(video);
             currentVideoElement = video;
@@ -761,6 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             overlay.addEventListener('click', () => {
                 const count = videoPlayCounts[question.id] || 0;
+                console.log(`CLIQUE NO OVERLAY para ${question.id}: count atual é ${count}`); // NOVO LOG AQUI
 
                 // Permite a reprodução se o vídeo foi assistido 0 ou 1 vez
                 if (count < 2) {
