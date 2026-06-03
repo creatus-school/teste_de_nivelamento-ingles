@@ -483,8 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
             correctAnswerId: 'opt28a',
             explanation: "'Spreading' (espalhando) descreve o aroma se difundindo pela cozinha.",
             youtubeVideoId: null
-        }
-                {
+        },
+        {
             id: 'q29',
             type: 'listening',
             topic: 'conversation',
