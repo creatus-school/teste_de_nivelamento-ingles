@@ -814,21 +814,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!videoOverlayElement) return;
         const count = videoPlayCounts[questionId] || 0;
         const msgDiv = videoOverlayElement.querySelector('.video-overlay-message');
-
-        if (count === 0) {
-            msgDiv.textContent = 'Clique para assistir ao vídeo (1ª vez).';
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else if (count === 1) {
-            msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
-            videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex';
-        } else {
-            msgDiv.textContent = 'Você já assistiu ao vídeo duas vezes. Agora responda à questão.';
-            videoOverlayElement.classList.add('disabled');
-            videoOverlayElement.style.display = 'flex';
-        }
+    if (count === 0) {
+        msgDiv.textContent = 'Clique para assistir ao vídeo (1ª vez).';
+        videoOverlayElement.classList.remove('disabled');
+        videoOverlayElement.style.display = 'flex'; // Garante que o overlay esteja visível
+    } else if (count === 1) {
+        msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
+        videoOverlayElement.classList.remove('disabled');
+        videoOverlayElement.style.display = 'flex'; // Garante que o overlay esteja visível
+    } else { // count &gt;= 2
+        msgDiv.textContent = 'Você já assistiu ao vídeo duas vezes. Agora responda à questão.';
+        videoOverlayElement.classList.add('disabled');
+        videoOverlayElement.style.display = 'flex'; // Garante que o overlay esteja visível
     }
+        
+}
 
     function selectOption(optionId) {
         optionsContainer.querySelectorAll('.option-button').forEach(btn => {
