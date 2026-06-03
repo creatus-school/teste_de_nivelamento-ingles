@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // cria o elemento <video>
             const video = document.createElement('video');
             video.src = question.videoSrc;
-            video.controls = true;          // mostra play/pause, mas vamos controlar quanto dá pra voltar
+            video.controls = false;          // mostra play/pause, mas vamos controlar quanto dá pra voltar
             video.preload = 'auto';
             video.style.width = '100%';
             video.style.height = '100%';
@@ -761,12 +761,18 @@ document.addEventListener('DOMContentLoaded', () => {
             videoOverlayElement = overlay;
 
             overlay.addEventListener('click', () => {
-                const count = videoPlayCounts[question.id];
-                // if (count >= 2) return; // já assistiu duas vezes
+                const count = videoPlayCounts[question.id] || 0;
+
+                if (count >= 2) {
+                    // já assistiu duas vezes: não faz nada
+                    return;
+                }
+
                 if (currentVideoElement) {
                     currentVideoElement.currentTime = 0;
                     currentVideoElement.play();
-                    overlay.style.display = 'none';
+                    // enquanto está tocando, some com o overlay
+                    videoOverlayElement.style.display = 'none';
                 }
             });
 
@@ -810,7 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNavigationButtons();
     }
 
-        function updateVideoOverlay(questionId) {
+    function updateVideoOverlay(questionId) {
         if (!videoOverlayElement) return;
 
         const count = videoPlayCounts[questionId] || 0;
@@ -819,7 +825,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (count === 0) {
             msgDiv.textContent = 'Clique para assistir ao vídeo (1ª vez).';
             videoOverlayElement.classList.remove('disabled');
-            videoOverlayElement.style.display = 'flex'; // overlay visível
+            videoOverlayElement.style.display = 'flex';
         } else if (count === 1) {
             msgDiv.textContent = 'Você já assistiu uma vez. Clique para assistir pela última vez.';
             videoOverlayElement.classList.remove('disabled');
