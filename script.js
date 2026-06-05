@@ -1,75 +1,85 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Elementos das telas
-    const introSection = document.getElementById('intro-section');
-    const nameSection = document.getElementById('name-section');
-    const lastNameSection = document.getElementById('lastName-section');
-    const proficiencySection = document.getElementById('proficiency-section');
-    const preparationSection = document.getElementById('preparation-section');
-    const quizSection = document.getElementById('quiz-section');
-    const resultsSection = document.getElementById('results-section');
+// Carrega a API do IFrame Player do YouTube de forma assíncrona
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // Elementos da introdução
-    const startButton = document.getElementById('startButton');
+// Esta função será chamada quando a API do YouTube estiver pronta
+function onYouTubeIframeAPIReady() {
+    document.addEventListener('DOMContentLoaded', () => {
+        // Elementos das telas
+        const introSection = document.getElementById('intro-section');
+        const nameSection = document.getElementById('name-section');
+        const lastNameSection = document.getElementById('lastName-section');
+        const proficiencySection = document.getElementById('proficiency-section');
+        const preparationSection = document.getElementById('preparation-section');
+        const quizSection = document.getElementById('quiz-section');
+        const resultsSection = document.getElementById('results-section');
 
-    // Elementos da coleta de nome
-    const firstNameInput = document.getElementById('firstNameInput');
-    const nextNameButton = document.getElementById('nextNameButton');
+        // Elementos da introdução
+        const startButton = document.getElementById('startButton');
 
-    // Elementos da coleta de sobrenome
-    const lastNameQuestion = document.getElementById('lastNameQuestion');
-    const lastNameInput = document.getElementById('lastNameInput');
-    const nextLastNameButton = document.getElementById('nextLastNameButton');
+        // Elementos da coleta de nome
+        const firstNameInput = document.getElementById('firstNameInput');
+        const nextNameButton = document.getElementById('nextNameButton');
 
-    // Elementos da coleta de proficiência
-    const proficiencyQuestion = document.getElementById('proficiencyQuestion');
-    const proficiencyOptionsContainer = document.querySelector('.proficiency-options');
-    const proficiencyOptionButtons = document.querySelectorAll('.proficiency-option');
-    const nextProficiencyButton = document.getElementById('nextProficiencyButton');
+        // Elementos da coleta de sobrenome
+        const lastNameQuestion = document.getElementById('lastNameQuestion');
+        const lastNameInput = document.getElementById('lastNameInput');
+        const nextLastNameButton = document.getElementById('nextLastNameButton');
 
-    // Elementos da tela de preparação
-    const preparationMessage = document.getElementById('preparationMessage');
-    const startQuizButton = document.getElementById('startQuizButton');
+        // Elementos da coleta de proficiência
+        const proficiencyQuestion = document.getElementById('proficiencyQuestion');
+        const proficiencyOptionsContainer = document.querySelector('.proficiency-options');
+        const proficiencyOptionButtons = document.querySelectorAll('.proficiency-option');
+        const nextProficiencyButton = document.getElementById('nextProficiencyButton');
 
-    // Elementos do quiz
-    const progressBarFill = document.getElementById('progressBarFill');
-    const progressText = document.getElementById('progressText');
-    const questionText = document.getElementById('questionText');
-    const optionsContainer = document.getElementById('optionsContainer');
-    const youtubeVideoContainer = document.getElementById('youtube-video-container');
-    const nextButton = document.getElementById('nextButton');
+        // Elementos da tela de preparação
+        const preparationMessage = document.getElementById('preparationMessage');
+        const startQuizButton = document.getElementById('startQuizButton');
 
-    // Elementos dos resultados
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const totalQuestionsDisplay = document.getElementById('totalQuestionsDisplay');
-    const levelDisplay = document.getElementById('levelDisplay');
-    const detailedFeedback = document.getElementById('detailedFeedback');
-    const restartButton = document.getElementById('restartButton');
+        // Elementos do quiz
+        const progressBarFill = document.getElementById('progressBarFill');
+        const progressText = document.getElementById('progressText');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const youtubeVideoContainer = document.getElementById('youtube-video-container');
+        const nextButton = document.getElementById('nextButton');
 
-    let currentQuestionIndex = 0;
-    let userAnswers = [];
-    let score = 0;
-    let userData = {
-        firstName: '',
-        lastName: '',
-        proficiencyLevel: ''
-    };
+        // Elementos dos resultados
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const totalQuestionsDisplay = document.getElementById('totalQuestionsDisplay');
+        const levelDisplay = document.getElementById('levelDisplay');
+        const detailedFeedback = document.getElementById('detailedFeedback');
+        const restartButton = document.getElementById('restartButton');
 
-    // Controle de vídeo YouTube
-    let player; // Objeto do player do YouTube
-    let videoOverlayElement = null;
-    const videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por questão
-    let isVideoPlaying = false; // Flag para controlar se o vídeo está tocando
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+        let userData = {
+            firstName: '',
+            lastName: '',
+            proficiencyLevel: ''
+        };
 
-    // Função para embaralhar um array (Fisher-Yates)
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+        // Controle de vídeo YouTube
+        let player; // Objeto do player do YouTube
+        let videoOverlayElement = null;
+        const videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por questão
+        let isVideoPlaying = false; // Flag para controlar se o vídeo está tocando
+
+        // Função para embaralhar um array (Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
-        return array;
-    }
 
-    const questions = [
+        // Estrutura de dados para as perguntas (com as 28 perguntas do PDF)
+        // As opções foram reorganizadas e os correctAnswerId ajustados para distribuir as respostas corretas.
+        const questions = [
         {
             id: 'q1',
             type: 'grammar',
@@ -592,393 +602,380 @@ document.addEventListener('DOMContentLoaded', () => {
 
     userAnswers = new Array(questions.length).fill(null);
 
-    // --- Carrega a API do IFrame Player do YouTube ---
-    let tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // Função para transição de telas com fading
+        function showScreen(screenToShow) {
+            const allScreens = [introSection, nameSection, lastNameSection, proficiencySection, preparationSection, quizSection, resultsSection];
 
-    // Esta função é chamada automaticamente pela API do YouTube quando o player está pronto
-    window.onYouTubeIframeAPIReady = () => {
-        // Agora que a API está pronta, podemos iniciar o quiz
-        showScreen(introSection);
-    };
-
-    // Função para transição de telas com fading
-    function showScreen(screenToShow) {
-        const allScreens = [introSection, nameSection, lastNameSection, proficiencySection, preparationSection, quizSection, resultsSection];
-
-        // Primeiro, esconde todas as telas com opacidade 0
-        allScreens.forEach(screen => {
-            screen.style.opacity = '0';
-        });
-
-        // Após um pequeno atraso para a transição de opacidade, esconde fisicamente as telas
-        setTimeout(() => {
+            // Primeiro, esconde todas as telas com opacidade 0
             allScreens.forEach(screen => {
-                screen.classList.add('hidden');
+                screen.style.opacity = '0';
             });
 
-            // Remove a classe hidden da tela que deve ser mostrada
-            screenToShow.classList.remove('hidden');
-
-            // E então, após outro pequeno atraso, define a opacidade para 1 para a transição de entrada
+            // Após um pequeno atraso para a transição de opacidade, esconde fisicamente as telas
             setTimeout(() => {
-                screenToShow.style.opacity = '1';
-            }, 50); // Pequeno atraso para garantir que a classe 'hidden' foi removida antes de aplicar a opacidade
-        }, 500); // Este atraso deve ser igual ao tempo da transição CSS (0.5s)
-    }
+                allScreens.forEach(screen => {
+                    screen.classList.add('hidden');
+                });
 
-    // --- Lógica das Telas Iniciais ---
-    startButton.addEventListener('click', () => {
-        showScreen(nameSection);
-        firstNameInput.focus();
-    });
+                // Remove a classe hidden da tela que deve ser mostrada
+                screenToShow.classList.remove('hidden');
 
-    document.addEventListener('keydown', (event) => {
-        if (!introSection.classList.contains('hidden') && event.key === 'Enter') {
-            startButton.click();
-        }
-    });
-
-    firstNameInput.addEventListener('input', () => {
-        nextNameButton.disabled = firstNameInput.value.trim() === '';
-    });
-
-    firstNameInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' && !nextNameButton.disabled) {
-            event.preventDefault();
-            nextNameButton.click();
-        }
-    });
-
-    nextNameButton.addEventListener('click', () => {
-        userData.firstName = firstNameInput.value.trim();
-        lastNameQuestion.textContent = `${userData.firstName}, qual é seu sobrenome?`;
-        showScreen(lastNameSection);
-        lastNameInput.focus();
-    });
-
-    lastNameInput.addEventListener('input', () => {
-        nextLastNameButton.disabled = lastNameInput.value.trim() === '';
-    });
-
-    lastNameInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' && !nextLastNameButton.disabled) {
-            event.preventDefault();
-            nextLastNameButton.click();
-        }
-    });
-
-    nextLastNameButton.addEventListener('click', () => {
-        userData.lastName = lastNameInput.value.trim();
-        proficiencyQuestion.textContent = `${userData.firstName}, você se considera em qual nível de proficiência da língua inglesa:`;
-        showScreen(proficiencySection);
-    });
-
-    proficiencyOptionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
-            button.classList.add('selected');
-            userData.proficiencyLevel = button.dataset.level;
-            nextProficiencyButton.disabled = false;
-        });
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!proficiencySection.classList.contains('hidden') && event.key === 'Enter' && !nextProficiencyButton.disabled) {
-            event.preventDefault();
-            nextProficiencyButton.click();
-        }
-    });
-
-    nextProficiencyButton.addEventListener('click', () => {
-        preparationMessage.innerHTML = `Seu teste irá começar.<br>Prepare-se! &#128074;&#127995;&#128521;`;
-        showScreen(preparationSection);
-    });
-
-    startQuizButton.addEventListener('click', () => {
-        showScreen(quizSection);
-        loadQuestion();
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!preparationSection.classList.contains('hidden') && event.key === 'Enter') {
-            event.preventDefault();
-            startQuizButton.click();
-        }
-    });
-
-    // --- Lógica do Quiz ---
-    function loadQuestion() {
-        const question = questions[currentQuestionIndex];
-        questionText.innerHTML = question.question;
-        optionsContainer.innerHTML = '';
-
-        // Limpa qualquer player do YouTube anterior e reseta elementos
-        youtubeVideoContainer.innerHTML = '';
-        player = null;
-        videoOverlayElement = null;
-        isVideoPlaying = false; // Reseta o flag de reprodução
-
-        if (question.youtubeVideoId) {
-            youtubeVideoContainer.style.display = 'block';
-
-            // Cria um div para o player do YouTube
-            const playerDiv = document.createElement('div');
-            playerDiv.id = 'youtube-player';
-            youtubeVideoContainer.appendChild(playerDiv);
-
-            // Cria o player do YouTube
-            player = new YT.Player('youtube-player', {
-                height: '360',
-                width: '640',
-                videoId: question.youtubeVideoId,
-                playerVars: {
-                    'controls': 0, // Esconde os controles do player
-                    'disablekb': 1, // Desabilita controles de teclado
-                    'rel': 0, // Não mostra vídeos relacionados ao final
-                    'modestbranding': 1, // Remove o logo do YouTube
-                    'fs': 0, // Desabilita tela cheia
-                    'iv_load_policy': 3, // Esconde anotações
-                    'playsinline': 1 // Reproduz inline em iOS
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-
-            // Cria o overlay
-            const overlay = document.createElement('div');
-            overlay.classList.add('video-overlay');
-            overlay.innerHTML = '<div class="video-overlay-message"></div>'; // Conteúdo será definido por updateVideoOverlay
-            youtubeVideoContainer.appendChild(overlay);
-            videoOverlayElement = overlay;
-
-            // --- LÓGICA DE CLIQUE PARA REPRODUÇÃO ILIMITADA ---
-            overlay.addEventListener('click', () => {
-                if (player && player.getPlayerState() !== YT.PlayerState.PLAYING) { // Só permite reproduzir se não estiver tocando
-                    player.seekTo(0); // Reinicia o vídeo
-                    player.playVideo();
-                    videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
-                    isVideoPlaying = true; // Define o flag como true
-                    console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
-                } else if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
-                    console.log(`Vídeo ${question.id} já está tocando.`);
-                }
-            });
-
-            // Estado inicial do overlay
-            updateVideoOverlay(question.id);
-
-        } else {
-            youtubeVideoContainer.style.display = 'none';
+                // E então, após outro pequeno atraso, define a opacidade para 1 para a transição de entrada
+                setTimeout(() => {
+                    screenToShow.style.opacity = '1';
+                }, 50); // Pequeno atraso para garantir que a classe 'hidden' foi removida antes de aplicar a opacidade
+            }, 500); // Este atraso deve ser igual ao tempo da transição CSS (0.5s)
         }
 
-        const optionLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
-        const shuffledOptions = shuffleArray([...question.options]);
-
-        shuffledOptions.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.classList.add('option-button');
-            button.dataset.optionId = option.id;
-            button.addEventListener('click', () => selectOption(option.id));
-
-            const letterSpan = document.createElement('span');
-            letterSpan.classList.add('option-letter');
-            letterSpan.textContent = optionLetters[index];
-
-            const textSpan = document.createElement('span');
-            textSpan.classList.add('option-text');
-            textSpan.textContent = option.text;
-
-            button.appendChild(letterSpan);
-            button.appendChild(textSpan);
-            optionsContainer.appendChild(button);
+        // --- Lógica das Telas Iniciais ---
+        startButton.addEventListener('click', () => {
+            showScreen(nameSection);
+            firstNameInput.focus();
         });
 
-        if (userAnswers[currentQuestionIndex]) {
-            const selectedOptionButton = optionsContainer.querySelector(`[data-option-id="${userAnswers[currentQuestionIndex]}"]`);
-            if (selectedOptionButton) {
-                selectedOptionButton.classList.add('selected');
+        document.addEventListener('keydown', (event) => {
+            if (!introSection.classList.contains('hidden') && event.key === 'Enter') {
+                startButton.click();
             }
-        }
-
-        updateProgressBar();
-        updateNavigationButtons();
-    }
-
-    // --- Funções da API do YouTube ---
-    function onPlayerReady(event) {
-        // O player está pronto, mas não queremos que ele comece a tocar automaticamente
-        // event.target.mute(); // Opcional: mutar o vídeo
-    }
-
-    function onPlayerStateChange(event) {
-        const question = questions[currentQuestionIndex];
-        if (event.data === YT.PlayerState.ENDED) {
-            // O vídeo terminou
-            if (isVideoPlaying) { // Só incrementa se o vídeo realmente estava tocando
-                videoPlayCounts[question.id] = (videoPlayCounts[question.id] || 0) + 1; // Incrementa o contador
-                console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
-                isVideoPlaying = false; // Reseta o flag
-                updateVideoOverlay(question.id); // Reexibe o overlay
-            }
-        } else if (event.data === YT.PlayerState.PLAYING) {
-            // O vídeo está tocando
-            isVideoPlaying = true;
-        } else if (event.data === YT.PlayerState.PAUSED) {
-            // O vídeo foi pausado (se permitirmos controles ou interação)
-            // Podemos decidir se queremos mostrar o overlay aqui ou não
-        }
-    }
-
-    // --- FUNÇÃO updateVideoOverlay PARA REPRODUÇÕES ILIMITADAS ---
-    function updateVideoOverlay(questionId) {
-        if (!videoOverlayElement) return;
-
-        const msgDiv = videoOverlayElement.querySelector('.video-overlay-message');
-
-        // Para reproduções ilimitadas, o overlay sempre deve estar habilitado e com a mesma mensagem
-        msgDiv.textContent = 'Clique para assistir ao vídeo.'; // Mensagem simples para reprodução ilimitada
-        videoOverlayElement.classList.remove('disabled'); // Garante que o overlay nunca esteja desabilitado
-        videoOverlayElement.style.display = 'flex'; // Garante que o overlay esteja visível
-    }
-
-    function selectOption(optionId) {
-        optionsContainer.querySelectorAll('.option-button').forEach(btn => {
-            btn.classList.remove('selected');
         });
-        const selectedButton = optionsContainer.querySelector(`[data-option-id="${optionId}"]`);
-        if (selectedButton) {
-            selectedButton.classList.add('selected');
-        }
-        userAnswers[currentQuestionIndex] = optionId;
-    }
 
-    function updateProgressBar() {
-        const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-        progressBarFill.style.width = `${progress}%`;
-        progressText.textContent = `Questão ${currentQuestionIndex + 1} de ${questions.length}`;
-    }
+        firstNameInput.addEventListener('input', () => {
+            nextNameButton.disabled = firstNameInput.value.trim() === '';
+        });
 
-    function updateNavigationButtons() {
-        nextButton.textContent = currentQuestionIndex === questions.length - 1 ? 'Finalizar Teste' : 'Próxima';
-    }
+        firstNameInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !nextNameButton.disabled) {
+                event.preventDefault();
+                nextNameButton.click();
+            }
+        });
 
-    function calculateResults() {
-        score = 0;
-        const incorrectQuestions = [];
+        nextNameButton.addEventListener('click', () => {
+            userData.firstName = firstNameInput.value.trim();
+            lastNameQuestion.textContent = `${userData.firstName}, qual é seu sobrenome?`;
+            showScreen(lastNameSection);
+            lastNameInput.focus();
+        });
 
-        questions.forEach((q, index) => {
-            const userAnswer = userAnswers[index];
-            const originalCorrectOption = q.options.find(opt => opt.id === q.correctAnswerId);
+        lastNameInput.addEventListener('input', () => {
+            nextLastNameButton.disabled = lastNameInput.value.trim() === '';
+        });
 
-            if (userAnswer === originalCorrectOption.id) {
-                score++;
+        lastNameInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !nextLastNameButton.disabled) {
+                event.preventDefault();
+                nextLastNameButton.click();
+            }
+        });
+
+        nextLastNameButton.addEventListener('click', () => {
+            userData.lastName = lastNameInput.value.trim();
+            proficiencyQuestion.textContent = `${userData.firstName}, você se considera em qual nível de proficiência da língua inglesa:`;
+            showScreen(proficiencySection);
+        });
+
+        proficiencyOptionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+                userData.proficiencyLevel = button.dataset.level;
+                nextProficiencyButton.disabled = false;
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (!proficiencySection.classList.contains('hidden') && event.key === 'Enter' && !nextProficiencyButton.disabled) {
+                event.preventDefault();
+                nextProficiencyButton.click();
+            }
+        });
+
+        nextProficiencyButton.addEventListener('click', () => {
+            preparationMessage.innerHTML = `Seu teste irá começar.<br>Prepare-se! &#128074;&#127995;&#128521;`;
+            showScreen(preparationSection);
+        });
+
+        startQuizButton.addEventListener('click', () => {
+            showScreen(quizSection);
+            loadQuestion();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (!preparationSection.classList.contains('hidden') && event.key === 'Enter') {
+                event.preventDefault();
+                startQuizButton.click();
+            }
+        });
+
+        // --- Lógica do Quiz ---
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            optionsContainer.innerHTML = '';
+
+            // Limpa qualquer vídeo anterior e reseta elementos
+            youtubeVideoContainer.innerHTML = '';
+            videoOverlayElement = null; // Reseta o elemento do overlay
+
+            if (question.youtubeVideoId) {
+                youtubeVideoContainer.style.display = 'block';
+
+                // Cria um div para o player do YouTube
+                const playerDiv = document.createElement('div');
+                playerDiv.id = `youtube-player-${question.id}`;
+                youtubeVideoContainer.appendChild(playerDiv);
+
+                // Cria o player do YouTube
+                player = new YT.Player(playerDiv.id, {
+                    height: '360',
+                    width: '640',
+                    videoId: question.youtubeVideoId,
+                    playerVars: {
+                        'playsinline': 1,
+                        'controls': 0, // Sem controles do YouTube
+                        'disablekb': 1, // Desabilita controles de teclado
+                        'fs': 0, // Desabilita tela cheia
+                        'rel': 0, // Não mostra vídeos relacionados
+                        'modestbranding': 1, // Remove o logo do YouTube
+                        'iv_load_policy': 3 // Desabilita anotações
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+
+                // Cria o overlay
+                const overlay = document.createElement('div');
+                overlay.classList.add('video-overlay');
+                overlay.innerHTML = '<div class="video-overlay-message"></div>'; // Conteúdo será definido por updateVideoOverlay
+                youtubeVideoContainer.appendChild(overlay);
+                videoOverlayElement = overlay;
+
+                // --- LÓGICA DE CLIQUE PARA REPRODUÇÃO ILIMITADA ---
+                overlay.addEventListener('click', () => {
+                    if (player && player.getPlayerState() !== YT.PlayerState.PLAYING) { // Só permite reproduzir se não estiver tocando
+                        player.seekTo(0); // Reinicia o vídeo
+                        player.playVideo();
+                        videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
+                        isVideoPlaying = true; // Define o flag como true
+                        console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
+                    } else if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        console.log(`Vídeo ${question.id} já está tocando.`);
+                    }
+                });
+
+                // Estado inicial do overlay
+                updateVideoOverlay(question.id);
+
             } else {
-                const userAnswerText = q.options.find(opt => opt.id === userAnswer)?.text || "Não respondida";
-                const correctAnswerText = originalCorrectOption.text;
+                youtubeVideoContainer.style.display = 'none';
+            }
 
-                incorrectQuestions.push({
-                    question: q.question,
-                    userAnswer: userAnswerText,
-                    correctAnswer: correctAnswerText,
-                    explanation: q.explanation,
-                    type: q.type,
-                    topic: q.topic
+            const optionLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+            const shuffledOptions = shuffleArray([...question.options]);
+
+            shuffledOptions.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.classList.add('option-button');
+                button.dataset.optionId = option.id;
+                button.addEventListener('click', () => selectOption(option.id));
+
+                const letterSpan = document.createElement('span');
+                letterSpan.classList.add('option-letter');
+                letterSpan.textContent = optionLetters[index];
+
+                const textSpan = document.createElement('span');
+                textSpan.classList.add('option-text');
+                textSpan.textContent = option.text;
+
+                button.appendChild(letterSpan);
+                button.appendChild(textSpan);
+                optionsContainer.appendChild(button);
+            });
+
+            if (userAnswers[currentQuestionIndex]) {
+                const selectedOptionButton = optionsContainer.querySelector(`[data-option-id="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOptionButton) {
+                    selectedOptionButton.classList.add('selected');
+                }
+            }
+
+            updateProgressBar();
+            updateNavigationButtons();
+        }
+
+        // --- Funções da API do YouTube ---
+        function onPlayerReady(event) {
+            // O player está pronto, mas não queremos que ele comece a tocar automaticamente
+            // event.target.mute(); // Opcional: mutar o vídeo
+        }
+
+        function onPlayerStateChange(event) {
+            const question = questions[currentQuestionIndex];
+            if (event.data === YT.PlayerState.ENDED) {
+                // O vídeo terminou
+                if (isVideoPlaying) { // Só incrementa se o vídeo realmente estava tocando
+                    videoPlayCounts[question.id] = (videoPlayCounts[question.id] || 0) + 1; // Incrementa o contador
+                    console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
+                    isVideoPlaying = false; // Reseta o flag
+                    updateVideoOverlay(question.id); // Reexibe o overlay
+                }
+            } else if (event.data === YT.PlayerState.PLAYING) {
+                // O vídeo está tocando
+                isVideoPlaying = true;
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                // O vídeo foi pausado (se permitirmos controles ou interação)
+                // Podemos decidir se queremos mostrar o overlay aqui ou não
+            }
+        }
+
+        // --- FUNÇÃO updateVideoOverlay PARA REPRODUÇÕES ILIMITADAS ---
+        function updateVideoOverlay(questionId) {
+            if (!videoOverlayElement) return;
+
+            const msgDiv = videoOverlayElement.querySelector('.video-overlay-message');
+
+            // Para reproduções ilimitadas, o overlay sempre deve estar habilitado e com a mesma mensagem
+            msgDiv.textContent = 'Clique para assistir ao vídeo.'; // Mensagem simples para reprodução ilimitada
+            videoOverlayElement.classList.remove('disabled'); // Garante que o overlay nunca esteja desabilitado
+            videoOverlayElement.style.display = 'flex'; // Garante que o overlay esteja visível
+        }
+
+        function selectOption(optionId) {
+            optionsContainer.querySelectorAll('.option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            const selectedButton = optionsContainer.querySelector(`[data-option-id="${optionId}"]`);
+            if (selectedButton) {
+                selectedButton.classList.add('selected');
+            }
+            userAnswers[currentQuestionIndex] = optionId;
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBarFill.style.width = `${progress}%`;
+            progressText.textContent = `Questão ${currentQuestionIndex + 1} de ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            nextButton.textContent = currentQuestionIndex === questions.length - 1 ? 'Finalizar Teste' : 'Próxima';
+        }
+
+        function calculateResults() {
+            score = 0;
+            const incorrectQuestions = [];
+
+            questions.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                const originalCorrectOption = q.options.find(opt => opt.id === q.correctAnswerId);
+
+                if (userAnswer === originalCorrectOption.id) {
+                    score++;
+                } else {
+                    const userAnswerText = q.options.find(opt => opt.id === userAnswer)?.text || "Não respondida";
+                    const correctAnswerText = originalCorrectOption.text;
+
+                    incorrectQuestions.push({
+                        question: q.question,
+                        userAnswer: userAnswerText,
+                        correctAnswer: correctAnswerText,
+                        explanation: q.explanation,
+                        type: q.type,
+                        topic: q.topic
+                    });
+                }
+            });
+
+            displayResults(incorrectQuestions);
+        }
+
+        function displayResults(incorrectQuestions) {
+            showScreen(resultsSection);
+
+            scoreDisplay.textContent = score;
+            totalQuestionsDisplay.textContent = questions.length;
+
+            let level = '';
+            if (score === questions.length) {
+                level = 'C2 - Proficiência';
+            } else if (score >= questions.length * 0.8) {
+                level = 'C1 - Avançado';
+            } else if (score >= questions.length * 0.6) {
+                level = 'B2 - Intermediário Superior';
+            } else if (score >= questions.length * 0.4) {
+                level = 'B1 - Intermediário';
+            } else if (score >= questions.length * 0.2) {
+                level = 'A2 - Básico Superior';
+            } else {
+                level = 'A1 - Básico';
+            }
+            levelDisplay.textContent = level;
+
+            detailedFeedback.innerHTML = '';
+            if (incorrectQuestions.length === 0) {
+                detailedFeedback.innerHTML = '<p>Parabéns! Você acertou todas as questões.</p>';
+            } else {
+                incorrectQuestions.forEach(item => {
+                    const feedbackItem = document.createElement('div');
+                    feedbackItem.classList.add('feedback-item');
+                    feedbackItem.innerHTML = `
+                        <p class="question-feedback"><strong>Questão:</strong> ${item.question}</p>
+                        <p class="user-answer-feedback"><strong>Sua resposta:</strong> ${item.userAnswer}</p>
+                        <p class="correct-answer-feedback"><strong>Resposta correta:</strong> ${item.correctAnswer}</p>
+                        <p class="explanation-feedback"><strong>Explicação:</strong> ${item.explanation}</p>
+                        <p><strong>Tipo:</strong> ${item.type} | <strong>Tópico:</strong> ${item.topic}</p>
+                    `;
+                    detailedFeedback.appendChild(feedbackItem);
                 });
             }
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (userAnswers[currentQuestionIndex] === null) {
+                alert('Por favor, selecione uma opção antes de prosseguir.');
+                return;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                calculateResults();
+            }
         });
 
-        displayResults(incorrectQuestions);
-    }
+        document.addEventListener('keydown', (event) => {
+            if (!quizSection.classList.contains('hidden') && event.key === 'Enter' && !nextButton.disabled) {
+                event.preventDefault();
+                nextButton.click();
+            }
+        });
 
-    function displayResults(incorrectQuestions) {
-        showScreen(resultsSection);
+        restartButton.addEventListener('click', () => {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            score = 0;
+            userData = { firstName: '', lastName: '', proficiencyLevel: '' };
+            firstNameInput.value = '';
+            lastNameInput.value = '';
+            proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
+            nextNameButton.disabled = true;
+            nextLastNameButton.disabled = true;
+            nextProficiencyButton.disabled = true;
 
-        scoreDisplay.textContent = score;
-        totalQuestionsDisplay.textContent = questions.length;
+            showScreen(introSection);
+        });
 
-        let level = '';
-        if (score === questions.length) {
-            level = 'C2 - Proficiência';
-        } else if (score >= questions.length * 0.8) {
-            level = 'C1 - Avançado';
-        } else if (score >= questions.length * 0.6) {
-            level = 'B2 - Intermediário Superior';
-        } else if (score >= questions.length * 0.4) {
-            level = 'B1 - Intermediário';
-        } else if (score >= questions.length * 0.2) {
-            level = 'A2 - Básico Superior';
-        } else {
-            level = 'A1 - Básico';
-        }
-        levelDisplay.textContent = level;
+        document.addEventListener('keydown', (event) => {
+            if (!resultsSection.classList.contains('hidden') && event.key === 'Enter' && !restartButton.disabled) {
+                event.preventDefault();
+                restartButton.click();
+            }
+        });
 
-        detailedFeedback.innerHTML = '';
-        if (incorrectQuestions.length === 0) {
-            detailedFeedback.innerHTML = '<p>Parabéns! Você acertou todas as questões.</p>';
-        } else {
-            incorrectQuestions.forEach(item => {
-                const feedbackItem = document.createElement('div');
-                feedbackItem.classList.add('feedback-item');
-                feedbackItem.innerHTML = `
-                    <p class="question-feedback"><strong>Questão:</strong> ${item.question}</p>
-                    <p class="user-answer-feedback"><strong>Sua resposta:</strong> ${item.userAnswer}</p>
-                    <p class="correct-answer-feedback"><strong>Resposta correta:</strong> ${item.correctAnswer}</p>
-                    <p class="explanation-feedback"><strong>Explicação:</strong> ${item.explanation}</p>
-                    <p><strong>Tipo:</strong> ${item.type} | <strong>Tópico:</strong> ${item.topic}</p>
-                `;
-                detailedFeedback.appendChild(feedbackItem);
-            });
-        }
-    }
-
-    nextButton.addEventListener('click', () => {
-        if (userAnswers[currentQuestionIndex] === null) {
-            alert('Por favor, selecione uma opção antes de prosseguir.');
-            return;
-        }
-
-        if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-            loadQuestion();
-        } else {
-            calculateResults();
-        }
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!quizSection.classList.contains('hidden') && event.key === 'Enter' && !nextButton.disabled) {
-            event.preventDefault();
-            nextButton.click();
-        }
-    });
-
-    restartButton.addEventListener('click', () => {
-        currentQuestionIndex = 0;
-        userAnswers = new Array(questions.length).fill(null);
-        score = 0;
-        userData = { firstName: '', lastName: '', proficiencyLevel: '' };
-        firstNameInput.value = '';
-        lastNameInput.value = '';
-        proficiencyOptionButtons.forEach(btn => btn.classList.remove('selected'));
-        nextNameButton.disabled = true;
-        nextLastNameButton.disabled = true;
-        nextProficiencyButton.disabled = true;
-
+        // Inicia na tela de introdução
         showScreen(introSection);
     });
-
-    document.addEventListener('keydown', (event) => {
-        if (!resultsSection.classList.contains('hidden') && event.key === 'Enter' && !restartButton.disabled) {
-            event.preventDefault();
-            restartButton.click();
-        }
-    });
-
-    // A chamada inicial de showScreen(introSection) agora está dentro de onYouTubeIframeAPIReady
-    // para garantir que a API do YouTube esteja carregada antes de tentar criar players.
-});
+}
