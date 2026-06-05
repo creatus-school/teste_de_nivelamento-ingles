@@ -1,4 +1,3 @@
-// Carrega a API do IFrame Player do YouTube de forma assíncrona
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
