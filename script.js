@@ -506,7 +506,7 @@ function onYouTubeIframeAPIReady() {
             ],
             correctAnswerId: 'opt29a',
             explanation: "A resposta mais natural à pergunta 'Have you ever been to a music festival?' é comentar que gosta de shows de rock.",
-            youtubeVideoId: 'VIDEO_ID_Q29'
+            youtubeVideoId: 'NUXp1qCFliQ'
         },
         {
             id: 'q30',
