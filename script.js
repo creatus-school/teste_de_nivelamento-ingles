@@ -54,10 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
         proficiencyLevel: ''
     };
 
-    // Controle de vídeo nativo
-    let currentVideoElement = null;
+    // Controle de vídeo YouTube
+    let player; // Objeto do player do YouTube
     let videoOverlayElement = null;
     const videoPlayCounts = {}; // Objeto para armazenar a contagem de reproduções por questão
+    let isVideoPlaying = false; // Flag para controlar se o vídeo está tocando
 
     // Função para embaralhar um array (Fisher-Yates)
     function shuffleArray(array) {
@@ -68,8 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
-    // Estrutura de dados para as perguntas (com as 28 perguntas do PDF)
-    // As opções foram reorganizadas e os correctAnswerId ajustados para distribuir as respostas corretas.
     const questions = [
         {
             id: 'q1',
@@ -497,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt29a',
             explanation: "A resposta mais natural à pergunta 'Have you ever been to a music festival?' é comentar que gosta de shows de rock.",
-            videoSrc: 'q29.mp4'
+            youtubeVideoId: 'VIDEO_ID_Q29'
         },
         {
             id: 'q30',
@@ -512,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt30b',
             explanation: "A alternativa que responde diretamente à pergunta sobre como relaxa é a que fala de chá e música suave.",
-            videoSrc: 'q30.mp4'
+            youtubeVideoId: 'VIDEO_ID_Q30'
         },
         {
             id: 'q31',
@@ -527,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt31c',
             explanation: "A resposta descreve diretamente uma estratégia de estudo organizada.",
-            videoSrc: 'videos/q31.mp4'
+            youtubeVideoId: 'VIDEO_ID_Q31'
         },
         {
             id: 'q32',
@@ -542,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt32c',
             explanation: "A resposta 'I hope you're not dedicating too much time to it.' se conecta com a ideia de estar se dedicando bastante, mas ainda não tocar uma música inteira.",
-            videoSrc: 'videos/q32.mp4'
+            youtubeVideoId: 'VIDEO_ID_Q32'
         },
         {
             id: 'q33',
@@ -557,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt33b',
             explanation: "Responde diretamente à pergunta explicando por que está exausto: reuniões o dia inteiro.",
-            videoSrc: 'videos/q33.mp4'
+            youtubeVideoId: 'VIDEO_ID_Q33'
         },
         {
             id: 'q34',
@@ -572,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt34b',
             explanation: "É a resposta que continua naturalmente a conversa, mostrando interesse no que aconteceu.",
-            videoSrc: 'videos/q34.mp4'
+            youtubeVideoId: 'VIDEO_ID_Q34'
         },
         {
             id: 'q35',
@@ -587,11 +586,23 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt35c',
             explanation: "É a resposta mais natural: parabeniza e pergunta sobre o teste.",
-            videoSrc: 'videos/q35.mp4'
+            youtubeVideoId: 'NUXp1qCFliQ'
         },
     ];
 
     userAnswers = new Array(questions.length).fill(null);
+
+    // --- Carrega a API do IFrame Player do YouTube ---
+    let tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Esta função é chamada automaticamente pela API do YouTube quando o player está pronto
+    window.onYouTubeIframeAPIReady = () => {
+        // Agora que a API está pronta, podemos iniciar o quiz
+        showScreen(introSection);
+    };
 
     // Função para transição de telas com fading
     function showScreen(screenToShow) {
@@ -698,76 +709,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     // --- Lógica do Quiz ---
     function loadQuestion() {
         const question = questions[currentQuestionIndex];
         questionText.innerHTML = question.question;
         optionsContainer.innerHTML = '';
 
-        // Limpa qualquer vídeo anterior e reseta elementos
+        // Limpa qualquer player do YouTube anterior e reseta elementos
         youtubeVideoContainer.innerHTML = '';
-        currentVideoElement = null;
+        player = null;
         videoOverlayElement = null;
+        isVideoPlaying = false; // Reseta o flag de reprodução
 
-        if (question.videoSrc) {
+        if (question.youtubeVideoId) {
             youtubeVideoContainer.style.display = 'block';
 
-            // Cria o elemento <video>
-            const video = document.createElement('video');
-            video.src = question.videoSrc;
-            video.controls = false; // <<< MUDANÇA AQUI: Remove os controles nativos para impedir pausa
-            video.preload = 'auto';
-            video.style.width = '100%';
-            video.style.height = '100%';
-            video.style.backgroundColor = 'black'; // Garante fundo preto se o vídeo não carregar rápido
+            // Cria um div para o player do YouTube
+            const playerDiv = document.createElement('div');
+            playerDiv.id = 'youtube-player';
+            youtubeVideoContainer.appendChild(playerDiv);
 
-            // Impede avanço manual na barra (não deixa voltar para ouvir de novo)
-            let lastTime = 0;
-            video.addEventListener('timeupdate', () => {
-                if (video.currentTime < lastTime - 0.2) { // detecta "voltar"
-                    video.currentTime = lastTime;        // força voltar pro ponto em que estava
-                } else {
-                    lastTime = video.currentTime;
+            // Cria o player do YouTube
+            player = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: question.youtubeVideoId,
+                playerVars: {
+                    'controls': 0, // Esconde os controles do player
+                    'disablekb': 1, // Desabilita controles de teclado
+                    'rel': 0, // Não mostra vídeos relacionados ao final
+                    'modestbranding': 1, // Remove o logo do YouTube
+                    'fs': 0, // Desabilita tela cheia
+                    'iv_load_policy': 3, // Esconde anotações
+                    'playsinline': 1 // Reproduz inline em iOS
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
                 }
             });
-
-            // Adiciona um listener para o clique no próprio vídeo para evitar pause
-            video.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-            });
-
-            // Controla contagem de reproduções
-            if (!videoPlayCounts[question.id]) {
-                videoPlayCounts[question.id] = 0;
-            }
-
-            // Remove qualquer listener 'ended' anterior para evitar duplicação
-            // Isso é importante se loadQuestion() puder ser chamado múltiplas vezes para a mesma questão
-            if (currentVideoElement) {
-                currentVideoElement.removeEventListener('ended', handleVideoEnded);
-            }
-
-            // Define uma função para o evento 'ended' para evitar recriação anônima
-            const handleVideoEnded = () => {
-                // Só incrementa se o vídeo realmente terminou de tocar e não foi um "fim" falso
-                // Uma forma simples é verificar se o vídeo não está em loop ou se não foi parado manualmente
-                // Para este caso, a verificação mais importante é que o count não exceda o limite imediatamente
-                if (videoPlayCounts[question.id] < 2) { // Garante que não incrementa além do limite permitido
-                    videoPlayCounts[question.id]++;
-                    console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
-                    updateVideoOverlay(question.id); // Reexibe o overlay com a mensagem atualizada
-                } else {
-                    console.log(`Vídeo ${question.id} terminou, mas contagem já atingiu o limite. Reproduções: ${videoPlayCounts[question.id]}`);
-                    updateVideoOverlay(question.id); // Garante que o overlay mostra a mensagem de bloqueio
-                }
-            };
-
-            video.addEventListener('ended', handleVideoEnded);
-
-            youtubeVideoContainer.appendChild(video);
-            currentVideoElement = video;
 
             // Cria o overlay
             const overlay = document.createElement('div');
@@ -776,13 +756,16 @@ document.addEventListener('DOMContentLoaded', () => {
             youtubeVideoContainer.appendChild(overlay);
             videoOverlayElement = overlay;
 
+            // --- LÓGICA DE CLIQUE PARA REPRODUÇÃO ILIMITADA ---
             overlay.addEventListener('click', () => {
-                // Não há mais verificação de count, sempre permite a reprodução
-                if (currentVideoElement) {
-                    currentVideoElement.currentTime = 0; // Reinicia o vídeo
-                    currentVideoElement.play();
+                if (player && player.getPlayerState() !== YT.PlayerState.PLAYING) { // Só permite reproduzir se não estiver tocando
+                    player.seekTo(0); // Reinicia o vídeo
+                    player.playVideo();
                     videoOverlayElement.style.display = 'none'; // Esconde o overlay enquanto o vídeo toca
-                    console.log(`Iniciando reprodução de ${question.id} (reprodução ilimitada).`); // Para debug
+                    isVideoPlaying = true; // Define o flag como true
+                    console.log(`Iniciando reprodução de ${question.id}.`); // Para debug
+                } else if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
+                    console.log(`Vídeo ${question.id} já está tocando.`);
                 }
             });
 
@@ -826,7 +809,32 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNavigationButtons();
     }
 
-    // Mantenha a função updateVideoOverlay exatamente como está, ela já está correta para o limite de 2
+    // --- Funções da API do YouTube ---
+    function onPlayerReady(event) {
+        // O player está pronto, mas não queremos que ele comece a tocar automaticamente
+        // event.target.mute(); // Opcional: mutar o vídeo
+    }
+
+    function onPlayerStateChange(event) {
+        const question = questions[currentQuestionIndex];
+        if (event.data === YT.PlayerState.ENDED) {
+            // O vídeo terminou
+            if (isVideoPlaying) { // Só incrementa se o vídeo realmente estava tocando
+                videoPlayCounts[question.id] = (videoPlayCounts[question.id] || 0) + 1; // Incrementa o contador
+                console.log(`Vídeo ${question.id} terminou. Reproduções: ${videoPlayCounts[question.id]}`); // Para debug
+                isVideoPlaying = false; // Reseta o flag
+                updateVideoOverlay(question.id); // Reexibe o overlay
+            }
+        } else if (event.data === YT.PlayerState.PLAYING) {
+            // O vídeo está tocando
+            isVideoPlaying = true;
+        } else if (event.data === YT.PlayerState.PAUSED) {
+            // O vídeo foi pausado (se permitirmos controles ou interação)
+            // Podemos decidir se queremos mostrar o overlay aqui ou não
+        }
+    }
+
+    // --- FUNÇÃO updateVideoOverlay PARA REPRODUÇÕES ILIMITADAS ---
     function updateVideoOverlay(questionId) {
         if (!videoOverlayElement) return;
 
@@ -949,7 +957,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     restartButton.addEventListener('click', () => {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
@@ -972,6 +979,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Inicia na tela de introdução
-    showScreen(introSection);
+    // A chamada inicial de showScreen(introSection) agora está dentro de onYouTubeIframeAPIReady
+    // para garantir que a API do YouTube esteja carregada antes de tentar criar players.
 });
