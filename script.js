@@ -1,10 +1,12 @@
+// Carrega a API do IFrame Player do YouTube de forma assíncrona
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// Esta função será chamada quando a API do YouTube estiver pronta
+// Esta função será chamada automaticamente quando a API do YouTube estiver pronta
 function onYouTubeIframeAPIReady() {
+    // TODO O SEU CÓDIGO DO QUIZ DEVE ESTAR AQUI DENTRO
     document.addEventListener('DOMContentLoaded', () => {
         // Elementos das telas
         const introSection = document.getElementById('intro-section');
