@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = [
         {
             id: 'q1',
-            type: 'grammar',
             topic: 'verb_tenses',
             question: "_________ the store. Do you want to come with me?",
             options: [
