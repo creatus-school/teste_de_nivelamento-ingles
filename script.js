@@ -973,17 +973,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let level = '';
         if (score === questions.length) {
-            level = 'C2 - Proficiência';
+            level = 'C2 - Fluente';
         } else if (score >= questions.length * 0.8) {
             level = 'C1 - Avançado';
         } else if (score >= questions.length * 0.6) {
-            level = 'B2 - Intermediário Superior';
+            level = 'B2 - Pré-avançado';
         } else if (score >= questions.length * 0.4) {
             level = 'B1 - Intermediário';
         } else if (score >= questions.length * 0.2) {
-            level = 'A2 - Básico Superior';
+            level = 'A2 - Básico';
         } else {
-            level = 'A1 - Básico';
+            level = 'A1 - Iniciante';
         }
         levelDisplay.textContent = level;
 
