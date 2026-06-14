@@ -496,7 +496,6 @@ h1 {
     width: 100%; /* Garante que o texto ocupe a largura total disponível */
 }
 
-
 /* NOVO ESTILO para a mensagem da tela de preparação */
 .preparation-text {
     font-size: 2.3em; /* Tamanho maior para destaque */
@@ -505,4 +504,32 @@ h1 {
     line-height: 1.5;
     text-align: center; /* Centraliza o texto */
     font-weight: normal; /* Deixa em negrito para destaque */
+}
+
+/* --- ESTILOS DO CRONÔMETRO --- */
+#timerDisplay {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #5d2066;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: none; /* Escondido por padrão */
+    font-family: 'Aleo', serif;
+}
+
+#timerDisplay.warning {
+    background-color: #e74c3c; /* Fica vermelho no minuto final */
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
