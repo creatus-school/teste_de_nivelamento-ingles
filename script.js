@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q30',
             type: 'listening',
             topic: 'conversation',
-            question: "30. Listen to Speaker #2 and choose the best option for what comes next in the conversation.\nSpeaker #2: \"How do you usually unwind after a long day at work?\"",
+            question: "30. Listen to <strong>Speaker #2</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt30a', text: "I love drinking wine to relax after I get home." },
                 { id: 'opt30b', text: "A cup of tea and soft music help me to sleep well." },
@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q31',
             type: 'listening',
             topic: 'study_habits',
-            question: "31. Listen to Speaker #3 and choose the best option for what comes next in the conversation.\nSpeaker #3: \"How do you study to do so well in the exams?\"",
+            question: "31. Listen to <strong>Speaker #3</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt31a', text: "I never attend classes." },
                 { id: 'opt31b', text: "I sleep early every day." },
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q32',
             type: 'listening',
             topic: 'motivation',
-            question: "32. Listen to Speaker #4 and choose the best option for what comes next in the conversation.\nSpeaker #4: \"I've been practicing the guitar every day for the past six months, but I still can't play an entire song.\"",
+            question: "32. Listen to <strong>Speaker #4</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
                 { id: 'opt32b', text: "Maybe you're just not cut out for music. Why don't you try something else?" },
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q33',
             type: 'listening',
             topic: 'work',
-            question: "33. Listen to Speaker #5 and choose the best option for what comes next in the conversation.\nSpeaker #5: \"You look exhausted, did you have a long day at work?\"",
+            question: "33. Listen to <strong>Speaker #5</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt33a', text: "I bought a new book to read." },
                 { id: 'opt33b', text: "I had meetings all day." },
@@ -562,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q34',
             type: 'listening',
             topic: 'story',
-            question: "34. Listen to Speaker #6 and choose the best option for what comes next in the conversation.\nSpeaker #6: \"Mom, you won't believe what happened to me on the way to the grocery store!\"",
+            question: "34. Listen to <strong>Speaker #6</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt34a', text: "I'm not a fan of shopping for groceries." },
                 { id: 'opt34b', text: "Tell me all about it when you get home." },
@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q35',
             type: 'listening',
             topic: 'achievement',
-            question: "35. Listen to Speaker #7 and choose the best option for what comes next in the conversation.\nSpeaker #7: \"Guess what, I finally passed my driving test.\"",
+            question: "35. Listen to <strong>Speaker #7</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt35a', text: "I'm planning a road trip for next month." },
                 { id: 'opt35b', text: "I bought a new bicycle recently." },
