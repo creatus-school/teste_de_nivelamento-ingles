@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q29',
             type: 'listening',
             topic: 'conversation',
-            question: "29. Listen to Speaker #1 and choose the best option for what comes next in the conversation.\nSpeaker #1: \"Have you ever been to a music festival?\"",
+            question: "29. Listen to <strong>Speaker #1</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt29a', text: "Yes, I love rock concerts!" },
                 { id: 'opt29b', text: "I have a few friends who play instruments." },
