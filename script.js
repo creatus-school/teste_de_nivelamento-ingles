@@ -588,6 +588,76 @@ document.addEventListener('DOMContentLoaded', () => {
             explanation: "É a resposta mais natural: parabeniza e pergunta sobre o teste.",
             videoSrc: 'q35.mp4'
         },
+        {
+            id: 'q36',
+            type: 'listening',
+            topic: 'technology_society',
+            question: "36. Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker highlight as a significant consequence of the digital era's influence on society?</i>",
+            options: [
+                { id: 'opt36a', text: "The increasing integration of artificial intelligence." },
+                { id: 'opt36b', text: "The need for constant reassessment of our relationship with technology." },
+                { id: 'opt36c', text: "The decline of traditional forms of communication." }
+            ],
+            correctAnswerId: 'opt36b',
+            explanation: "O palestrante menciona que estamos constantemente tentando descobrir onde nos posicionamos em relação à tecnologia e que tipo de relacionamento queremos ter com ela.",
+            videoSrc: 'q36.mp4'
+        },
+        {
+            id: 'q37',
+            type: 'listening',
+            topic: 'environment',
+            question: "37. Listen to the audio in the video. Then, answer the question below:<br><br><i>What is the speaker's attitude towards the concept of a circular economy in the audio?</i>",
+            options: [
+                { id: 'opt37a', text: "Enthusiastic, considering it a crucial aspect of responsible global citizenship." },
+                { id: 'opt37b', text: "Skeptical, thinking it does not have a significant impact on environmental issues." },
+                { id: 'opt37c', text: "Indifferent, as they believe it is just a passing trend." }
+            ],
+            correctAnswerId: 'opt37a',
+            explanation: "O palestrante demonstra entusiasmo, afirmando que a economia circular está ganhando força e se tornou um aspecto crucial de ser um cidadão global responsável.",
+            videoSrc: 'q37.mp4'
+        },
+        {
+            id: 'q38',
+            type: 'listening',
+            topic: 'workplace',
+            question: "38. Listen to the audio in the video. Then, answer the question below:<br><br><i>How does the speaker describe the transformation in traditional workplace dynamics?</i>",
+            options: [
+                { id: 'opt38a', text: "Expressing concerns about the isolation of employees in remote work settings." },
+                { id: 'opt38b', text: "Highlighting a shift towards flexible and remote work arrangements." },
+                { id: 'opt38c', text: "Indicating that it leads to a decline in effective communication." }
+            ],
+            correctAnswerId: 'opt38b',
+            explanation: "O áudio destaca como a flexibilidade e o trabalho remoto se tornaram partes integrantes e essenciais da dinâmica atual do local de trabalho.",
+            videoSrc: 'q38.mp4'
+        },
+        {
+            id: 'q39',
+            type: 'listening',
+            topic: 'culture',
+            question: "39. Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the expression \"putting up with each other\" mean?</i>",
+            options: [
+                { id: 'opt39a', text: "Tolerating and accepting each other despite differences." },
+                { id: 'opt39b', text: "Embracing and celebrating each other's differences." },
+                { id: 'opt39c', text: "Physically putting up various objects as a symbol of unity." }
+            ],
+            correctAnswerId: 'opt39a',
+            explanation: "A expressão 'putting up with' é um phrasal verb que significa tolerar ou suportar algo/alguém, mesmo havendo diferenças ou dificuldades.",
+            videoSrc: 'q39.mp4'
+        },
+        {
+            id: 'q40',
+            type: 'listening',
+            topic: 'technology_ethics',
+            question: "40. Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker mean by \"without messing everything up\"?</i>",
+            options: [
+                { id: 'opt40a', text: "Experimenting with technology without considering the potential risks." },
+                { id: 'opt40b', text: "Introducing groundbreaking technologies without any consequences." },
+                { id: 'opt40c', text: "Utilizing transformative technologies responsibly and ethically." }
+            ],
+            correctAnswerId: 'opt40c',
+            explanation: "A frase 'without messing everything up' no contexto do áudio refere-se a usar as novas ferramentas tecnológicas de forma responsável e ética, para não causar danos.",
+            videoSrc: 'q40.mp4'
+        }
     ];
 
     userAnswers = new Array(questions.length).fill(null);
