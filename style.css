@@ -1,17 +1,29 @@
 body {
     font-family: 'Aleo', serif;
     background-color: #f4f7f6;
-    background-image: url('background.jpg'); /* URL da imagem de fundo atualizada */
-    background-size: cover;
-    background-attachment: fixed;
     color: #333;
     margin: 0;
-    display: flex; /* Para centralizar o conteúdo da tela ativa */
+    display: flex; 
     justify-content: center;
-    align-items: center; /* ALINHA O CONTEÚDO VERTICALMENTE AO CENTRO */
+    align-items: center; 
     min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
+}
+
+/* Truque para travar a imagem de fundo no celular */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Garante que a imagem fique atrás de todo o conteúdo */
 }
 
 /* Estilo base para todas as telas */
