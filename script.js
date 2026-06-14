@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startTimer() {
-        timeRemaining = 20 * 60; // Reseta para 20 minutos
+        timeRemaining = 15 * 60; // Reseta para 20 minutos
         timerDisplay.classList.remove('warning');
         timerDisplay.style.display = 'block';
         updateTimerDisplay();
@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q2',
-            type: 'grammar',
             topic: 'past_simple',
             question: "Yesterday, I __________ to the cinema with my friends.",
             options: [
@@ -139,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q3',
-            type: 'grammar',
             topic: 'present_simple',
             question: "My sister is a teacher. She __________ English at a school.",
             options: [
@@ -154,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q4',
-            type: 'vocabulary',
             topic: 'adjectives',
             question: "<strong>A:</strong> What's the weather like today?<br><strong>B:</strong> It's very ________.",
             options: [
@@ -164,13 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt4d', text: "hotnes" }
             ],
             correctAnswerId: 'opt4b',
-            explanation: "O adjetivo simples 'hot' é o correto para descrever o clima.",
+            explanation: "O adjetivo simples 'hot' é o correto para descrever o clima sem fazer comparação.",
             youtubeVideoId: null
         },
         {
             id: 'q5',
-            type: 'grammar',
-            topic: 'prepositions',
+            topic: 'object pronouns',
             question: "Can you pass ________ the salt, please?",
             options: [
                 { id: 'opt5a', text: "me" },
@@ -179,13 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt5d', text: "at" }
             ],
             correctAnswerId: 'opt5a',
-            explanation: "A construção correta é 'pass me the salt'.",
+            explanation: "A construção correta é 'pass me the salt', pois o pronome 'me', assim como os outros object pronouns existentes, é usado para indicar quem recebe a ação.",
             youtubeVideoId: null
         },
         {
             id: 'q6',
-            type: 'grammar',
-            topic: 'there_is_are',
+            topic: 'there to be',
             question: "_________ a man studying in the library.",
             options: [
                 { id: 'opt6a', text: "There are" },
@@ -194,12 +189,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt6d', text: "There aren't" }
             ],
             correctAnswerId: 'opt6c',
-            explanation: "Usa-se 'There is' para substantivos singulares.",
+            explanation: "Usa-se 'there is' (forma presente de 'there to be') para substantivos singulares.",
             youtubeVideoId: null
         },
         {
             id: 'q7',
-            type: 'grammar',
             topic: 'quantifiers',
             question: "How __________ sugar do you put in your coffee?",
             options: [
@@ -209,12 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt7d', text: "a little" }
             ],
             correctAnswerId: 'opt7c',
-            explanation: "'Sugar' é um substantivo incontável, então usa-se 'much'.",
+            explanation: "'sugar', assim como café, feijão, água, entre outros, é um substantivo incontável, então usa-se 'much'.",
             youtubeVideoId: null
         },
         {
             id: 'q8',
-            type: 'grammar',
             topic: 'present_perfect',
             question: "How many times __________ to Paris?",
             options: [
@@ -229,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q9',
-            type: 'grammar',
             topic: 'past_continuous',
             question: "Last weekend, while I __________ TV, the power suddenly went out.",
             options: [
@@ -244,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q10',
-            type: 'grammar',
             topic: 'modals',
             question: "You _______ smoke in this area. It's not allowed.",
             options: [
@@ -254,12 +245,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt10d', text: "mustn't" }
             ],
             correctAnswerId: 'opt10d',
-            explanation: "'Mustn't' indica proibição.",
+            explanation: "'Mustn't' é a contração de 'must + not' e indica proibição.",
             youtubeVideoId: null
         },
         {
             id: 'q11',
-            type: 'grammar',
             topic: 'modals',
             question: "<strong>A:</strong> Did you study for tomorrow's exam?<br><strong>B:</strong> Yes, but I __________ dedicate more time to it this afternoon.",
             options: [
@@ -269,12 +259,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt11d', text: "need" }
             ],
             correctAnswerId: 'opt11c',
-            explanation: "'Should' expressa uma recomendação ou obrigação leve.",
+            explanation: "'Should' expressa uma recomendação, sugestão ou obrigação leve.",
             youtubeVideoId: null
         },
         {
             id: 'q12',
-            type: 'grammar',
             topic: 'used_to',
             question: "<strong>A:</strong> Did you play any instrument when you were younger?<br><strong>B:</strong> Yes, I __________ play the piano regularly.",
             options: [
@@ -284,12 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt12d', text: "used to" }
             ],
             correctAnswerId: 'opt12d',
-            explanation: "'Used to' é usado para hábitos ou estados passados que não são mais verdadeiros.",
+            explanation: "'Used to' é usado para hábitos ou estados passados que não são mais colocados em prática.",
             youtubeVideoId: null
         },
         {
             id: 'q13',
-            type: 'dialogue',
             topic: 'time',
             question: "<strong>A:</strong> What time is the meeting today?<br><strong>B:</strong> __________.",
             options: [
@@ -304,8 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q14',
-            type: 'dialogue',
-            topic: 'directions',
+            topic: 'compound preposition / directions',
             question: "<strong>A:</strong> Where should I put the package?<br><strong>B:</strong> __________.",
             options: [
                 { id: 'opt14a', text: "I like the blue one" },
@@ -319,7 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q15',
-            type: 'grammar',
             topic: 'superlatives',
             question: "Could you recommend a good movie for me to watch this weekend?",
             options: [
@@ -334,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q16',
-            type: 'dialogue',
             topic: 'conditionals',
             question: "Why are you bringing an umbrella in a sunny day?",
             options: [
@@ -349,8 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q17',
-            type: 'dialogue',
-            topic: 'future_continuous',
+            topic: 'future continuous',
             question: "What will you be doing next Friday?",
             options: [
                 { id: 'opt17a', text: "My boyfriend never goes to my house this day." },
@@ -364,8 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q18',
-            type: 'grammar',
-            topic: 'third_conditional',
+            topic: 'third onditional',
             question: "Why didn't you invest in that tech company a few years ago? Now it's one of the most important in the world.",
             options: [
                 { id: 'opt18a', text: "Had I been aware of it, I'll invest for sure." },
@@ -379,8 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q19',
-            type: 'dialogue',
-            topic: 'tag_questions',
+            topic: 'question tags',
             question: "I don't know what to wear to the party.",
             options: [
                 { id: 'opt19a', text: "Your friends always borrow you their clothes, don't they?" },
@@ -389,13 +371,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt19d', text: "You could've asked your parents to pick you up earlier, couldn't you?" }
             ],
             correctAnswerId: 'opt19c',
-            explanation: "A resposta oferece um conselho e usa uma tag question apropriada para a situação.",
+            explanation: "A resposta oferece um conselho e usa uma question tag apropriada para a situação.",
             youtubeVideoId: null
         },
         {
             id: 'q20',
-            type: 'dialogue',
-            topic: 'advice',
+            topic: 'advice / modal verbs',
             question: "I couldn't make it to the meeting because I needed to fix my car.",
             options: [
                 { id: 'opt20a', text: "I can't help you with that, because I was traveling." },
@@ -404,28 +385,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt20d', text: "We could find someone to fix it for you next time." }
             ],
             correctAnswerId: 'opt20d',
-            explanation: "A resposta oferece uma solução para uma situação futura similar.",
+            explanation: "A resposta oferece uma possível solução para uma situação futura similar.",
             youtubeVideoId: null
         },
         {
             id: 'q21',
-            type: 'dialogue',
             topic: 'quantifiers',
-            question: "I don't know what to read during my vacation.",
+            question: "Unfortunately, I don't have many books to read during my vacation.",
             options: [
                 { id: 'opt21a', text: "Your parents must have a few books at home." },
                 { id: 'opt21b', text: "I need a few comic books for my sister, maybe you could help me." },
                 { id: 'opt21c', text: "My brother has little will to read, either." },
-                { id: 'opt21d', text: "I think you have little time for reading." }
+                { id: 'opt21d', text: "I think you'll have little time for reading." }
             ],
             correctAnswerId: 'opt21d',
-            explanation: "A resposta sugere uma fonte de leitura ('a few books') para a situação.",
+            explanation: "A resposta sugere que a pessoa não terá muito tempo pra ler, por isso ela não deveria se preocupar com o fato de não ter muitos livros para ler durante suas férias.",
             youtubeVideoId: null
         },
         {
             id: 'q22',
-            type: 'vocabulary',
-            topic: 'verbs',
+            topic: '-ing / verbs',
             question: "We could feel the captivating melody of the orchestra ____________ through the concert hall.",
             options: [
                 { id: 'opt22a', text: "envisioning" },
@@ -438,8 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q23',
-            type: 'vocabulary',
-            topic: 'verbs',
+            topic: 'past / regular verbs',
             question: "He ________ a new language during his sabbatical in Europe.",
             options: [
                 { id: 'opt23a', text: "learned" },
@@ -447,12 +425,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt23c', text: "developed" }
             ],
             correctAnswerId: 'opt23a',
-            explanation: "'Learned' (aprender) é o verbo mais apropriado para adquirir uma nova língua.",
+            explanation: "'Learned' (passado de 'aprender') é o verbo mais apropriado para adquirir uma nova língua.",
             youtubeVideoId: null
         },
         {
             id: 'q24',
-            type: 'vocabulary',
             topic: 'verbs',
             question: "Make sure you ________ all the ingredients before you start cooking.",
             options: [
@@ -466,8 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q25',
-            type: 'vocabulary',
-            topic: 'verbs',
+            topic: 'past / regular verbs',
             question: "Last night, my friends laughed so loudly that it ________ through the apartment, awakening my neighbors.",
             options: [
                 { id: 'opt25a', text: "vanished" },
@@ -480,7 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q26',
-            type: 'vocabulary',
             topic: 'verbs',
             question: "It's essential to ________ the historical significance of the artwork during the museum tour.",
             options: [
@@ -494,7 +469,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q27',
-            type: 'vocabulary',
             topic: 'verbs',
             question: "It's important to ________ your plants regularly to help them grow strong and healthy.",
             options: [
@@ -508,8 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q28',
-            type: 'vocabulary',
-            topic: 'verbs',
+            topic: '-ing / verbs',
             question: "The delicious aroma of freshly baked cookies is ________ throughout the entire kitchen.",
             options: [
                 { id: 'opt28a', text: "spreading" },
@@ -522,8 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q29',
-            type: 'listening',
-            topic: 'conversation',
+            topic: 'present perfect',
             question: "Listen to <strong>Speaker #1</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt29a', text: "Yes, I love rock concerts!" },
@@ -532,12 +504,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt29d', text: "Last year, I bought a new guitar." }
             ],
             correctAnswerId: 'opt29a',
-            explanation: "A resposta mais natural à pergunta 'Have you ever been to a music festival?' é comentar que gosta de shows de rock.",
+            explanation: "A resposta mais natural à pergunta 'Have you ever been to a music festival?' é comentar que adora shows de rock.",
             videoSrc: 'q29.mp4'
         },
         {
             id: 'q30',
-            type: 'listening',
             topic: 'conversation',
             question: "Listen to <strong>Speaker #2</strong> and choose the best option for what comes next in the conversation.",
             options: [
@@ -547,13 +518,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt30d', text: "The boss at my company likes to hold meetings late at night." }
             ],
             correctAnswerId: 'opt30a',
-            explanation: "A resposta relata o que é feito para relaxar depois de um longo dia de trabalho e não para dormir melhor.",
+            explanation: "A resposta relata o que é feito para relaxar depois de um longo dia de trabalho e não o que é feito para dormir melhor.",
             videoSrc: 'q30.mp4'
         },
         {
             id: 'q31',
-            type: 'listening',
-            topic: 'study_habits',
+            topic: 'conversation',
             question: "Listen to <strong>Speaker #3</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt31a', text: "I never attend classes because I learn better alone." },
@@ -567,8 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q32',
-            type: 'listening',
-            topic: 'motivation',
+            topic: 'conversation',
             question: "Listen to <strong>Speaker #4</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
@@ -577,13 +546,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt32d', text: "You need to practice your cooking skills more." }
             ],
             correctAnswerId: 'opt32b',
-            explanation: "A resposta 'I hope you're not dedicating too much time to it.' se conecta com a ideia de estar se dedicando bastante, mas ainda não tocar uma música inteira.",
+            explanation: "A resposta 'Maybe you're just not cut out for music.' sugere que talvez o interlocutor deva parar de tentar aprender violão e se dedicar a outro hobby, visto que ainda não consegue tocar nenhuma música.",
             videoSrc: 'q32.mp4'
         },
         {
             id: 'q33',
-            type: 'listening',
-            topic: 'work',
+            topic: 'conversation',
             question: "Listen to <strong>Speaker #5</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt33a', text: "I bought a new book to read." },
@@ -597,8 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q34',
-            type: 'listening',
-            topic: 'story',
+            topic: 'conversation',
             question: "Listen to <strong>Speaker #6</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt34a', text: "I'm not a fan of shopping for groceries." },
@@ -612,8 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q35',
-            type: 'listening',
-            topic: 'achievement',
+            topic: 'conversation',
             question: "Listen to <strong>Speaker #7</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt35a', text: "I'm planning a road trip for next month." },
@@ -627,8 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q36',
-            type: 'listening',
-            topic: 'technology_society',
+            topic: 'technology and society',
             question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker highlight as a significant consequence of the digital era's influence on society?</i>",
             options: [
                 { id: 'opt36a', text: "The increasing integration of artificial intelligence in people's life." },
@@ -641,7 +606,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q37',
-            type: 'listening',
             topic: 'environment',
             question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What is the speaker's attitude towards the concept of a circular economy in the audio?</i>",
             options: [
@@ -655,7 +619,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q38',
-            type: 'listening',
             topic: 'workplace',
             question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>How does the speaker describe the transformation in traditional workplace dynamics?</i>",
             options: [
@@ -669,7 +632,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q39',
-            type: 'listening',
             topic: 'culture',
             question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the expression \"putting up with each other\" mean?</i>",
             options: [
@@ -683,8 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: 'q40',
-            type: 'listening',
-            topic: 'technology_ethics',
+            topic: 'technology / ethics',
             question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker mean by \"without messing everything up\"?</i>",
             options: [
                 { id: 'opt40a', text: "Experimenting with technology without considering the potential risks." },
@@ -692,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt40c', text: "Utilizing transformative technologies responsibly and ethically." }
             ],
             correctAnswerId: 'opt40c',
-            explanation: "A frase 'without messing everything up', no contexto da fala da interlocutora, refere-se a usar as novas ferramentas tecnológicas de forma responsável e ética, para não causar danos.",
+            explanation: "A frase 'without messing everything up', no contexto da fala da interlocutora, refere-se a usar as novas ferramentas tecnológicas de forma responsável e ética, para não causar danos à sociedade.",
             videoSrc: 'q40.mp4'
         }
     ];
