@@ -833,12 +833,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const playsLeft = 2 - plays;
 
         if (playsLeft > 0) {
-            msgDiv.textContent = `Clique para assistir ao vídeo.<br>(Restam ${playsLeft} reproduções)`;
+            msgDiv.innerHTML = `Clique para assistir ao vídeo.<br>(Restam ${playsLeft} reproduções)`;
             videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
             videoOverlayElement.style.cursor = 'pointer';
         } else {
-            msgDiv.textContent = 'Limite de visualizações atingido.';
+            msgDiv.textContent = 'Limite de reproduções atingido.';
             videoOverlayElement.classList.add('disabled');
             videoOverlayElement.style.display = 'flex';
             videoOverlayElement.style.cursor = 'not-allowed';
