@@ -201,21 +201,74 @@ h1 {
 }
 
 /* Media query para mobile */
+/* --- OTIMIZAÇÃO PARA CELULAR (Media Query) --- */
 @media (max-width: 767px) {
-    .button-with-hint-group {
-        justify-content: center; /* Centraliza em telas menores */
+    /* Ajuste do container principal e margens */
+    body {
+        padding: 10px;
     }
+
+    .screen, #intro-section {
+        padding: 20px 15px; /* Reduz o espaço em branco nas laterais */
+    }
+
+    /* Ajuste de Fontes para não quebrar o layout */
+    h1 {
+        font-size: 1.8em;
+    }
+
+    #name-section h1,
+    #lastName-section h1,
+    #proficiency-section h1 {
+        font-size: 1.3em;
+    }
+
+    .question-text {
+        font-size: 1.2em; /* Pergunta um pouco menor */
+        margin-bottom: 15px;
+    }
+
+    .text-input {
+        font-size: 1.2em; /* Input menor para não dar zoom automático no iPhone */
+    }
+
+    /* Ajuste das Alternativas */
+    .option-button {
+        font-size: 1em;
+        padding: 12px 10px; /* Melhora a área de toque para o dedo */
+    }
+
+    .option-letter {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        font-size: 0.8em;
+    }
+
+    /* Ajuste dos Botões Principais */
+    .button-with-hint-group, .navigation-buttons {
+        justify-content: center;
+        flex-direction: column; /* Empilha os botões se houver mais de um */
+        width: 100%;
+        gap: 10px;
+    }
+
+    .main-button {
+        width: 100%; /* Botões ocupam 100% da tela para facilitar o clique */
+        font-size: 1.1em;
+        padding: 15px;
+    }
+
     .enter-hint {
-        display: none; /* Oculta o hint em telas menores */
+        display: none; /* Esconde a dica do "Enter" no celular */
     }
-    /* Ajusta o padding da tela para mobile, se necessário */
-    .screen {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    #intro-section {
-        padding-left: 20px;
-        padding-right: 20px;
+
+    /* Ajuste do Cronômetro */
+    #timerDisplay {
+        top: 10px;
+        right: 10px;
+        font-size: 1.1em; /* Cronômetro menor */
+        padding: 8px 12px;
     }
 }
 
