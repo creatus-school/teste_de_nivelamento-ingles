@@ -526,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt31c',
             explanation: "A resposta descreve diretamente uma estratégia de estudo organizada.",
-            videoSrc: 'videos/q31.mp4'
+            videoSrc: 'q31.mp4'
         },
         {
             id: 'q32',
@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt32c',
             explanation: "A resposta 'I hope you're not dedicating too much time to it.' se conecta com a ideia de estar se dedicando bastante, mas ainda não tocar uma música inteira.",
-            videoSrc: 'videos/q32.mp4'
+            videoSrc: 'q32.mp4'
         },
         {
             id: 'q33',
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt33b',
             explanation: "Responde diretamente à pergunta explicando por que está exausto: reuniões o dia inteiro.",
-            videoSrc: 'videos/q33.mp4'
+            videoSrc: 'q33.mp4'
         },
         {
             id: 'q34',
@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt34b',
             explanation: "É a resposta que continua naturalmente a conversa, mostrando interesse no que aconteceu.",
-            videoSrc: 'videos/q34.mp4'
+            videoSrc: 'q34.mp4'
         },
         {
             id: 'q35',
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             correctAnswerId: 'opt35c',
             explanation: "É a resposta mais natural: parabeniza e pergunta sobre o teste.",
-            videoSrc: 'videos/q35.mp4'
+            videoSrc: 'q35.mp4'
         },
     ];
 
