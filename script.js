@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q29',
             type: 'listening',
             topic: 'conversation',
-            question: "29. Listen to <strong>Speaker #1</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #1</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt29a', text: "Yes, I love rock concerts!" },
                 { id: 'opt29b', text: "I have a few friends who play instruments." },
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q30',
             type: 'listening',
             topic: 'conversation',
-            question: "30. Listen to <strong>Speaker #2</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #2</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt30a', text: "I love drinking wine to relax after I get home." },
                 { id: 'opt30b', text: "A cup of tea and soft music help me to sleep well." },
@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q31',
             type: 'listening',
             topic: 'study_habits',
-            question: "31. Listen to <strong>Speaker #3</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #3</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt31a', text: "I never attend classes." },
                 { id: 'opt31b', text: "I sleep early every day." },
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q32',
             type: 'listening',
             topic: 'motivation',
-            question: "32. Listen to <strong>Speaker #4</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #4</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
                 { id: 'opt32b', text: "Maybe you're just not cut out for music." },
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q33',
             type: 'listening',
             topic: 'work',
-            question: "33. Listen to <strong>Speaker #5</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #5</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt33a', text: "I bought a new book to read." },
                 { id: 'opt33b', text: "I had meetings all day." },
@@ -599,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q34',
             type: 'listening',
             topic: 'story',
-            question: "34. Listen to <strong>Speaker #6</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #6</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt34a', text: "I'm not a fan of shopping for groceries." },
                 { id: 'opt34b', text: "Tell me all about it when you get home." },
@@ -614,7 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q35',
             type: 'listening',
             topic: 'achievement',
-            question: "35. Listen to <strong>Speaker #7</strong> and choose the best option for what comes next in the conversation.",
+            question: "Listen to <strong>Speaker #7</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt35a', text: "I'm planning a road trip for next month." },
                 { id: 'opt35b', text: "I bought a new bicycle recently." },
@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q36',
             type: 'listening',
             topic: 'technology_society',
-            question: "36. Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker highlight as a significant consequence of the digital era's influence on society?</i>",
+            question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker highlight as a significant consequence of the digital era's influence on society?</i>",
             options: [
                 { id: 'opt36a', text: "The increasing integration of artificial intelligence." },
                 { id: 'opt36b', text: "The need for constant reassessment of our relationship with technology." },
@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q37',
             type: 'listening',
             topic: 'environment',
-            question: "37. Listen to the audio in the video. Then, answer the question below:<br><br><i>What is the speaker's attitude towards the concept of a circular economy in the audio?</i>",
+            question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What is the speaker's attitude towards the concept of a circular economy in the audio?</i>",
             options: [
                 { id: 'opt37a', text: "Enthusiastic, considering it a crucial aspect of responsible global citizenship." },
                 { id: 'opt37b', text: "Skeptical, thinking it does not have a significant impact on environmental issues." },
@@ -657,7 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q38',
             type: 'listening',
             topic: 'workplace',
-            question: "38. Listen to the audio in the video. Then, answer the question below:<br><br><i>How does the speaker describe the transformation in traditional workplace dynamics?</i>",
+            question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>How does the speaker describe the transformation in traditional workplace dynamics?</i>",
             options: [
                 { id: 'opt38a', text: "Expressing concerns about the isolation of employees in remote work settings." },
                 { id: 'opt38b', text: "Highlighting a shift towards flexible and remote work arrangements." },
@@ -671,7 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q39',
             type: 'listening',
             topic: 'culture',
-            question: "39. Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the expression \"putting up with each other\" mean?</i>",
+            question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the expression \"putting up with each other\" mean?</i>",
             options: [
                 { id: 'opt39a', text: "Tolerating and accepting each other despite differences." },
                 { id: 'opt39b', text: "Embracing and celebrating each other's differences." },
@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'q40',
             type: 'listening',
             topic: 'technology_ethics',
-            question: "40. Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker mean by \"without messing everything up\"?</i>",
+            question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker mean by \"without messing everything up\"?</i>",
             options: [
                 { id: 'opt40a', text: "Experimenting with technology without considering the potential risks." },
                 { id: 'opt40b', text: "Introducing groundbreaking technologies without any consequences." },
