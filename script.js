@@ -54,6 +54,43 @@ document.addEventListener('DOMContentLoaded', () => {
         proficiencyLevel: ''
     };
 
+    // Variáveis do Cronômetro
+    let timerInterval;
+    let timeRemaining = 20 * 60; // 20 minutos em segundos
+
+    // Cria o elemento visual do cronômetro na tela
+    const timerDisplay = document.createElement('div');
+    timerDisplay.id = 'timerDisplay';
+    document.body.appendChild(timerDisplay);
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        timerDisplay.textContent = `⏱️ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+        timeRemaining = 20 * 60; // Reseta para 20 minutos
+        timerDisplay.classList.remove('warning');
+        timerDisplay.style.display = 'block';
+        updateTimerDisplay();
+
+        timerInterval = setInterval(() => {
+            timeRemaining--;
+            updateTimerDisplay();
+
+            if (timeRemaining <= 60) {
+                timerDisplay.classList.add('warning'); // Fica vermelho no último minuto
+            }
+
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                alert('O tempo acabou! O teste será finalizado automaticamente.');
+                calculateResults(); // Força o fim do teste
+            }
+        }, 1000);
+    }
+
     // Controle de vídeo nativo
     let currentVideoElement = null;
     let videoOverlayElement = null;
@@ -754,6 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startQuizButton.addEventListener('click', () => {
         showScreen(quizSection);
         loadQuestion();
+        startTimer();
     });
 
     document.addEventListener('keydown', (event) => {
@@ -938,6 +976,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calculateResults() {
+        clearInterval(timerInterval);
+        timerDisplay.style.display = 'none';
         score = 0;
         const incorrectQuestions = [];
 
@@ -1028,6 +1068,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     restartButton.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        timerDisplay.style.display = 'none';
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         score = 0;
