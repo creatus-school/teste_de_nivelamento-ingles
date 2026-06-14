@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt3a', text: "teaching" },
                 { id: 'opt3b', text: "teaches" },
                 { id: 'opt3c', text: "teach" },
-                { id: 'opt3d', text: "teaches" }
+                { id: 'opt3d', text: "teached" }
             ],
             correctAnswerId: 'opt3d',
             explanation: "Para a terceira pessoa do singular (she) no Present Simple, adiciona-se '-es' ao verbo 'teach'.",
@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
             question: "32. Listen to <strong>Speaker #4</strong> and choose the best option for what comes next in the conversation.",
             options: [
                 { id: 'opt32a', text: "That's great! You must be an expert at playing songs now." },
-                { id: 'opt32b', text: "Maybe you're just not cut out for music. Why don't you try something else?" },
+                { id: 'opt32b', text: "Maybe you're just not cut out for music." },
                 { id: 'opt32c', text: "I hope you're not dedicating too much time to it." },
                 { id: 'opt32d', text: "You need to practice your cooking skills more." }
             ],
