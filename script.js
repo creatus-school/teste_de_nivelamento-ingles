@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt3c', text: "teach" },
                 { id: 'opt3d', text: "teached" }
             ],
-            correctAnswerId: 'opt3d',
+            correctAnswerId: 'opt3b',
             explanation: "Para a terceira pessoa do singular (she) no Present Simple, adiciona-se '-es' ao verbo 'teach'.",
             youtubeVideoId: null
         },
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt21c', text: "My brother has little will to read, either." },
                 { id: 'opt21d', text: "I think you have little time for reading." }
             ],
-            correctAnswerId: 'opt21a',
+            correctAnswerId: 'opt21d',
             explanation: "A resposta sugere uma fonte de leitura ('a few books') para a situação.",
             youtubeVideoId: null
         },
@@ -488,8 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt26b', text: "grasp" },
                 { id: 'opt26c', text: "comprehend" }
             ],
-            correctAnswerId: 'opt26b',
-            explanation: "'Grasp' (compreender, entender profundamente) é o verbo mais adequado para entender o significado de algo.",
+            correctAnswerId: 'opt26c',
+            explanation: "'Comprehend' (compreender, entender profundamente) é o vocabulário mais adequado para entender o significado de algo.",
             youtubeVideoId: null
         },
         {
@@ -546,8 +546,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt30c', text: "My mom cooks dinner for me almost every night." },
                 { id: 'opt30d', text: "The boss at my company likes to hold meetings late at night." }
             ],
-            correctAnswerId: 'opt30b',
-            explanation: "A alternativa que responde diretamente à pergunta sobre como relaxa é a que fala de chá e música suave.",
+            correctAnswerId: 'opt30a',
+            explanation: "A resposta relata o que é feito para relaxar depois de um longo dia de trabalho e não para dormir melhor.",
             videoSrc: 'q30.mp4'
         },
         {
@@ -556,10 +556,10 @@ document.addEventListener('DOMContentLoaded', () => {
             topic: 'study_habits',
             question: "Listen to <strong>Speaker #3</strong> and choose the best option for what comes next in the conversation.",
             options: [
-                { id: 'opt31a', text: "I never attend classes." },
-                { id: 'opt31b', text: "I sleep early every day." },
+                { id: 'opt31a', text: "I never attend classes because I learn better alone." },
+                { id: 'opt31b', text: "I like to drink some tea and sleep early every day." },
                 { id: 'opt31c', text: "I create a study schedule and review my notes regularly." },
-                { id: 'opt31d', text: "I enjoy playing sports after exams." }
+                { id: 'opt31d', text: "I enjoy playing sports after exams to help me release my stress." }
             ],
             correctAnswerId: 'opt31c',
             explanation: "A resposta descreve diretamente uma estratégia de estudo organizada.",
@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt32c', text: "I hope you're not dedicating too much time to it." },
                 { id: 'opt32d', text: "You need to practice your cooking skills more." }
             ],
-            correctAnswerId: 'opt32c',
+            correctAnswerId: 'opt32b',
             explanation: "A resposta 'I hope you're not dedicating too much time to it.' se conecta com a ideia de estar se dedicando bastante, mas ainda não tocar uma música inteira.",
             videoSrc: 'q32.mp4'
         },
@@ -631,12 +631,12 @@ document.addEventListener('DOMContentLoaded', () => {
             topic: 'technology_society',
             question: "Listen to the audio in the video. Then, answer the question below:<br><br><i>What does the speaker highlight as a significant consequence of the digital era's influence on society?</i>",
             options: [
-                { id: 'opt36a', text: "The increasing integration of artificial intelligence." },
+                { id: 'opt36a', text: "The increasing integration of artificial intelligence in people's life." },
                 { id: 'opt36b', text: "The need for constant reassessment of our relationship with technology." },
-                { id: 'opt36c', text: "The decline of traditional forms of communication." }
+                { id: 'opt36c', text: "The decline of traditional forms of communication among friends." }
             ],
             correctAnswerId: 'opt36b',
-            explanation: "O palestrante menciona que estamos constantemente tentando descobrir onde nos posicionamos em relação à tecnologia e que tipo de relacionamento queremos ter com ela.",
+            explanation: "O interlocutor menciona que estamos constantemente tentando descobrir onde nos posicionamos em relação à tecnologia e que tipo de relacionamento queremos ter com ela.",
             videoSrc: 'q36.mp4'
         },
         {
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt37c', text: "Indifferent, as they believe it is just a passing trend." }
             ],
             correctAnswerId: 'opt37a',
-            explanation: "O palestrante demonstra entusiasmo, afirmando que a economia circular está ganhando força e se tornou um aspecto crucial de ser um cidadão global responsável.",
+            explanation: "O interlocutor demonstra entusiasmo, afirmando que a economia circular está ganhando força e se tornou um aspecto crucial de ser um cidadão global responsável.",
             videoSrc: 'q37.mp4'
         },
         {
@@ -664,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt38c', text: "Indicating that it leads to a decline in effective communication." }
             ],
             correctAnswerId: 'opt38b',
-            explanation: "O áudio destaca como a flexibilidade e o trabalho remoto se tornaram partes integrantes e essenciais da dinâmica atual do local de trabalho.",
+            explanation: "A interlocutora destaca como a flexibilidade e o trabalho remoto se tornaram partes integrantes e essenciais da dinâmica atual do local de trabalho.",
             videoSrc: 'q38.mp4'
         },
         {
@@ -692,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'opt40c', text: "Utilizing transformative technologies responsibly and ethically." }
             ],
             correctAnswerId: 'opt40c',
-            explanation: "A frase 'without messing everything up' no contexto do áudio refere-se a usar as novas ferramentas tecnológicas de forma responsável e ética, para não causar danos.",
+            explanation: "A frase 'without messing everything up', no contexto da fala da interlocutora, refere-se a usar as novas ferramentas tecnológicas de forma responsável e ética, para não causar danos.",
             videoSrc: 'q40.mp4'
         }
     ];
@@ -941,12 +941,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const playsLeft = 2 - plays;
 
         if (playsLeft > 0) {
-            msgDiv.innerHTML = `Clique para assistir ao vídeo.<br>(Restam ${playsLeft} reproduções)`;
+            msgDiv.innerHTML = `Clique para assistir ao vídeo<br>(Restam ${playsLeft} reproduções)`;
             videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
             videoOverlayElement.style.cursor = 'pointer';
         } else {
-            msgDiv.textContent = 'Limite de reproduções atingido.';
+            msgDiv.textContent = 'Limite de reproduções atingido';
             videoOverlayElement.classList.add('disabled');
             videoOverlayElement.style.display = 'flex';
             videoOverlayElement.style.cursor = 'not-allowed';
