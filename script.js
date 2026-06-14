@@ -833,7 +833,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const playsLeft = 2 - plays;
 
         if (playsLeft > 0) {
-            msgDiv.textContent = `Clique para assistir ao vídeo. (Restam ${playsLeft} reproduções)`;
+            msgDiv.textContent = `Clique para assistir ao vídeo.<br>(Restam ${playsLeft} reproduções)`;
             videoOverlayElement.classList.remove('disabled');
             videoOverlayElement.style.display = 'flex';
             videoOverlayElement.style.cursor = 'pointer';
