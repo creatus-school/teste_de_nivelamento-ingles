@@ -982,37 +982,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicia na tela de introdução
     showScreen(introSection);
 });
-
-    // --- LÓGICA PARA GERAR PDF ---
-    // Cria o botão de PDF dinamicamente
-    const downloadPdfButton = document.createElement('button');
-    downloadPdfButton.id = 'downloadPdfButton';
-    downloadPdfButton.className = 'main-button';
-    downloadPdfButton.textContent = 'Baixar PDF';
-    downloadPdfButton.style.marginLeft = '15px'; // Espaçamento do botão Refazer
-
-    // Insere o botão logo após o botão "Refazer Teste"
-    restartButton.parentNode.insertBefore(downloadPdfButton, restartButton.nextSibling);
-
-    // Ação de clique para gerar o PDF
-    downloadPdfButton.addEventListener('click', () => {
-        // Esconde os botões temporariamente para que não saiam impressos no PDF
-        const buttonsGroup = restartButton.parentNode;
-        buttonsGroup.style.display = 'none';
-
-        const element = document.getElementById('results-section');
-
-        // Configurações do arquivo PDF
-        const opt = {
-            margin:       10,
-            filename:     `Resultado_Nivelamento_${userData.firstName || 'Aluno'}.pdf`,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        // Gera o PDF e, ao terminar, mostra os botões novamente na tela
-        html2pdf().set(opt).from(element).save().then(() => {
-            buttonsGroup.style.display = 'flex';
-        });
-    });
